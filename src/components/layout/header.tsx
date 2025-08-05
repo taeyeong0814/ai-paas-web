@@ -1,5 +1,5 @@
-import { IcoAlert, IcoMy, IcoSet } from "../assets/img/header";
-import Logo from "../assets/img/header/logo.svg";
+import { IcoAlert, IcoMy, IcoSet } from "../../assets/img/header";
+import Logo from "../../assets/img/header/logo.svg";
 import styles from "./header.module.scss";
 import { Link } from "react-router";
 

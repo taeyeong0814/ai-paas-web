@@ -10,7 +10,7 @@ import {
   IconPrompt,
   IconService,
   IconWorkflow,
-} from "../assets/img/nav";
+} from "../../assets/img/nav";
 import styles from "./sidebar.module.scss";
 import { Link } from "react-router";
 
