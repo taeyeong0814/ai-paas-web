@@ -1,0 +1,755 @@
+//workflow style
+.container {
+  display: flex;
+}
+.leftSearchBox {
+  width: 270px;
+  height: calc(100vh - 98px);
+  border-right: 1px solid $page-content-detail-border-color;
+}
+.titleBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 10px 16px;
+  background-color: $color-white;
+  border-bottom: 1px solid $page-content-detail-border-color;
+
+  .title {
+    @include font-style;
+    color: $page-font-color-900;
+    font-size: $page-font-16;
+    font-weight: 700;
+    @include ellipsis(1);
+  }
+}
+
+.searchInputBox {
+  padding: 10px 10px 0;
+  div[data-size="m-medium"] {
+    width: 100%;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px 16px;
+}
+.item {
+  min-height: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid $color-gray-25;
+
+  &.active {
+    .btnMore {
+      &::after {
+        border-color: $color-gray-600;
+        transform: translateY(-50%) rotate(45deg);
+      }
+    }
+    .itemList {
+      display: flex;
+    }
+  }
+}
+
+.itemName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.btnMore {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  position: relative;
+
+  & > span {
+    display: inline-block;
+    margin-left: 18px;
+    @include font-style;
+    color: $page-font-color-900;
+    font-weight: 600;
+    font-size: $page-font-14;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(-45deg);
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid $color-gray-300;
+    border-bottom: 1px solid $color-gray-300;
+    transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
+  }
+
+  &:hover {
+    &::after {
+      border-color: $color-gray-600;
+    }
+  }
+}
+
+.btnPlus {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+  & > span {
+    @include blind;
+  }
+
+  &::after {
+    content: "×";
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    font-size: 20px;
+    font-weight: 200;
+    color: $color-gray-500;
+  }
+
+  &:hover {
+    border-radius: 4px;
+    border: 1px solid $color-gray-75;
+    background: $color-gray-25;
+    &::after {
+      color: $page-font-color-900;
+    }
+  }
+}
+
+.itemList {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 0 22px;
+  & > div {
+    @include font-style;
+    color: $page-font-color-600;
+    font-size: $page-font-root;
+    @include ellipsis(2);
+  }
+}
+
+.contentBox {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  background-color: $color-gray-25;
+}
+
+.topBtnBox {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+}
+
+.addBox {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 340px;
+  height: 890px;
+  padding: 30px 0;
+  background-color: $color-white;
+  border-radius: 8px;
+  box-shadow: 4px 8px 18px 0px rgba(0, 0, 0, 0.2);
+
+  div[data-size="m-medium"],
+  .select {
+    width: 100%;
+  }
+}
+
+.addInner {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 830px;
+  padding: 0 20px;
+  //스크롤
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: #bbb;
+  }
+}
+
+.btnClose {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  transition: background 0.3s ease-in-out;
+  & > span {
+    @include blind;
+  }
+
+  &::after {
+    content: "×";
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 200;
+    color: $color-gray-500;
+  }
+
+  &:hover {
+    border-radius: 4px;
+    border: 1px solid $color-gray-75;
+    background: $color-gray-25;
+    &::after {
+      color: $page-font-color-900;
+    }
+  }
+}
+
+.addTopBox {
+  margin-bottom: 2px;
+}
+
+.addTitleInput {
+  width: 100%;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $page-content-detail-border-color;
+  @include font-style;
+  color: $page-font-color-900;
+  font-size: $page-font-16;
+  font-weight: 600;
+  outline: none;
+
+  &::placeholder {
+    color: $color-gray-100;
+  }
+}
+
+.addItemBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  textarea {
+    height: 240px !important;
+  }
+
+  .row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .row3 {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    div[data-size="m-medium"] {
+      width: 147px !important;
+    }
+
+    .select {
+      width: 115px !important;
+    }
+  }
+
+  .col2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.addItemNameBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addItemName {
+  @include font-style;
+  font-size: $page-font-root;
+  font-weight: 600;
+  color: $page-font-color-900;
+
+  &.requisite {
+    &::after {
+      content: "*";
+      position: absolute;
+      top: -3px;
+      margin-left: 5px;
+      @include font-style;
+      font-size: $page-font-16;
+      font-weight: 600;
+      color: #dc4646;
+    }
+  }
+}
+
+.accordion {
+  border: 0;
+
+  button[data-orientation="vertical"] {
+    min-height: 18px;
+    padding: 0;
+    border: 0;
+  }
+
+  div[role="region"] {
+    border-top: 0;
+    margin-top: 10px;
+    padding: 0;
+    //animation: none !important;
+
+    .accordionContBox {
+      padding: 12px 16px;
+      background-color: $color-gray-10;
+      border-radius: 4px;
+    }
+
+    .accordionAddBox {
+    }
+  }
+
+  //출력 변수 정보
+  .accordionCont {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .accordionContItem {
+    display: flex;
+    gap: 8px;
+  }
+
+  .accordionContName {
+    @include font-style;
+    color: $page-font-color-300;
+    font-size: $page-font-root;
+  }
+
+  .accordionContValue {
+    @include font-style;
+    color: $page-font-color-900;
+    font-size: $page-font-root;
+  }
+
+  //입력필드 설정 > 타이틀 입력
+  .accordionAdd {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .accordionAddItem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .accordionAddCheckBox {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid $color-gray-50;
+
+    &:not(:first-child) {
+      margin-top: -6px;
+    }
+
+    & > label {
+      & > span {
+        color: $page-font-color-900;
+      }
+    }
+
+    & > p {
+      margin-left: 24px;
+      @include font-style;
+      font-size: 11px;
+      color: $page-font-color-300;
+    }
+  }
+  .accordionAddCheckInput {
+    position: relative;
+    margin-top: 12px;
+  }
+
+  .accordionAddItemSet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .gauge {
+      width: 218px;
+    }
+  }
+}
+
+.setBox {
+  display: none;
+  position: absolute;
+  top: 35%;
+  right: 35%;
+  z-index: 1;
+  border-radius: 4px;
+  border: 1px solid $color-gray-500;
+  background: $color-white;
+  padding: 14px 0 20px;
+  width: 348px;
+
+  &.active {
+    display: block;
+  }
+
+  &.setBoxSm {
+    width: 225px;
+  }
+}
+
+.setName {
+  padding: 0 14px;
+  @include font-style;
+  color: $page-font-color-900;
+  font-size: $page-font-root;
+  font-weight: 600;
+}
+
+.setInner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 20px 0;
+}
+
+.setItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.setItemName {
+  flex: 1;
+  //width: 104px;
+  @include font-style;
+  color: $page-font-color-600;
+  font-size: $page-font-root;
+}
+
+.toggle {
+  & > label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    cursor: pointer;
+
+    & > input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      position: relative;
+      background-color: $color-gray-50;
+      border-radius: 100px;
+      width: 40px;
+      height: 24px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        z-index: 2;
+        width: 18px;
+        height: 18px;
+        transform: scale(0.98);
+        border-radius: 50%;
+        background-color: #fff;
+        transition: left 0.21s linear;
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  &.active {
+    & > label {
+      & > input {
+        background-color: #268eff;
+        &::before {
+          left: 19px;
+        }
+      }
+    }
+  }
+}
+
+.gauge {
+  position: relative;
+  width: 70px;
+  & > span {
+    display: inline-block;
+  }
+  .gaugeBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+    background: $color-gray-50;
+  }
+  .gaugePointer {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid $color-gray-75;
+    background: $color-white;
+  }
+  .gaugeActionBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 30px;
+    height: 4px;
+    background: #268eff;
+    border-radius: 10px;
+  }
+}
+
+.numCount {
+  position: relative;
+  width: 60px;
+  height: 28px;
+  & > input {
+    width: 100%;
+    height: 100%;
+    padding: 10px 22px 10px 10px;
+    border-radius: 4px;
+    border: 1px solid $color-gray-75;
+    background: $color-white;
+    @include font-style;
+    font-size: 11px;
+    color: $page-font-color-600;
+
+    &::placeholder {
+      color: $color-gray-50;
+    }
+  }
+
+  .numCountControl {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .btnNum {
+    width: 12px;
+    height: 5px;
+    &:hover {
+      .iconArr {
+        opacity: 1;
+      }
+    }
+
+    .iconArr {
+      width: 8px;
+      height: 5px;
+      opacity: 0.6;
+    }
+
+    .iconArrDown {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.disabled {
+    & > input {
+      border-color: $color-gray-25;
+      color: $color-gray-50;
+    }
+    .iconArr {
+      opacity: 0.3;
+    }
+  }
+}
+
+.btnSet {
+  .iconSet {
+    opacity: 0.6;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover {
+    .iconSet {
+      opacity: 1;
+    }
+  }
+}
+
+.emptyBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  & > span {
+    @include font-style;
+    color: $color-gray-200;
+    font-size: $page-font-root;
+  }
+}
+
+.addItemHr {
+  position: relative;
+  margin: 30px 0 2px;
+  &::after {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 340px;
+    height: 1px;
+    background-color: $color-gray-50;
+  }
+}
+
+.btnIconPlusSm {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background-color: $color-gray-50;
+  transition: background 0.3s ease-in-out;
+  & > span {
+    @include blind;
+  }
+
+  &::after {
+    content: "×";
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    font-size: 16px;
+    font-weight: 300;
+    color: $color-gray-500;
+  }
+
+  &:hover {
+    background: $color-gray-100;
+    &::after {
+      color: $page-font-color-900;
+    }
+  }
+
+  &:disabled {
+    background: $color-gray-10;
+    &::after {
+      color: $color-gray-50;
+    }
+  }
+}
+
+.addItemField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 40px;
+  padding: 6px 6px 6px 14px;
+  border-radius: 6px;
+  border: 1px solid $color-gray-50;
+  cursor: pointer;
+  @include transition-allEaseInOut;
+
+  &.active {
+    border: 1px solid $color-gray-500;
+  }
+
+  &:hover {
+    border: 1px solid $color-gray-75;
+    background: $color-gray-10;
+  }
+
+  & > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-600;
+  }
+
+  .addItemFieldId {
+    width: 168px;
+    @include ellipsis(1);
+  }
+
+  .addItemFieldText {
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-300;
+  }
+}
+
+.btnIconDel {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border-color: $color-white;
+  @include transition-allEaseInOut;
+  .iconDel {
+    fill: $color-gray-500;
+    @include transition-allEaseInOut;
+  }
+
+  &:hover {
+    border: 1px solid #f6cbcb;
+    background: #fae5e5;
+    .iconDel {
+      fill: $color-error;
+    }
+  }
+}

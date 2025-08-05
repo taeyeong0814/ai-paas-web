@@ -1,0 +1,193 @@
+//learning style
+
+//assignment > step5
+.conditionBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 6px;
+  background-color: $color-normal;
+
+  & > span {
+    @include font-style;
+    color: $color-white;
+    font-size: $page-font-13;
+    font-weight: 600;
+  }
+
+  &.finish {
+    background-color: $color-important;
+  }
+  &.fail {
+    background-color: $color-error;
+  }
+}
+
+.progressBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+.progress {
+  position: relative;
+  width: 100%;
+  .progressActionBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 20%;
+    height: 6px;
+    background-color: $color-normal;
+    border-radius: 10px;
+  }
+  .progressBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 6px;
+    border-radius: 10px;
+    background: $color-gray-25;
+  }
+}
+
+//solution > step2
+.chartBox {
+  width: 108px;
+  height: 108px;
+  background-color: $color-gray-50;
+}
+.chartLegendBox {
+  flex: 1;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .chartLegend {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: space-between;
+    width: 110px;
+    @include font-style;
+
+    .legendMark {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      border-radius: 50%;
+    }
+    .legendMark1 {
+      background-color: #39c61b;
+    }
+    .legendMark2 {
+      background-color: #e36969;
+    }
+    .legendMark3 {
+      background-color: #3385ff;
+    }
+    & > div > span {
+      font-size: $page-font-root;
+      color: $page-font-color-600;
+    }
+    & > em {
+      font-size: $page-font-root;
+      color: $page-font-color-900;
+      font-weight: 700;
+    }
+  }
+
+  & > p {
+    margin-top: 14px;
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-300;
+  }
+}
+
+.numCountBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .numCountName {
+    margin-bottom: 10px;
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-600;
+    font-weight: 600;
+  }
+}
+
+.graphBox {
+  .graph {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .graphBar {
+    height: 26px;
+  }
+
+  .graphName {
+    margin-bottom: 8px;
+    @include font-style;
+    & > span {
+      display: inline-block;
+      margin-right: 4px;
+      font-size: $page-font-root;
+      color: $page-font-color-600;
+    }
+    & > em {
+      font-size: $page-font-root;
+      color: $page-font-color-900;
+      font-weight: 700;
+    }
+  }
+  .graph1 {
+    width: 75%;
+    .graphBar {
+      background-color: #3385ff;
+    }
+  }
+  .graph2 {
+    width: 12.5%;
+    .graphBar {
+      background-color: #e36969;
+    }
+  }
+  .graph3 {
+    width: 12.5%;
+    .graphBar {
+      background-color: #39c61b;
+    }
+  }
+
+  .graphLegend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-900;
+  }
+
+  & > p {
+    margin-top: 14px;
+    @include font-style;
+    font-size: $page-font-root;
+    color: $page-font-color-300;
+  }
+}

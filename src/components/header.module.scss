@@ -1,0 +1,87 @@
+//header style
+$header-h: 60px;
+$header-bg: $color-white;
+$header-border-color: $color-gray-50;
+$header-icon-size: 36px;
+
+.headerBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: $header-h;
+  padding: 0 20px;
+  background-color: $header-bg;
+  border-bottom: 1px solid $header-border-color;
+}
+
+.utilBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btnBox {
+  display: flex;
+  align-items: center;
+  .btnIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $header-icon-size;
+    height: $header-icon-size;
+    @include transition-allEaseInOut;
+    border: 1px solid $color-white;
+    stroke-width: 0.05px;
+    fill: $color-gray-500;
+
+    &:hover {
+      border-radius: 6px;
+      border: 1px solid $color-gray-75;
+      background: $color-gray-25;
+      fill: $color-gray-900;
+    }
+  }
+
+  .btnAlert {
+    position: relative;
+    stroke-width: initial;
+    stroke: $color-gray-500;
+    &.new {
+      &::after {
+        content: "";
+        position: absolute;
+        right: 8px;
+        top: 7px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 2px solid $color-white;
+        background: $color-error;
+      }
+    }
+
+    &:hover {
+      stroke: $color-gray-900;
+      &.new {
+        &::after {
+          border-color: $color-gray-25;
+        }
+      }
+    }
+  }
+}
+
+.btnMy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  background-color: #cce0ff;
+}

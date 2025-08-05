@@ -1,0 +1,68 @@
+//infraMonitor style
+
+.chartRow {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 24px;
+}
+.chartBox {
+  display: flex;
+  width: 174px;
+  height: 168px;
+  background-color: $color-gray-75;
+  position: relative;
+  @include font-style;
+
+  .chartCount,
+  .chartLegend,
+  .chartName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .chartCount {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $page-font-color-900;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .chartLegend {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $page-font-color-900;
+    font-size: $page-font-13;
+  }
+  .chartName {
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    color: $page-font-color-300;
+    font-size: $page-font-root;
+  }
+}
+
+.symbolBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 74px;
+
+  & > em {
+    @include font-style;
+    color: $page-font-color-900;
+    font-size: 36px;
+    font-weight: 700;
+  }
+}

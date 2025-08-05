@@ -1,0 +1,208 @@
+//dashboard style
+
+.stateDataBox {
+  display: flex;
+
+  @include font-style;
+  .stateDataNum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 114px;
+    color: $page-font-color-900;
+    font-size: 36px;
+    font-weight: 700;
+    border-right: 1px solid $color-gray-25;
+  }
+  .stateDataText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 20px;
+
+    .stateDataDesc {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      & > span {
+        color: $page-font-color-300;
+        font-size: $page-font-root;
+        font-weight: 500;
+      }
+      & > em {
+        color: $page-font-color-900;
+        font-size: $page-font-14;
+        font-weight: 700;
+      }
+    }
+  }
+  .stateDataNoti {
+    padding: 14px 16px;
+    margin-top: -8px;
+    border-top: 1px solid $color-gray-25;
+    @include font-style;
+    color: $page-font-color-600;
+    font-size: $page-font-root;
+  }
+}
+
+.nodeLegendBox {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+  .legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 16px;
+    @include font-style;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 1px;
+      height: 12px;
+      margin-left: 16px;
+      background-color: $color-gray-50;
+    }
+
+    &:last-child {
+      &::after {
+        content: none;
+      }
+    }
+
+    .legendMark {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      border-radius: 50%;
+    }
+    .legendMark1 {
+      background-color: $color-important;
+    }
+    .legendMark2 {
+      background-color: $color-warning;
+    }
+    .legendMark3 {
+      background-color: $color-error;
+    }
+    & > div > span {
+      font-size: $page-font-root;
+      color: $page-font-color-600;
+    }
+    & > em {
+      display: inline-block;
+      margin-left: 12px;
+      font-size: $page-font-root;
+      color: $page-font-color-900;
+      font-weight: 700;
+    }
+  }
+}
+
+.nodesBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 197px;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+
+  .node {
+    display: flex;
+    padding: 6px 12px 6px 8px;
+    align-items: center;
+    gap: 6px;
+    width: 142px;
+    height: 30px;
+    border-radius: 6px;
+    @include font-style;
+    color: $color-white;
+    font-size: $page-font-root;
+  }
+
+  .nodeImportant {
+    background-color: $color-important;
+  }
+
+  .nodeWarning {
+    background-color: $color-warning;
+  }
+
+  .nodeError {
+    background-color: $color-error;
+  }
+}
+
+.resourceBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 36px 36px;
+}
+.resourceName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  @include font-style;
+
+  & > span {
+    color: $page-font-color-900;
+    font-size: $page-font-root;
+  }
+  & > em {
+    color: $page-font-color-900;
+    font-size: $page-font-14;
+    font-weight: 700;
+  }
+}
+.resourceProgress {
+  position: relative;
+  width: 100%;
+  .resourceProgressActionBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 20%;
+    height: 6px;
+    background-color: $color-normal;
+    border-radius: 10px;
+  }
+  .resourceProgressBar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 6px;
+    border-radius: 10px;
+    background: #e5f0ff;
+  }
+}
+
+.msgBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include font-style;
+
+    & > span {
+      color: $color-normal;
+      font-size: $page-font-root;
+    }
+    & > em {
+      color: $page-font-color-900;
+      font-size: $page-font-14;
+      font-weight: 700;
+    }
+  }
+}

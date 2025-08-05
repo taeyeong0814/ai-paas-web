@@ -1,0 +1,45 @@
+//service style
+
+////모달
+.modalBox {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textareaDesc {
+  margin-top: -4px;
+  color: $page-font-color-300;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+}
+
+////셀렉트
+.selectBox {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+////아코디언
+.accordionBox {
+  display: flex;
+  gap: 16px;
+
+  .accordion {
+    width: 50%;
+    height: fit-content;
+  }
+
+  .accordionContent {
+    height: 515px;
+  }
+}
