@@ -1,37 +1,27 @@
 import { BreadCrumb, Button } from "innogrid-ui";
-
-//breadcrumb
-const items = [
-  { label: "프롬프트", path: "/prompt" },
-  { label: "프롬프트 테스트" },
-];
+import { useNavigate } from "react-router";
+import { EditPromptButton } from "../../../components/prompt/edit-prompt-button";
+import { DeletePromptButton } from "../../../components/prompt/delete-prompt-button";
 
 export default function PromptDetailPage() {
+  const navigate = useNavigate();
+
   return (
     <main>
       <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
+        items={[
+          { label: "프롬프트", path: "/prompt" },
+          { label: "프롬프트 테스트" },
+        ]}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">
         <h2 className="page-title">프롬프트 테스트</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="secondary"
-            >
-              편집
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="negative"
-            >
-              삭제
-            </Button>
+            <EditPromptButton />
+            <DeletePromptButton />
           </div>
         </div>
       </div>

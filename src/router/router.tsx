@@ -19,13 +19,13 @@ import KnowledgeBasePage from "../pages/knowledge-base/page";
 import KnowledgeBaseCreatePage from "../pages/knowledge-base/create/page";
 import KnowledgeBaseDetailPage from "../pages/knowledge-base/[id]/page";
 import PromptPage from "../pages/prompt/page";
+import PromptCreatePage from "../pages/prompt/create/page";
+import PromptDetailPage from "../pages/prompt/[id]/page";
 import LearningPage from "../pages/learning/page";
 import DashboardPage from "../pages/dashboard/page";
 import MonitoringPage from "../pages/infra-monitor/monitoring/page";
 import EventPage from "../pages/infra-monitor/event/page";
 import MemberManagementPage from "../pages/member-management/page";
-import PromptAddPage from "../pages/prompt/add/page";
-import PromptDetailPage from "../pages/prompt/detail/page";
 import LearningAssignmentStep2Page from "../pages/learning/assignment/step2/page";
 import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page";
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
@@ -122,11 +122,11 @@ export const router = createBrowserRouter([
         element: <PromptPage />,
       },
       {
-        path: "prompt/add",
-        element: <PromptAddPage />,
+        path: "prompt/create",
+        element: <PromptCreatePage />,
       },
       {
-        path: "prompt/detail",
+        path: "prompt/:id",
         element: <PromptDetailPage />,
       },
       {

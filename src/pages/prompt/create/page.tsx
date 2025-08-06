@@ -1,15 +1,10 @@
 import { useState } from "react";
 import type { ChangeEvent } from "innogrid-ui";
 import { BreadCrumb, Button, Input, Textarea } from "innogrid-ui";
+import { useNavigate } from "react-router";
 
-//breadcrumb
-const items = [
-  { label: "프롬프트", path: "/prompt" },
-  { label: "프롬프트 생성" },
-];
-
-export default function PromptAddPage() {
-  //input
+export default function PromptCreatePage() {
+  const navigate = useNavigate();
   const [value, setValue] = useState<string>("");
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,9 +20,12 @@ export default function PromptAddPage() {
   return (
     <main>
       <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
+        items={[
+          { label: "프롬프트", path: "/prompt" },
+          { label: "프롬프트 생성" },
+        ]}
         className="breadcrumbBox"
+        onNavigate={navigate}
       />
       <div className="page-title-box">
         <h2 className="page-title">프롬프트 생성</h2>
@@ -79,7 +77,7 @@ export default function PromptAddPage() {
           <Button
             size="large"
             color="secondary"
-            onClick={() => alert("Button clicked!")}
+            onClick={() => navigate("/prompt")}
           >
             취소
           </Button>
