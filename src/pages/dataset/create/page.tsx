@@ -3,14 +3,13 @@ import type { ChangeEvent, SelectSingleValue } from "innogrid-ui";
 import { BreadCrumb, Button, Select, Input, Textarea } from "innogrid-ui";
 
 import { IconFileUp } from "../../../assets/img/icon";
+import { useNavigate } from "react-router";
 
-//breadcrumb
 const items = [
   { label: "데이터 셋", path: "/dataset" },
   { label: "데이터 셋 생성" },
 ];
 
-//select option
 type OptionType = { text: string; value: string };
 
 const options = [
@@ -19,21 +18,19 @@ const options = [
   { text: "옵션 3", value: "option3" },
 ];
 
-export default function DatasetAddPage() {
-  //input
+export default function DatasetCreatePage() {
+  const navigate = useNavigate();
   const [value, setValue] = useState<string>("");
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  //textarea
   const [text, setText] = useState<string>("");
   const onTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  //select
   const [selectedValue, setSelectedValue] = useState<OptionType>();
 
   const onChangeSelect = (option: SelectSingleValue<OptionType>) => {
@@ -44,7 +41,7 @@ export default function DatasetAddPage() {
     <main>
       <BreadCrumb
         items={items}
-        onNavigate={(path: string) => {}}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">

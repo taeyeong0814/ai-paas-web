@@ -1,6 +1,9 @@
 import { BreadCrumb, Button } from "innogrid-ui";
 
 import { IconDocument } from "../../../assets/img/icon";
+import { useNavigate } from "react-router";
+import { EditDatasetButton } from "../../../components/dataset/edit-dataset-button";
+import { DeleteDatasetButton } from "../../../components/dataset/delete-dataset-button";
 
 //breadcrumb
 const items = [
@@ -9,31 +12,21 @@ const items = [
 ];
 
 export default function DatasetDetailPage() {
+  const navigate = useNavigate();
+
   return (
     <main>
       <BreadCrumb
         items={items}
-        onNavigate={(path: string) => {}}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">
         <h2 className="page-title">데이터 셋 상세</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="secondary"
-            >
-              편집
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="negative"
-            >
-              삭제
-            </Button>
+            <EditDatasetButton />
+            <DeleteDatasetButton />
           </div>
         </div>
       </div>

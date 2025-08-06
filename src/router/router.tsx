@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import DefaultLayout from "../pages/layout";
 import ServicePage from "../pages/service/page";
 import ServiceDetailPage from "../pages/service/[id]/page";
 import WorkflowPage from "../pages/workflow/page";
@@ -9,7 +10,11 @@ import ModelCatalogPage from "../pages/model/model-catalog/page";
 import ModelCatalogCreatePage from "../pages/model/model-catalog/create/page";
 import ModelCatalogDetailPage from "../pages/model/model-catalog/[id]/page";
 import CustomModelPage from "../pages/model/custom-model/page";
+import CustomModelCreatePage from "../pages/model/custom-model/create/page";
+import CustomModelDetailPage from "../pages/model/custom-model/[id]/page";
 import DatasetPage from "../pages/dataset/page";
+import DatasetCreatePage from "../pages/dataset/create/page";
+import DatasetDetailPage from "../pages/dataset/[id]/page";
 import KnowledgeBasePage from "../pages/knowledge-base/page";
 import PromptPage from "../pages/prompt/page";
 import LearningPage from "../pages/learning/page";
@@ -17,9 +22,6 @@ import DashboardPage from "../pages/dashboard/page";
 import MonitoringPage from "../pages/infra-monitor/monitoring/page";
 import EventPage from "../pages/infra-monitor/event/page";
 import MemberManagementPage from "../pages/member-management/page";
-import DefaultLayout from "../pages/layout";
-import DatasetAddPage from "../pages/dataset/add/page";
-import DatasetDetailPage from "../pages/dataset/detail/page";
 import KnowledgeBaseStep1Page from "../pages/knowledge-base/step1/page";
 import KnowledgeBaseStep2Page from "../pages/knowledge-base/step2/page";
 import KnowledgeBaseStep3Page from "../pages/knowledge-base/step3/page";
@@ -30,8 +32,6 @@ import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
 import LearningAssignmentDetailPage from "../pages/learning/assignment/detail/page";
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
-import CustomModelCreatePage from "../pages/model/custom-model/create/page";
-import CustomModelDetailPage from "../pages/model/custom-model/[id]/page";
 
 export const router = createBrowserRouter([
   {
@@ -99,11 +99,11 @@ export const router = createBrowserRouter([
         element: <DatasetPage />,
       },
       {
-        path: "dataset/add",
-        element: <DatasetAddPage />,
+        path: "dataset/create",
+        element: <DatasetCreatePage />,
       },
       {
-        path: "dataset/detail",
+        path: "dataset/:id",
         element: <DatasetDetailPage />,
       },
       {
