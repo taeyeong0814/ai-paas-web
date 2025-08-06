@@ -6,6 +6,8 @@ import WorkflowCreatePage from "../pages/workflow/create/page";
 import WorkflowDetailPage from "../pages/workflow/[id]/page";
 import WorkflowEditPage from "../pages/workflow/[id]/edit/page";
 import ModelCatalogPage from "../pages/model/model-catalog/page";
+import ModelCatalogCreatePage from "../pages/model/model-catalog/create/page";
+import ModelCatalogDetailPage from "../pages/model/model-catalog/[id]/page";
 import CustomModelPage from "../pages/model/custom-model/page";
 import DatasetPage from "../pages/dataset/page";
 import KnowledgeBasePage from "../pages/knowledge-base/page";
@@ -66,6 +68,15 @@ export const router = createBrowserRouter([
             path: "model-catalog",
             index: true,
             element: <ModelCatalogPage />,
+          },
+          {
+            path: "model-catalog/create",
+            element: <ModelCatalogCreatePage />,
+          },
+          {
+            path: "model-catalog/:id",
+            index: true,
+            element: <ModelCatalogDetailPage />,
           },
           {
             path: "custom-model",
