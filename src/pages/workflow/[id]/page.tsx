@@ -8,17 +8,17 @@ import {
   useTableSelection,
   useTablePagination,
   Tabs,
+  Table,
 } from "innogrid-ui";
 
 import { IconCopy } from "../../../assets/img/icon";
+import { Link, useNavigate } from "react-router";
+import { EditWorkflowButton } from "../../../components/workflow/edit-workflow-button";
+import { DeleteWorkflowButton } from "../../../components/workflow/delete-workflow-button";
 
-//breadcrumb
-const items = [
-  { label: "워크플로우", path: "/workflow" },
-  { label: "워크플로우 상세" },
-];
+export default function WorkflowDetailPage() {
+  const navigate = useNavigate();
 
-export default function WorkflowDetail3Page() {
   //table
   const basicColumns = [
     {
@@ -96,28 +96,19 @@ export default function WorkflowDetail3Page() {
   return (
     <main>
       <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
+        items={[
+          { label: "워크플로우", path: "/workflow" },
+          { label: "워크플로우 상세" },
+        ]}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">
         <h2 className="page-title">워크플로우 상세</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="secondary"
-            >
-              편집
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="negative"
-            >
-              삭제
-            </Button>
+            <EditWorkflowButton />
+            <DeleteWorkflowButton />
           </div>
         </div>
       </div>
@@ -141,9 +132,12 @@ export default function WorkflowDetail3Page() {
             <li>
               <div className="page-detail_item-name">태그</div>
               <div className="page-detail_item-data">
-                <a href={"/"} className="page-detail_item-data-link">
+                <Link
+                  to={"/service/test"}
+                  className="page-detail_item-data-link"
+                >
                   테스트 서비스
-                </a>
+                </Link>
               </div>
             </li>
             <li>
@@ -188,7 +182,19 @@ export default function WorkflowDetail3Page() {
                 <div>뷰 영역</div>
               </div>,
               <div className="tabs-Content">
-                <div>테이블 영역</div>
+                <Table
+                  useClientPagination
+                  useMultiSelect
+                  columns={columns}
+                  data={rowData}
+                  totalCount={rowData.length}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                  rowSelection={rowSelection}
+                  setRowSelection={setRowSelection}
+                  setSorting={setSorting}
+                  sorting={sorting}
+                />
               </div>,
             ]}
           />

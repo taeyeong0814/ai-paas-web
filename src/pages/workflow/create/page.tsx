@@ -57,8 +57,7 @@ const options3 = [
   { text: "지식 베이스 003", value: "option3" },
 ];
 
-export default function WorkflowDetailPage() {
-  //searchInput
+export default function WorkflowCreatePage() {
   const { searchValue, ...restProps } = useSearchInputState();
 
   //input

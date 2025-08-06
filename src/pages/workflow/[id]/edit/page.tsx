@@ -12,8 +12,8 @@ import {
   useSearchInputState,
 } from "innogrid-ui";
 
-import styles from "../workflow.module.scss";
-import { IconArrCount, IconDel } from "../../../assets/img/icon";
+import styles from "../../workflow.module.scss";
+import { IconArrCount, IconDel } from "../../../../assets/img/icon";
 
 //breadcrumb
 const items = [{ label: "워크플로우", path: "/workflow" }];
@@ -25,7 +25,7 @@ const options = [
   { text: "옵션 3", value: "option3" },
 ];
 
-export default function WorkflowDetail2Page() {
+export default function WorkflowEditPage() {
   //searchInput
   const { searchValue, ...restProps } = useSearchInputState();
 
