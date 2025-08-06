@@ -1,12 +1,12 @@
 import { Button } from "innogrid-ui";
 import { useNavigate } from "react-router";
 
-export const CreateModelCatalogButton = () => {
+export const CreateCustomModelButton = () => {
   const navigate = useNavigate();
 
   return (
     <Button
-      onClick={() => navigate("/model/model-catalog/create")}
+      onClick={() => navigate("/model/custom-model/create")}
       size="medium"
       color="primary"
     >

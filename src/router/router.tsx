@@ -30,6 +30,8 @@ import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
 import LearningAssignmentDetailPage from "../pages/learning/assignment/detail/page";
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
+import CustomModelCreatePage from "../pages/model/custom-model/create/page";
+import CustomModelDetailPage from "../pages/model/custom-model/[id]/page";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +83,14 @@ export const router = createBrowserRouter([
           {
             path: "custom-model",
             element: <CustomModelPage />,
+          },
+          {
+            path: "custom-model/create",
+            element: <CustomModelCreatePage />,
+          },
+          {
+            path: "custom-model/:id",
+            element: <CustomModelDetailPage />,
           },
         ],
       },
