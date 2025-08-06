@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import type { ColDef, Sorting, SelectSingleValue } from "innogrid-ui";
 import {
   BreadCrumb,
-  Button,
   Table,
   HeaderCheckbox,
   CellCheckbox,
@@ -11,15 +10,15 @@ import {
   Tabs,
   Select,
   Accordion,
-  SelectButton,
-  SelectButtonItem,
-  Modal,
 } from "innogrid-ui";
 
 import styles from "../service.module.scss";
-
-//breadcrumb
-const items = [{ label: "서비스", path: "/service" }, { label: "서비스 상세" }];
+import { EditServiceButton } from "../../../components/service/edit-service-button";
+import { DeleteServiceButton } from "../../../components/service/delete-service-button";
+import { useNavigate } from "react-router";
+import { CreateWorkflowButton } from "../../../components/workflow/create-workflow-button";
+import { EditWorkflowButton } from "../../../components/workflow/edit-workflow-button";
+import { DeleteWorkflowButton } from "../../../components/workflow/delete-workflow-button";
 
 //select option
 type OptionType = { text: string; value: string };
@@ -35,6 +34,8 @@ const options2 = [
 ];
 
 export default function ServiceDetailPage() {
+  const navigate = useNavigate();
+
   //table
   const basicColumns = [
     {
@@ -140,34 +141,22 @@ export default function ServiceDetailPage() {
     },
   ];
 
-  //modal open
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   return (
     <main>
       <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
+        items={[
+          { label: "서비스", path: "/service" },
+          { label: "서비스 상세" },
+        ]}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">
         <h2 className="page-title">서비스 상세</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="secondary"
-            >
-              편집
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="negative"
-            >
-              삭제
-            </Button>
+            <EditServiceButton />
+            <DeleteServiceButton />
           </div>
         </div>
       </div>
@@ -204,37 +193,20 @@ export default function ServiceDetailPage() {
       <div className="page-content page-content-detail">
         <div className="page-tabsBox">
           <Tabs
-            labels={["워크플로우", "데이터 셋", "모델", "프롬프트", "모니터링"]}
+            labels={[
+              "워크플로우",
+              "지식 베이스",
+              "모델",
+              "프롬프트",
+              "모니터링",
+            ]}
             components={[
               <div className="tabs-Content">
                 <div className="page-toolBox">
                   <div className="page-toolBox-btns">
-                    <SelectButton title="생성" color="focus">
-                      <SelectButtonItem
-                        onClick={() => {
-                          alert("직접 생성");
-                        }}
-                      >
-                        직접 생성
-                      </SelectButtonItem>
-                      <SelectButtonItem onClick={() => setIsOpen(true)}>
-                        템플릿에서 시작
-                      </SelectButtonItem>
-                    </SelectButton>
-                    <Button
-                      onClick={() => alert("Button clicked!")}
-                      size="medium"
-                      color="secondary"
-                    >
-                      편집
-                    </Button>
-                    <Button
-                      onClick={() => alert("Button clicked!")}
-                      size="medium"
-                      color="negative"
-                    >
-                      삭제
-                    </Button>
+                    <CreateWorkflowButton />
+                    <EditWorkflowButton />
+                    <DeleteWorkflowButton />
                   </div>
                 </div>
                 <div>
@@ -254,19 +226,49 @@ export default function ServiceDetailPage() {
                 </div>
               </div>,
               <div className="tabs-Content">
-                탭 2의 콘텐츠 내용입니다.
-                <br />
-                탭을 선택하면 이 영역에 표시됩니다.
+                <Table
+                  useClientPagination
+                  useMultiSelect
+                  columns={columns}
+                  data={rowData}
+                  totalCount={rowData.length}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                  rowSelection={rowSelection}
+                  setRowSelection={setRowSelection}
+                  setSorting={setSorting}
+                  sorting={sorting}
+                />
               </div>,
               <div className="tabs-Content">
-                탭 3의 콘텐츠 내용입니다.
-                <br />
-                탭을 선택하면 이 영역에 표시됩니다.
+                <Table
+                  useClientPagination
+                  useMultiSelect
+                  columns={columns}
+                  data={rowData}
+                  totalCount={rowData.length}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                  rowSelection={rowSelection}
+                  setRowSelection={setRowSelection}
+                  setSorting={setSorting}
+                  sorting={sorting}
+                />
               </div>,
               <div className="tabs-Content">
-                탭 4의 콘텐츠 내용입니다.
-                <br />
-                탭을 선택하면 이 영역에 표시됩니다.
+                <Table
+                  useClientPagination
+                  useMultiSelect
+                  columns={columns}
+                  data={rowData}
+                  totalCount={rowData.length}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                  rowSelection={rowSelection}
+                  setRowSelection={setRowSelection}
+                  setSorting={setSorting}
+                  sorting={sorting}
+                />
               </div>,
               <div className="tabs-Content">
                 <div className={styles.selectBox}>
@@ -306,22 +308,6 @@ export default function ServiceDetailPage() {
       </div>
 
       {/* modals */}
-      <Modal
-        allowOutsideInteraction
-        isOpen={isOpen}
-        title="템플릿에서 시작하기"
-        size="small"
-        onRequestClose={() => setIsOpen(false)}
-        action={() => alert("확인!")}
-        buttonTitle="확인"
-        subButton={
-          <Button size="large" color="secondary" onClick={() => alert("취소!")}>
-            취소
-          </Button>
-        }
-      >
-        <div className={styles.modalBox}>테이블 추가</div>
-      </Modal>
     </main>
   );
 }

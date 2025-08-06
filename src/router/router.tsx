@@ -1,6 +1,10 @@
 import { createBrowserRouter } from "react-router";
 import ServicePage from "../pages/service/page";
+import ServiceDetailPage from "../pages/service/[id]/page";
 import WorkflowPage from "../pages/workflow/page";
+import WorkflowCreatePage from "../pages/workflow/create/page";
+import WorkflowDetailPage from "../pages/workflow/[id]/page";
+import WorkflowEditPage from "../pages/workflow/[id]/edit/page";
 import ModelCatalogPage from "../pages/model/model-catalog/page";
 import CustomModelPage from "../pages/model/custom-model/page";
 import DatasetPage from "../pages/dataset/page";
@@ -12,10 +16,6 @@ import MonitoringPage from "../pages/infra-monitor/monitoring/page";
 import EventPage from "../pages/infra-monitor/event/page";
 import MemberManagementPage from "../pages/member-management/page";
 import DefaultLayout from "../pages/layout";
-import ServiceDetailPage from "../pages/service/detail/page";
-import WorkflowDetailPage from "../pages/workflow/detail/page";
-import WorkflowDetail2Page from "../pages/workflow/detail2/page";
-import WorkflowDetail3Page from "../pages/workflow/detail3/page";
 import DatasetAddPage from "../pages/dataset/add/page";
 import DatasetDetailPage from "../pages/dataset/detail/page";
 import KnowledgeBaseStep1Page from "../pages/knowledge-base/step1/page";
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         element: <ServicePage />,
       },
       {
-        path: "service/detail",
+        path: "service/:id",
         element: <ServiceDetailPage />,
       },
       {
@@ -48,16 +48,16 @@ export const router = createBrowserRouter([
         element: <WorkflowPage />,
       },
       {
-        path: "workflow/detail",
+        path: "workflow/create",
+        element: <WorkflowCreatePage />,
+      },
+      {
+        path: "workflow/:id",
         element: <WorkflowDetailPage />,
       },
       {
-        path: "workflow/detail2",
-        element: <WorkflowDetail2Page />,
-      },
-      {
-        path: "workflow/detail3",
-        element: <WorkflowDetail3Page />,
+        path: "workflow/:id/edit",
+        element: <WorkflowEditPage />,
       },
       {
         path: "model",
