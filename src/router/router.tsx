@@ -16,15 +16,14 @@ import DatasetPage from "../pages/dataset/page";
 import DatasetCreatePage from "../pages/dataset/create/page";
 import DatasetDetailPage from "../pages/dataset/[id]/page";
 import KnowledgeBasePage from "../pages/knowledge-base/page";
+import KnowledgeBaseCreatePage from "../pages/knowledge-base/create/page";
+import KnowledgeBaseDetailPage from "../pages/knowledge-base/[id]/page";
 import PromptPage from "../pages/prompt/page";
 import LearningPage from "../pages/learning/page";
 import DashboardPage from "../pages/dashboard/page";
 import MonitoringPage from "../pages/infra-monitor/monitoring/page";
 import EventPage from "../pages/infra-monitor/event/page";
 import MemberManagementPage from "../pages/member-management/page";
-import KnowledgeBaseStep1Page from "../pages/knowledge-base/step1/page";
-import KnowledgeBaseStep2Page from "../pages/knowledge-base/step2/page";
-import KnowledgeBaseStep3Page from "../pages/knowledge-base/step3/page";
 import PromptAddPage from "../pages/prompt/add/page";
 import PromptDetailPage from "../pages/prompt/detail/page";
 import LearningAssignmentStep2Page from "../pages/learning/assignment/step2/page";
@@ -111,16 +110,12 @@ export const router = createBrowserRouter([
         element: <KnowledgeBasePage />,
       },
       {
-        path: "knowledge-base/step1",
-        element: <KnowledgeBaseStep1Page />,
+        path: "knowledge-base/create",
+        element: <KnowledgeBaseCreatePage />,
       },
       {
-        path: "knowledge-base/step2",
-        element: <KnowledgeBaseStep2Page />,
-      },
-      {
-        path: "knowledge-base/step3",
-        element: <KnowledgeBaseStep3Page />,
+        path: "knowledge-base/:id",
+        element: <KnowledgeBaseDetailPage />,
       },
       {
         path: "prompt",
