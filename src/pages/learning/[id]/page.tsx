@@ -2,6 +2,8 @@ import { BreadCrumb, Button } from "innogrid-ui";
 import { IconChkGreen, IconErrRed } from "../../../assets/img/icon";
 import styles from "../learning.module.scss";
 import { useNavigate } from "react-router";
+import { EditLearningButton } from "../../../components/learning/edit-learning-button";
+import { DeleteLearningButton } from "../../../components/learning/delete-learning-button";
 
 export default function LearningDetailPage() {
   const navigate = useNavigate();
@@ -17,26 +19,14 @@ export default function LearningDetailPage() {
         <h2 className="page-title">학습 상세</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
+            <EditLearningButton />
+            <DeleteLearningButton />
             <Button
               onClick={() => alert("Button clicked!")}
               size="medium"
               color="primary"
             >
               모델 등록
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="secondary"
-            >
-              편집
-            </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="medium"
-              color="negative"
-            >
-              삭제
             </Button>
           </div>
         </div>

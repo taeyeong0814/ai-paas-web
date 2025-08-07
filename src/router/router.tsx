@@ -32,6 +32,7 @@ import LearningAssignmentStep2Page from "../pages/learning/assignment/step2/page
 import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page";
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
+import MemberManagementDetailPage from "../pages/member-management/[id]/page";
 
 export const router = createBrowserRouter([
   {
@@ -179,6 +180,10 @@ export const router = createBrowserRouter([
       {
         path: "member-management",
         element: <MemberManagementPage />,
+      },
+      {
+        path: "member-management/:id",
+        element: <MemberManagementDetailPage />,
       },
     ],
   },
