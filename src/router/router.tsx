@@ -22,6 +22,8 @@ import PromptPage from "../pages/prompt/page";
 import PromptCreatePage from "../pages/prompt/create/page";
 import PromptDetailPage from "../pages/prompt/[id]/page";
 import LearningPage from "../pages/learning/page";
+import LearningCreatePage from "../pages/learning/create/page";
+import LearningDetailPage from "../pages/learning/[id]/page";
 import DashboardPage from "../pages/dashboard/page";
 import MonitoringPage from "../pages/infra-monitor/monitoring/page";
 import EventPage from "../pages/infra-monitor/event/page";
@@ -29,7 +31,6 @@ import MemberManagementPage from "../pages/member-management/page";
 import LearningAssignmentStep2Page from "../pages/learning/assignment/step2/page";
 import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page";
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
-import LearningAssignmentDetailPage from "../pages/learning/assignment/detail/page";
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
 
 export const router = createBrowserRouter([
@@ -134,6 +135,14 @@ export const router = createBrowserRouter([
         element: <LearningPage />,
       },
       {
+        path: "learning/create",
+        element: <LearningCreatePage />,
+      },
+      {
+        path: "learning/:id",
+        element: <LearningDetailPage />,
+      },
+      {
         path: "learning/assignment/step2",
         element: <LearningAssignmentStep2Page />,
       },
@@ -144,10 +153,6 @@ export const router = createBrowserRouter([
       {
         path: "learning/assignment/step5",
         element: <LearningAssignmentStep5Page />,
-      },
-      {
-        path: "learning/assignment/detail",
-        element: <LearningAssignmentDetailPage />,
       },
       {
         path: "learning/solution/step2",

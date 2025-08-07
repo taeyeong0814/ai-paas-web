@@ -1,17 +1,16 @@
 import { BreadCrumb, Button } from "innogrid-ui";
+import { IconChkGreen, IconErrRed } from "../../../assets/img/icon";
+import styles from "../learning.module.scss";
+import { useNavigate } from "react-router";
 
-import { IconChkGreen, IconErrRed } from "../../../../assets/img/icon";
-import styles from "../../learning.module.scss";
+export default function LearningDetailPage() {
+  const navigate = useNavigate();
 
-//breadcrumb
-const items = [{ label: "학습", path: "/learning" }, { label: "학습 생성" }];
-
-export default function LearningAssignmentDetailPage() {
   return (
     <main>
       <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
+        items={[{ label: "학습", path: "/learning" }, { label: "학습 생성" }]}
+        onNavigate={navigate}
         className="breadcrumbBox"
       />
       <div className="page-title-box">
