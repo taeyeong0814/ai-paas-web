@@ -15,131 +15,13 @@ import {
 import styles from "../service.module.scss";
 import { EditServiceButton } from "../../../components/service/edit-service-button";
 import { DeleteServiceButton } from "../../../components/service/delete-service-button";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { CreateWorkflowButton } from "../../../components/workflow/create-workflow-button";
 import { EditWorkflowButton } from "../../../components/workflow/edit-workflow-button";
 import { DeleteWorkflowButton } from "../../../components/workflow/delete-workflow-button";
 
-//select option
-type OptionType = { text: string; value: string };
-const options1 = [
-  { text: "워크플로우 전체", value: "워크플로우 전체" },
-  { text: "옵션 2", value: "option2" },
-  { text: "옵션 3", value: "option3" },
-];
-const options2 = [
-  { text: "최근 1시간", value: "최근 1시간" },
-  { text: "옵션 2", value: "option2" },
-  { text: "옵션 3", value: "option3" },
-];
-
 export default function ServiceDetailPage() {
   const navigate = useNavigate();
-
-  //table
-  const basicColumns = [
-    {
-      id: "name",
-      header: "이름",
-      accessorFn: (row) => row.name,
-      size: 325,
-      cell: ({ row }) => (
-        <a href={"/"} className="table-td-link">
-          {row.original.name}
-        </a>
-      ),
-    },
-    {
-      id: "id",
-      header: "워크플로우ID",
-      accessorFn: (row) => row.id,
-      size: 325,
-    },
-    {
-      id: "state",
-      header: "상태",
-      accessorFn: (row) => row.state,
-      size: 325,
-      cell: ({ row }) => (
-        <span className="table-td-state table-td-state-run">
-          {row.original.state}
-        </span>
-      ),
-    },
-    {
-      id: "desc",
-      header: "설명",
-      accessorFn: (row) => row.desc,
-      size: 434,
-      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-    },
-    {
-      id: "date",
-      header: "생성일시",
-      accessorFn: (row) => row.date,
-      size: 325,
-    },
-  ];
-
-  const { setRowSelection, rowSelection } = useTableSelection();
-  const { pagination, setPagination } = useTablePagination();
-  const [sorting, setSorting] = useState<Sorting>([
-    { id: "name", desc: false },
-  ]);
-
-  const columns: ColDef<any>[] = useMemo(
-    () => [
-      {
-        id: "select",
-        size: 30,
-        header: ({ table }) => <HeaderCheckbox table={table} />,
-        cell: ({ row }) => <CellCheckbox row={row} />,
-        enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-      },
-      ...basicColumns,
-    ],
-    []
-  );
-  const [rowData, setRowData] = useState<DataType[]>([
-    {
-      name: "테스트워크플로우",
-      id: "워크플로우 001",
-      state: "Running",
-      desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-      date: "2025-12-31 10:12",
-    },
-  ]);
-
-  //select
-  const [selectedValue, setSelectedValue] = useState<OptionType>();
-
-  const onChangeSelect = (option: SelectSingleValue<OptionType>) => {
-    setSelectedValue(option);
-  };
-
-  //accordion
-  const accordionItems1 = [
-    {
-      label: "총 메시지 수",
-      component: (
-        <div>
-          <div className={styles.accordionContent}>컨텐츠 영역</div>
-        </div>
-      ),
-    },
-  ];
-  const accordionItems2 = [
-    {
-      label: "활성 사용자 수",
-      component: (
-        <div>
-          <div className={styles.accordionContent}>
-            컨텐츠 영역 컨텐츠 영역컨텐츠 영역컨텐츠 영역
-          </div>
-        </div>
-      ),
-    },
-  ];
 
   return (
     <main>
@@ -210,104 +92,395 @@ export default function ServiceDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <Table
-                    useClientPagination
-                    useMultiSelect
-                    columns={columns}
-                    data={rowData}
-                    totalCount={rowData.length}
-                    pagination={pagination}
-                    setPagination={setPagination}
-                    rowSelection={rowSelection}
-                    setRowSelection={setRowSelection}
-                    setSorting={setSorting}
-                    sorting={sorting}
-                  />
+                  <WorkflowTable />
                 </div>
               </div>,
               <div className="tabs-Content">
-                <Table
-                  useClientPagination
-                  useMultiSelect
-                  columns={columns}
-                  data={rowData}
-                  totalCount={rowData.length}
-                  pagination={pagination}
-                  setPagination={setPagination}
-                  rowSelection={rowSelection}
-                  setRowSelection={setRowSelection}
-                  setSorting={setSorting}
-                  sorting={sorting}
-                />
+                <KnowledgeBaseTable />
               </div>,
               <div className="tabs-Content">
-                <Table
-                  useClientPagination
-                  useMultiSelect
-                  columns={columns}
-                  data={rowData}
-                  totalCount={rowData.length}
-                  pagination={pagination}
-                  setPagination={setPagination}
-                  rowSelection={rowSelection}
-                  setRowSelection={setRowSelection}
-                  setSorting={setSorting}
-                  sorting={sorting}
-                />
+                <ModelTable />
               </div>,
               <div className="tabs-Content">
-                <Table
-                  useClientPagination
-                  useMultiSelect
-                  columns={columns}
-                  data={rowData}
-                  totalCount={rowData.length}
-                  pagination={pagination}
-                  setPagination={setPagination}
-                  rowSelection={rowSelection}
-                  setRowSelection={setRowSelection}
-                  setSorting={setSorting}
-                  sorting={sorting}
-                />
+                <PromptTable />
               </div>,
               <div className="tabs-Content">
-                <div className={styles.selectBox}>
-                  <Select
-                    options={options1}
-                    getOptionLabel={(option) => option.text}
-                    getOptionValue={(option) => option.value}
-                    value={selectedValue}
-                    onChange={onChangeSelect}
-                    menuPosition="fixed"
-                    size="m-small"
-                  />
-                  <Select
-                    options={options2}
-                    getOptionLabel={(option) => option.text}
-                    getOptionValue={(option) => option.value}
-                    value={selectedValue}
-                    onChange={onChangeSelect}
-                    menuPosition="fixed"
-                    size="m-small"
-                  />
-                </div>
-                <div className={styles.accordionBox}>
-                  <Accordion
-                    className={styles.accordion}
-                    components={accordionItems1}
-                  />
-                  <Accordion
-                    className={styles.accordion}
-                    components={accordionItems2}
-                  />
-                </div>
+                <MonitoringGraph />
               </div>,
             ]}
           />
         </div>
       </div>
-
-      {/* modals */}
     </main>
   );
 }
+
+const WorkflowTable = () => {
+  const { setRowSelection, rowSelection } = useTableSelection();
+  const { pagination, setPagination } = useTablePagination();
+  const [sorting, setSorting] = useState<Sorting>([
+    { id: "name", desc: false },
+  ]);
+  const [rowData, setRowData] = useState([
+    {
+      name: "테스트워크플로우",
+      id: "워크플로우 001",
+      state: "Running",
+      desc: "설명이 들어갑니다. 설명이 들어갑니다.",
+      date: "2025-12-31 10:12",
+    },
+  ]);
+  const columns = [
+    {
+      id: "select",
+      size: 30,
+      header: ({ table }) => <HeaderCheckbox table={table} />,
+      cell: ({ row }) => <CellCheckbox row={row} />,
+      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    },
+    {
+      id: "name",
+      header: "이름",
+      accessorFn: (row) => row.name,
+      size: 325,
+      cell: ({ row }) => (
+        <Link to={`/workflow/${row.original.name}`} className="table-td-link">
+          {row.original.name}
+        </Link>
+      ),
+    },
+    {
+      id: "id",
+      header: "워크플로우ID",
+      accessorFn: (row) => row.id,
+      size: 325,
+    },
+    {
+      id: "state",
+      header: "상태",
+      accessorFn: (row) => row.state,
+      size: 325,
+      cell: ({ row }) => (
+        <span className="table-td-state table-td-state-run">
+          {row.original.state}
+        </span>
+      ),
+    },
+    {
+      id: "desc",
+      header: "설명",
+      accessorFn: (row) => row.desc,
+      size: 434,
+      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    },
+    {
+      id: "date",
+      header: "생성일시",
+      accessorFn: (row) => row.date,
+      size: 325,
+    },
+  ];
+
+  return (
+    <Table
+      useClientPagination
+      useMultiSelect
+      columns={columns}
+      data={rowData}
+      totalCount={rowData.length}
+      pagination={pagination}
+      setPagination={setPagination}
+      rowSelection={rowSelection}
+      setRowSelection={setRowSelection}
+      setSorting={setSorting}
+      sorting={sorting}
+    />
+  );
+};
+
+const KnowledgeBaseTable = () => {
+  const { pagination, setPagination } = useTablePagination();
+  const [sorting, setSorting] = useState<Sorting>([
+    { id: "name", desc: false },
+  ]);
+  const [rowData, setRowData] = useState([
+    {
+      name: "테스트 문서",
+      workflow: "워크플로우1",
+      type: "RAG",
+      owner: "홍길동",
+      desc: "설명이 들어갑니다. 설명이 들어갑니다.",
+      date: "2025-12-31 10:12",
+    },
+  ]);
+  const columns = [
+    {
+      id: "name",
+      header: "이름",
+      accessorFn: (row) => row.name,
+      size: 300,
+    },
+    {
+      id: "workflow",
+      header: "워크플로우",
+      accessorFn: (row) => row.workflow,
+      size: 300,
+    },
+    {
+      id: "type",
+      header: "유형",
+      accessorFn: (row) => row.type,
+      size: 285,
+    },
+    {
+      id: "owner",
+      header: "소유자",
+      accessorFn: (row) => row.owner,
+      size: 325,
+    },
+    {
+      id: "desc",
+      header: "설명",
+      accessorFn: (row) => row.desc,
+      size: 334,
+      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    },
+    {
+      id: "date",
+      header: "생성일시",
+      accessorFn: (row) => row.date,
+      size: 325,
+    },
+  ];
+
+  return (
+    <Table
+      useClientPagination
+      columns={columns}
+      data={rowData}
+      totalCount={rowData.length}
+      pagination={pagination}
+      setPagination={setPagination}
+      setSorting={setSorting}
+      sorting={sorting}
+    />
+  );
+};
+
+const ModelTable = () => {
+  const { pagination, setPagination } = useTablePagination();
+  const [sorting, setSorting] = useState<Sorting>([
+    { id: "name", desc: false },
+  ]);
+  const [rowData, setRowData] = useState([
+    {
+      name: "테스트 문서",
+      modelId: "Qwen/QwQ-32B-Preview",
+      workflow: "workflow1",
+      type: "ML",
+      owner: "관리자",
+      desc: "설명이 들어갑니다. 설명이 들어갑니다.",
+      date: "2025-12-31 10:12",
+    },
+  ]);
+  const columns = [
+    {
+      id: "name",
+      header: "이름",
+      accessorFn: (row) => row.name,
+      size: 300,
+    },
+    {
+      id: "modelId",
+      header: "모델 ID",
+      accessorFn: (row) => row.modelId,
+      size: 300,
+    },
+    {
+      id: "workflow",
+      header: "워크플로우",
+      accessorFn: (row) => row.workflow,
+      size: 225,
+    },
+    {
+      id: "type",
+      header: "유형",
+      accessorFn: (row) => row.type,
+      size: 190,
+    },
+    {
+      id: "owner",
+      header: "소유자",
+      accessorFn: (row) => row.owner,
+      size: 190,
+    },
+    {
+      id: "desc",
+      header: "모델 설명",
+      accessorFn: (row) => row.desc,
+      size: 334,
+      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    },
+    {
+      id: "date",
+      header: "생성일시",
+      accessorFn: (row) => row.date,
+      size: 325,
+    },
+  ];
+
+  return (
+    <Table
+      useClientPagination
+      columns={columns}
+      data={rowData}
+      totalCount={rowData.length}
+      pagination={pagination}
+      setPagination={setPagination}
+      setSorting={setSorting}
+      sorting={sorting}
+    />
+  );
+};
+
+const PromptTable = () => {
+  const { pagination, setPagination } = useTablePagination();
+  const [sorting, setSorting] = useState<Sorting>([
+    { id: "name", desc: false },
+  ]);
+  const [rowData, setRowData] = useState([
+    {
+      name: "프롬프트1",
+      creator: "홍길동",
+      variable: "3개",
+      desc: "설명이 들어갑니다. 설명이 들어갑니다.",
+      date: "2025-12-31 10:12",
+    },
+  ]);
+  const columns = [
+    {
+      id: "name",
+      header: "이름",
+      accessorFn: (row) => row.name,
+      size: 334,
+    },
+    {
+      id: "creator",
+      header: "생성자",
+      accessorFn: (row) => row.creator,
+      size: 334,
+    },
+    {
+      id: "variable",
+      header: "변수",
+      accessorFn: (row) => row.variable,
+      size: 334,
+    },
+    {
+      id: "desc",
+      header: "설명",
+      accessorFn: (row) => row.desc,
+      size: 334,
+      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    },
+    {
+      id: "date",
+      header: "생성일시",
+      accessorFn: (row) => row.date,
+      size: 325,
+    },
+  ];
+
+  return (
+    <Table
+      useClientPagination
+      columns={columns}
+      data={rowData}
+      totalCount={rowData.length}
+      pagination={pagination}
+      setPagination={setPagination}
+      setSorting={setSorting}
+      sorting={sorting}
+    />
+  );
+};
+
+type OptionType = { text: string; value: string };
+const options1 = [
+  { text: "워크플로우 전체", value: "워크플로우 전체" },
+  { text: "워크플로우 1", value: "option2" },
+  { text: "워크플로우 2", value: "option3" },
+];
+const options2 = [
+  { text: "최근 1시간", value: "최근 1시간" },
+  { text: "최근 1일", value: "option2" },
+  { text: "최근 1주일", value: "option3" },
+];
+
+const MonitoringGraph = () => {
+  const [selectedWorkflow, setSelectedWorkflow] = useState<OptionType>();
+  const [selectedPeriod, setSelectedPeriod] = useState<OptionType>();
+
+  const handleSelectWorkflow = (option: SelectSingleValue<OptionType>) => {
+    if (!option) return;
+    setSelectedWorkflow(option);
+  };
+
+  const handleSelectPeriod = (option: SelectSingleValue<OptionType>) => {
+    if (!option) return;
+    setSelectedPeriod(option);
+  };
+
+  //accordion
+  const accordionItems1 = [
+    {
+      label: "총 메시지 수",
+      component: (
+        <div>
+          <div className={styles.accordionContent}>컨텐츠 영역</div>
+        </div>
+      ),
+    },
+  ];
+  const accordionItems2 = [
+    {
+      label: "활성 사용자 수",
+      component: (
+        <div>
+          <div className={styles.accordionContent}>
+            컨텐츠 영역 컨텐츠 영역컨텐츠 영역컨텐츠 영역
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <div className={styles.selectBox}>
+        <Select
+          options={options1}
+          getOptionLabel={(option) => option.text}
+          getOptionValue={(option) => option.value}
+          value={selectedWorkflow}
+          onChange={handleSelectWorkflow}
+          menuPosition="fixed"
+          size="m-small"
+        />
+        <Select
+          options={options2}
+          getOptionLabel={(option) => option.text}
+          getOptionValue={(option) => option.value}
+          value={selectedPeriod}
+          onChange={handleSelectPeriod}
+          menuPosition="fixed"
+          size="m-small"
+        />
+      </div>
+      <div className={styles.accordionBox}>
+        <Accordion className={styles.accordion} components={accordionItems1} />
+        <Accordion className={styles.accordion} components={accordionItems2} />
+      </div>
+    </>
+  );
+};

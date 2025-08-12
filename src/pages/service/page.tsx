@@ -13,6 +13,7 @@ import {
 import { EditServiceButton } from "../../components/service/edit-service-button";
 import { CreateServiceButton } from "../../components/service/create-service-button";
 import { DeleteServiceButton } from "../../components/service/delete-service-button";
+import { Link } from "react-router";
 
 export default function ServicePage() {
   const { searchValue, ...restProps } = useSearchInputState();
@@ -31,7 +32,37 @@ export default function ServicePage() {
         cell: ({ row }) => <CellCheckbox row={row} />,
         enableSorting: false, //오름차순/내림차순 아이콘 숨기기
       },
-      ...basicColumns,
+      {
+        id: "name",
+        header: "이름",
+        accessorFn: (row) => row.name,
+        size: 325,
+        cell: ({ row }) => (
+          <Link to={"/service/detail"} className="table-td-link">
+            {row.original.name}
+          </Link>
+        ),
+      },
+      { id: "tag", header: "태그", accessorFn: (row) => row.tag, size: 325 },
+      {
+        id: "creator",
+        header: "생성자",
+        accessorFn: (row) => row.creator,
+        size: 325,
+      },
+      {
+        id: "desc",
+        header: "설명",
+        accessorFn: (row) => row.desc,
+        size: 434,
+        enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+      },
+      {
+        id: "date",
+        header: "생성일시",
+        accessorFn: (row) => row.date,
+        size: 325,
+      },
     ],
     []
   );
@@ -78,40 +109,6 @@ export default function ServicePage() {
     </main>
   );
 }
-
-const basicColumns = [
-  {
-    id: "name",
-    header: "이름",
-    accessorFn: (row) => row.name,
-    size: 325,
-    cell: ({ row }) => (
-      <a href={"/service/detail"} className="table-td-link">
-        {row.original.name}
-      </a>
-    ),
-  },
-  { id: "tag", header: "태그", accessorFn: (row) => row.tag, size: 325 },
-  {
-    id: "creator",
-    header: "생성자",
-    accessorFn: (row) => row.creator,
-    size: 325,
-  },
-  {
-    id: "desc",
-    header: "설명",
-    accessorFn: (row) => row.desc,
-    size: 434,
-    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-  },
-  {
-    id: "date",
-    header: "생성일시",
-    accessorFn: (row) => row.date,
-    size: 325,
-  },
-];
 
 const data = [
   {
