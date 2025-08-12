@@ -8,12 +8,15 @@ import { router } from "./router/router.tsx";
 
 import ErrorBoundary from "./components/error-boundary.tsx";
 import { InnogridUIProvider } from "innogrid-ui";
+import { ReactQueryProvider } from "./components/provider/react-query-provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <InnogridUIProvider language={"ko"} theme={"cloudit"}>
       <ErrorBoundary>
-        <RouterProvider router={router} />
+        <ReactQueryProvider>
+          <RouterProvider router={router} />
+        </ReactQueryProvider>
       </ErrorBoundary>
     </InnogridUIProvider>
   </StrictMode>
