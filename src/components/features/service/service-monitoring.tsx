@@ -1,4 +1,9 @@
-import { Accordion, Select, type SelectSingleValue } from "innogrid-ui";
+import {
+  Accordion,
+  LineChart,
+  Select,
+  type SelectSingleValue,
+} from "innogrid-ui";
 import { useState } from "react";
 import styles from "../../../pages/service/service.module.scss";
 
@@ -28,11 +33,49 @@ export const ServiceMonitoring = () => {
     setSelectedPeriod(option);
   };
 
-  //accordion
   const accordionItems1 = [
     {
       label: "총 메시지 수",
-      component: <div className={styles.accordionContent}>컨텐츠 영역</div>,
+      component: (
+        <div className={styles.accordionContent}>
+          <LineChart
+            xDataKey="name"
+            yDataKey={["workflow1", "workflow2"]}
+            data={[
+              {
+                name: "2022.04.12",
+                workflow1: 120,
+                workflow2: 100,
+              },
+              {
+                name: "24",
+                workflow1: 162,
+                workflow2: 100,
+              },
+              {
+                name: "25",
+                workflow1: 118,
+                workflow2: 120,
+              },
+              {
+                name: "26",
+                workflow1: 131,
+                workflow2: 89,
+              },
+              {
+                name: "27",
+                workflow1: 85,
+                workflow2: 121,
+              },
+              {
+                name: "2022.04.28",
+                workflow1: 81,
+                workflow2: 100,
+              },
+            ]}
+          />
+        </div>
+      ),
     },
   ];
   const accordionItems2 = [
@@ -40,7 +83,42 @@ export const ServiceMonitoring = () => {
       label: "활성 사용자 수",
       component: (
         <div className={styles.accordionContent}>
-          컨텐츠 영역 컨텐츠 영역컨텐츠 영역컨텐츠 영역
+          <LineChart
+            xDataKey="name"
+            yDataKey={["workflow1", "workflow2"]}
+            data={[
+              {
+                name: "2022.04.12",
+                workflow1: 120,
+                workflow2: 100,
+              },
+              {
+                name: "24",
+                workflow1: 162,
+                workflow2: 100,
+              },
+              {
+                name: "25",
+                workflow1: 118,
+                workflow2: 120,
+              },
+              {
+                name: "26",
+                workflow1: 131,
+                workflow2: 89,
+              },
+              {
+                name: "27",
+                workflow1: 85,
+                workflow2: 121,
+              },
+              {
+                name: "2022.04.28",
+                workflow1: 81,
+                workflow2: 100,
+              },
+            ]}
+          />
         </div>
       ),
     },
