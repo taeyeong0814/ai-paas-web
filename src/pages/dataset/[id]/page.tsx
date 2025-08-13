@@ -2,8 +2,8 @@ import { BreadCrumb, Button } from "innogrid-ui";
 
 import { IconDocument } from "../../../assets/img/icon";
 import { useNavigate } from "react-router";
-import { EditDatasetButton } from "../../../components/dataset/edit-dataset-button";
-import { DeleteDatasetButton } from "../../../components/dataset/delete-dataset-button";
+import { EditDatasetButton } from "../../../components/features/dataset/edit-dataset-button";
+import { DeleteDatasetButton } from "../../../components/features/dataset/delete-dataset-button";
 
 //breadcrumb
 const items = [

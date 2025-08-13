@@ -9,9 +9,9 @@ import {
   useTableSelection,
   type Sorting,
 } from "innogrid-ui";
-import { CreateWorkflowButton } from "../../components/workflow/create-workflow-button";
-import { EditWorkflowButton } from "../../components/workflow/edit-workflow-button";
-import { DeleteWorkflowButton } from "../../components/workflow/delete-workflow-button";
+import { CreateWorkflowButton } from "../../components/features/workflow/create-workflow-button";
+import { EditWorkflowButton } from "../../components/features/workflow/edit-workflow-button";
+import { DeleteWorkflowButton } from "../../components/features/workflow/delete-workflow-button";
 import { useState } from "react";
 
 export default function WorkflowPage() {

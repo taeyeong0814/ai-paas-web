@@ -13,8 +13,8 @@ import {
 
 import { IconCopy } from "../../../assets/img/icon";
 import { Link, useNavigate } from "react-router";
-import { EditWorkflowButton } from "../../../components/workflow/edit-workflow-button";
-import { DeleteWorkflowButton } from "../../../components/workflow/delete-workflow-button";
+import { EditWorkflowButton } from "../../../components/features/workflow/edit-workflow-button";
+import { DeleteWorkflowButton } from "../../../components/features/workflow/delete-workflow-button";
 
 export default function WorkflowDetailPage() {
   const navigate = useNavigate();

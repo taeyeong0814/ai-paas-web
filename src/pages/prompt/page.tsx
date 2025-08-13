@@ -11,9 +11,9 @@ import {
 } from "innogrid-ui";
 import { useState } from "react";
 import { Link } from "react-router";
-import { CreatePromptButton } from "../../components/prompt/create-prompt-button";
-import { EditPromptButton } from "../../components/prompt/edit-prompt-button";
-import { DeletePromptButton } from "../../components/prompt/delete-prompt-button";
+import { CreatePromptButton } from "../../components/features/prompt/create-prompt-button";
+import { EditPromptButton } from "../../components/features/prompt/edit-prompt-button";
+import { DeletePromptButton } from "../../components/features/prompt/delete-prompt-button";
 
 export default function PromptPage() {
   const { searchValue, ...restProps } = useSearchInputState();

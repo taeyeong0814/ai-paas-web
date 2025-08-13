@@ -11,9 +11,9 @@ import {
 } from "innogrid-ui";
 import { useState } from "react";
 import { Link } from "react-router";
-import { CreateDatasetButton } from "../../components/dataset/create-dataset-button";
-import { EditDatasetButton } from "../../components/dataset/edit-dataset-button";
-import { DeleteDatasetButton } from "../../components/dataset/delete-dataset-button";
+import { CreateDatasetButton } from "../../components/features/dataset/create-dataset-button";
+import { EditDatasetButton } from "../../components/features/dataset/edit-dataset-button";
+import { DeleteDatasetButton } from "../../components/features/dataset/delete-dataset-button";
 
 export default function DatasetPage() {
   const { searchValue, ...restProps } = useSearchInputState();

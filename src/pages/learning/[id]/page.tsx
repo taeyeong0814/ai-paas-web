@@ -2,8 +2,8 @@ import { BreadCrumb, Button } from "innogrid-ui";
 import { IconChkGreen, IconErrRed } from "../../../assets/img/icon";
 import styles from "../learning.module.scss";
 import { useNavigate } from "react-router";
-import { EditLearningButton } from "../../../components/learning/edit-learning-button";
-import { DeleteLearningButton } from "../../../components/learning/delete-learning-button";
+import { EditLearningButton } from "../../../components/features/learning/edit-learning-button";
+import { DeleteLearningButton } from "../../../components/features/learning/delete-learning-button";
 
 export default function LearningDetailPage() {
   const navigate = useNavigate();

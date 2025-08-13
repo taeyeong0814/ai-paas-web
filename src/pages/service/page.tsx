@@ -10,9 +10,9 @@ import {
   useTablePagination,
   useSearchInputState,
 } from "innogrid-ui";
-import { EditServiceButton } from "../../components/service/edit-service-button";
-import { CreateServiceButton } from "../../components/service/create-service-button";
-import { DeleteServiceButton } from "../../components/service/delete-service-button";
+import { EditServiceButton } from "../../components/features/service/edit-service-button";
+import { CreateServiceButton } from "../../components/features/service/create-service-button";
+import { DeleteServiceButton } from "../../components/features/service/delete-service-button";
 import { Link } from "react-router";
 
 export default function ServicePage() {

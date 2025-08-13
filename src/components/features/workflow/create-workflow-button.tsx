@@ -1,6 +1,6 @@
 import { Button, Modal, SelectButton, SelectButtonItem } from "innogrid-ui";
 import { useState } from "react";
-import styles from "../../pages/service/service.module.scss";
+import styles from "../../../pages/service/service.module.scss";
 import { useNavigate } from "react-router";
 
 export const CreateWorkflowButton = () => {

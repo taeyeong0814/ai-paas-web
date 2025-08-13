@@ -8,8 +8,8 @@ import {
 } from "innogrid-ui";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { DeleteKnowledgeBaseButton } from "../../../components/knowledge-base/delete-knowledge-base-button";
-import { EditKnowledgeBaseButton } from "../../../components/knowledge-base/edit-knowledge-base-button";
+import { DeleteKnowledgeBaseButton } from "../../../components/features/knowledge-base/delete-knowledge-base-button";
+import { EditKnowledgeBaseButton } from "../../../components/features/knowledge-base/edit-knowledge-base-button";
 
 export default function KnowledgeBaseDetailPage() {
   const navigate = useNavigate();

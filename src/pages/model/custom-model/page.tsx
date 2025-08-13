@@ -10,12 +10,12 @@ import {
   type Sorting,
 } from "innogrid-ui";
 import { useState } from "react";
-import { CreateCustomModelButton } from "../../../components/model/create-custom-model-button";
+import { CreateCustomModelButton } from "../../../components/features/model/create-custom-model-button";
 import { Link } from "react-router";
-import { EditCustomModelButton } from "../../../components/model/edit-custom-model-button";
-import { DeleteCustomModelButton } from "../../../components/model/delete-custom-model-button";
-import { HardwareOptimizationButton } from "../../../components/model/hardware-optimization-button";
-import { ModelCompressionButton } from "../../../components/model/model-compression-button";
+import { EditCustomModelButton } from "../../../components/features/model/edit-custom-model-button";
+import { DeleteCustomModelButton } from "../../../components/features/model/delete-custom-model-button";
+import { HardwareOptimizationButton } from "../../../components/features/model/hardware-optimization-button";
+import { ModelCompressionButton } from "../../../components/features/model/model-compression-button";
 
 export default function CustomModelPage() {
   const { searchValue, ...restProps } = useSearchInputState();

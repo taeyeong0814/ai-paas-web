@@ -13,12 +13,13 @@ import {
 } from "innogrid-ui";
 
 import styles from "../service.module.scss";
-import { EditServiceButton } from "../../../components/service/edit-service-button";
-import { DeleteServiceButton } from "../../../components/service/delete-service-button";
+import { EditServiceButton } from "../../../components/features/service/edit-service-button";
+import { DeleteServiceButton } from "../../../components/features/service/delete-service-button";
 import { Link, useNavigate } from "react-router";
-import { CreateWorkflowButton } from "../../../components/workflow/create-workflow-button";
-import { EditWorkflowButton } from "../../../components/workflow/edit-workflow-button";
-import { DeleteWorkflowButton } from "../../../components/workflow/delete-workflow-button";
+import { CreateWorkflowButton } from "../../../components/features/workflow/create-workflow-button";
+import { EditWorkflowButton } from "../../../components/features/workflow/edit-workflow-button";
+import { DeleteWorkflowButton } from "../../../components/features/workflow/delete-workflow-button";
+import { ServiceMonitoring } from "../../../components/features/service/service-monitoring";
 
 export default function ServiceDetailPage() {
   const navigate = useNavigate();
@@ -105,7 +106,7 @@ export default function ServiceDetailPage() {
                 <PromptTable />
               </div>,
               <div className="tabs-Content">
-                <MonitoringGraph />
+                <ServiceMonitoring />
               </div>,
             ]}
           />
@@ -402,85 +403,5 @@ const PromptTable = () => {
       setSorting={setSorting}
       sorting={sorting}
     />
-  );
-};
-
-type OptionType = { text: string; value: string };
-const options1 = [
-  { text: "워크플로우 전체", value: "워크플로우 전체" },
-  { text: "워크플로우 1", value: "option2" },
-  { text: "워크플로우 2", value: "option3" },
-];
-const options2 = [
-  { text: "최근 1시간", value: "최근 1시간" },
-  { text: "최근 1일", value: "option2" },
-  { text: "최근 1주일", value: "option3" },
-];
-
-const MonitoringGraph = () => {
-  const [selectedWorkflow, setSelectedWorkflow] = useState<OptionType>();
-  const [selectedPeriod, setSelectedPeriod] = useState<OptionType>();
-
-  const handleSelectWorkflow = (option: SelectSingleValue<OptionType>) => {
-    if (!option) return;
-    setSelectedWorkflow(option);
-  };
-
-  const handleSelectPeriod = (option: SelectSingleValue<OptionType>) => {
-    if (!option) return;
-    setSelectedPeriod(option);
-  };
-
-  //accordion
-  const accordionItems1 = [
-    {
-      label: "총 메시지 수",
-      component: (
-        <div>
-          <div className={styles.accordionContent}>컨텐츠 영역</div>
-        </div>
-      ),
-    },
-  ];
-  const accordionItems2 = [
-    {
-      label: "활성 사용자 수",
-      component: (
-        <div>
-          <div className={styles.accordionContent}>
-            컨텐츠 영역 컨텐츠 영역컨텐츠 영역컨텐츠 영역
-          </div>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <>
-      <div className={styles.selectBox}>
-        <Select
-          options={options1}
-          getOptionLabel={(option) => option.text}
-          getOptionValue={(option) => option.value}
-          value={selectedWorkflow}
-          onChange={handleSelectWorkflow}
-          menuPosition="fixed"
-          size="m-small"
-        />
-        <Select
-          options={options2}
-          getOptionLabel={(option) => option.text}
-          getOptionValue={(option) => option.value}
-          value={selectedPeriod}
-          onChange={handleSelectPeriod}
-          menuPosition="fixed"
-          size="m-small"
-        />
-      </div>
-      <div className={styles.accordionBox}>
-        <Accordion className={styles.accordion} components={accordionItems1} />
-        <Accordion className={styles.accordion} components={accordionItems2} />
-      </div>
-    </>
   );
 };

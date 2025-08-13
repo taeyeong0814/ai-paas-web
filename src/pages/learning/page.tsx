@@ -11,9 +11,9 @@ import {
 } from "innogrid-ui";
 import { useState } from "react";
 import { Link } from "react-router";
-import { CreateLearningButton } from "../../components/learning/create-learning-button";
-import { EditLearningButton } from "../../components/learning/edit-learning-button";
-import { DeleteLearningButton } from "../../components/learning/delete-learning-button";
+import { CreateLearningButton } from "../../components/features/learning/create-learning-button";
+import { EditLearningButton } from "../../components/features/learning/edit-learning-button";
+import { DeleteLearningButton } from "../../components/features/learning/delete-learning-button";
 
 export default function LearningPage() {
   const { searchValue, ...restProps } = useSearchInputState();

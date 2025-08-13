@@ -11,9 +11,9 @@ import {
   type Sorting,
 } from "innogrid-ui";
 import { useMemo, useState } from "react";
-import { CreateModelCatalogButton } from "../../../components/model/create-model-catalog-button";
-import { EditModelCatalogButton } from "../../../components/model/edit-model-catalog-button";
-import { DeleteModelCatalogButton } from "../../../components/model/delete-model-catalog-button";
+import { CreateModelCatalogButton } from "../../../components/features/model/create-model-catalog-button";
+import { EditModelCatalogButton } from "../../../components/features/model/edit-model-catalog-button";
+import { DeleteModelCatalogButton } from "../../../components/features/model/delete-model-catalog-button";
 import { Link } from "react-router";
 
 export default function ModelCatalogPage() {

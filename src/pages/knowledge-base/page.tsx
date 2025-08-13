@@ -11,9 +11,9 @@ import {
 } from "innogrid-ui";
 import { useState } from "react";
 import { Link } from "react-router";
-import { CreateKnowledgeBaseButton } from "../../components/knowledge-base/create-knowledge-base-button";
-import { EditKnowledgeBaseButton } from "../../components/knowledge-base/edit-knowledge-base-button";
-import { DeleteKnowledgeBaseButton } from "../../components/knowledge-base/delete-knowledge-base-button";
+import { CreateKnowledgeBaseButton } from "../../components/features/knowledge-base/create-knowledge-base-button";
+import { EditKnowledgeBaseButton } from "../../components/features/knowledge-base/edit-knowledge-base-button";
+import { DeleteKnowledgeBaseButton } from "../../components/features/knowledge-base/delete-knowledge-base-button";
 
 export default function KnowledgeBasePage() {
   const { searchValue, ...restProps } = useSearchInputState();

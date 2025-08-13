@@ -1,7 +1,7 @@
 import { BreadCrumb, Button } from "innogrid-ui";
 import { useNavigate } from "react-router";
-import { EditPromptButton } from "../../../components/prompt/edit-prompt-button";
-import { DeletePromptButton } from "../../../components/prompt/delete-prompt-button";
+import { EditPromptButton } from "../../../components/features/prompt/edit-prompt-button";
+import { DeletePromptButton } from "../../../components/features/prompt/delete-prompt-button";
 
 export default function PromptDetailPage() {
   const navigate = useNavigate();
