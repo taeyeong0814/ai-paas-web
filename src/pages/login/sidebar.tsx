@@ -1,12 +1,10 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 type SidebarContextProps = {
-  isExpanded: boolean;
   isHovered: boolean;
   isPinned: boolean;
-  setIsExpanded: (isExpanded: boolean) => void;
   setIsHovered: (isHovered: boolean) => void;
-  togglePin: (isPinned: boolean) => void;
+  togglePin: () => void;
 };
 
 const SidebarContext = createContext<SidebarContextProps | null>(null);
@@ -20,24 +18,19 @@ function useSidebar() {
 }
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
 
-  const togglePin = (pinned: boolean) => {
-    setIsPinned(pinned);
-    if (pinned) {
-      setIsExpanded(true);
-    } else {
-      setIsExpanded(false);
+  const togglePin = () => {
+    setIsPinned(!isPinned);
+    if (!isPinned) {
+      setIsHovered(false);
     }
   };
 
   const contextValue: SidebarContextProps = {
-    isExpanded,
     isHovered,
     isPinned,
-    setIsExpanded,
     setIsHovered,
     togglePin,
   };
@@ -50,7 +43,7 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const Sidebar = ({ children }: { children: ReactNode }) => {
-  const { isPinned, setIsHovered } = useSidebar();
+  const { isPinned, isHovered, setIsHovered } = useSidebar();
 
   const handleMouseEnter = () => {
     if (!isPinned) {
@@ -68,7 +61,7 @@ export const Sidebar = ({ children }: { children: ReactNode }) => {
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] w-[53px] border-r border-[#e8e8e8] bg-[#f9f9f9] hover:w-[232px] ${isPinned ? "w-[232px]" : ""}`}
+      className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] border-r border-[#e8e8e8] bg-[#f9f9f9] ${isPinned || isHovered ? "w-[232px]" : "w-[53px]"}`}
     >
       <nav className="p-1.5">{children}</nav>
     </div>
@@ -163,19 +156,11 @@ export const SidebarMenuSubButton = ({
 };
 
 export const SidebarPin = () => {
-  const { isPinned, togglePin, setIsExpanded } = useSidebar();
-
-  const handleTogglePin = () => {
-    const newPinned = !isPinned;
-    togglePin(newPinned);
-    if (!newPinned) {
-      setIsExpanded(false);
-    }
-  };
+  const { isPinned, togglePin } = useSidebar();
 
   return (
     <button
-      onClick={handleTogglePin}
+      onClick={togglePin}
       aria-label={isPinned ? "사이드바 고정 해제" : "사이드바 고정"}
       className={`absolute top-4 -right-2.5 hidden size-5 rounded-[50%] border border-[#888] bg-white group-hover:block hover:border-[#1a1a1a] hover:!bg-[#1a1a1a] hover:[&>i]:border-white ${isPinned ? "" : ""}`}
     >
@@ -187,8 +172,10 @@ export const SidebarPin = () => {
 };
 
 export const SidebarInset = ({ children }: { children: ReactNode }) => {
+  const { isPinned } = useSidebar();
+  
   return (
-    <div className="relative z-0 mt-[60px] ml-[52px] size-full min-w-[1700px]">
+    <div className={`relative z-0 mt-[60px] size-full min-w-[1700px] ${isPinned ? "ml-[232px]" : "ml-[52px]"}`}>
       {children}
     </div>
   );

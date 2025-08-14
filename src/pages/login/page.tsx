@@ -126,7 +126,9 @@ export default function LoginPage() {
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuSubButton>
-                        <menu.icon />
+                        <div>
+                          <menu.icon />
+                        </div>
                         <span>{menu.label}</span>
                       </SidebarMenuSubButton>
                     </CollapsibleTrigger>
@@ -149,7 +151,9 @@ export default function LoginPage() {
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
                     <Link to={menu.path}>
-                      <menu.icon />
+                      <div>
+                        <menu.icon />
+                      </div>
                       <span>{menu.label}</span>
                     </Link>
                   </SidebarMenuButton>
