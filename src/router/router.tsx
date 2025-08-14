@@ -33,8 +33,13 @@ import LearningAssignmentStep3Page from "../pages/learning/assignment/step3/page
 import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page";
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
 import MemberManagementDetailPage from "../pages/member-management/[id]/page";
+import LoginPage from "../pages/login/page";
 
 export const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
   {
     path: "/",
     element: <DefaultLayout />,
