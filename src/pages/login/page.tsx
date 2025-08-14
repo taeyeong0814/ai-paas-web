@@ -1,5 +1,17 @@
 import { Header } from "../../components/layout/header";
 import {
+  Sidebar,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarPin,
+  SidebarProvider,
+} from "./sidebar";
+import {
   IconDashboard,
   IconDataset,
   IconInfraMonitor,
@@ -11,22 +23,12 @@ import {
   IconService,
   IconWorkflow,
 } from "../../assets/img/nav";
+import { Collapsible } from "@radix-ui/react-collapsible";
 import {
-  Sidebar,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarPin,
-  SidebarProvider,
-} from "./sidebar";
-import {
-  Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../../components/ui/collapsible";
-import { Link } from "react-router";
+import { Link, Outlet } from "react-router";
 
 type MenuItemType = {
   path: string;
@@ -122,15 +124,21 @@ export default function LoginPage() {
               menu.children ? (
                 <Collapsible>
                   <SidebarMenuItem>
-                    <CollapsibleTrigger>
-                      <menu.icon />
-                      <span>{menu.label}</span>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuSubButton>
+                        <menu.icon />
+                        <span>{menu.label}</span>
+                      </SidebarMenuSubButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <SidebarMenuSub>
                         {menu.children.map((menuSub) => (
                           <SidebarMenuSubItem>
-                            <span>{menuSub.label}</span>
+                            <SidebarMenuSubButton asChild>
+                              <Link to={menuSub.path}>
+                                <span>{menuSub.label}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
                       </SidebarMenuSub>
@@ -139,18 +147,20 @@ export default function LoginPage() {
                 </Collapsible>
               ) : (
                 <SidebarMenuItem>
-                  <Link to={menu.path}>
-                    <menu.icon />
-                    <span>{menu.label}</span>
-                  </Link>
+                  <SidebarMenuButton asChild>
+                    <Link to={menu.path}>
+                      <menu.icon />
+                      <span>{menu.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
-              )
+              ),
             )}
           </SidebarMenu>
           <SidebarPin />
         </Sidebar>
         <SidebarInset>
-          <main>메인 내용</main>
+          <main>이게 진짜임</main>
         </SidebarInset>
       </SidebarProvider>
     </>
