@@ -122,7 +122,7 @@ export default function LoginPage() {
           <SidebarMenu>
             {menus.map((menu) =>
               menu.children ? (
-                <Collapsible>
+                <Collapsible className="group/collapsible">
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuSubButton>

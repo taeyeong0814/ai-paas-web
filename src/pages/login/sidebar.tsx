@@ -61,7 +61,7 @@ export const Sidebar = ({ children }: { children: ReactNode }) => {
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] border-r border-[#e8e8e8] bg-[#f9f9f9] ${isPinned || isHovered ? "w-[232px]" : "w-[53px]"}`}
+      className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] border-r border-[#e8e8e8] bg-[#f9f9f9] transition-[width_0.1s_ease-in-out] ${isPinned || isHovered ? "w-[232px]" : "w-[53px]"}`}
     >
       <nav className="p-1.5">{children}</nav>
     </div>
@@ -74,7 +74,7 @@ export const SidebarMenu = ({ children }: { children: ReactNode }) => {
 
 export const SidebarMenuItem = ({ children }: { children: ReactNode }) => {
   return (
-    <li className="[&_span]:block [&_span]:flex-1 [&_span]:truncate [&_span]:text-left">
+    <li className="[&_span]:block [&_span]:flex-1 [&_span]:truncate [&_span]:text-left [&_span]:transition-[width_0.6s_ease-in-out]">
       {children}
     </li>
   );
@@ -84,6 +84,7 @@ export const SidebarMenuButton = ({
   children,
   isActive = false,
   asChild = false,
+  ...props
 }: {
   children: ReactNode;
   isActive?: boolean;
@@ -96,7 +97,7 @@ export const SidebarMenuButton = ({
       <div
         className={`rounded-sm hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] [&_span]:group-hover:block [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 ${
           isActive
-            ? "[&_span]:text-[#1a1a1a] [&_svg]:opacity-100 [&>a]:bg-[#e8e8e8]"
+            ? "[&_span]:!font-semibold [&_span]:!text-[#1a1a1a] [&_svg]:!opacity-100 [&>a]:bg-[#e8e8e8]"
             : ""
         } ${isPinned ? "[&_span]:block" : "[&_span]:hidden"}`}
       >
@@ -105,11 +106,25 @@ export const SidebarMenuButton = ({
     );
   }
 
-  return <div>{children}</div>;
+  return (
+    <button
+      className={`relative flex size-full items-center gap-1 rounded-sm p-2 hover:bg-[#e8e8e8] [&_svg]:opacity-65 [&>span]:text-xs [&>span]:tracking-[-0.5px] [&>span]:text-[#525252] group-hover:[&>span]:block [&>svg]:size-6 ${
+        isActive
+          ? "bg-[#e8e8e8] group-hover:bg-transparent [&_svg]:!opacity-100 [&>span]:!font-semibold [&>span]:!text-[#1a1a1a]"
+          : ""
+      } ${isPinned ? "bg-transparent [&_span]:block" : "[&>span]:hidden"}`}
+      {...props}
+    >
+      <i
+        className={`absolute top-[45%] right-3 size-[7px] -translate-y-1/2 rotate-45 border-r border-b border-[#999] group-hover:block group-data-[state=open]/collapsible:top-[55%] group-data-[state=open]/collapsible:rotate-[225deg] ${isPinned ? "block" : "hidden"}`}
+      />
+      {children}
+    </button>
+  );
 };
 
 export const SidebarMenuSub = ({ children }: { children: ReactNode }) => {
-  return <ul>{children}</ul>;
+  return <ul className="my-1 space-y-1">{children}</ul>;
 };
 
 export const SidebarMenuSubItem = ({ children }: { children: ReactNode }) => {
@@ -131,28 +146,18 @@ export const SidebarMenuSubButton = ({
   if (asChild) {
     return (
       <div
-        className={`rounded-sm group-hover:block hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] hover:[&_span]:font-semibold hover:[&_span]:text-[#1a1a1a] [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:h-10 [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 [&>a]:pl-9 ${isPinned ? "block" : "hidden"}`}
+        className={`rounded-sm group-hover:block hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] hover:[&_span]:font-semibold hover:[&_span]:text-[#1a1a1a] [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:h-10 [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 [&>a]:pl-9 ${
+          isActive
+            ? "bg-[#e8e8e8] [&_span]:!font-semibold [&_span]:!text-[#1a1a1a]"
+            : ""
+        } ${isPinned ? "block" : "hidden"}`}
       >
         {children}
       </div>
     );
   }
 
-  return (
-    <button
-      className={`relative flex size-full items-center gap-1 rounded-sm p-2 hover:bg-[#e8e8e8] [&_svg]:opacity-65 [&>span]:text-xs [&>span]:tracking-[-0.5px] [&>span]:text-[#525252] group-hover:[&>span]:block [&>svg]:size-6 ${
-        isActive
-          ? "[&>a]:bg-[#e8e8e8] [&>span]:text-[#1a1a1a] [&>svg]:opacity-100"
-          : ""
-      } ${isPinned ? "[&_span]:block" : "[&>span]:hidden"}`}
-      {...props}
-    >
-      {children}
-      <i
-        className={`absolute top-[45%] right-3 size-[7px] -translate-y-1/2 rotate-45 border-r border-b border-[#999] group-hover:block ${isPinned ? "block" : "hidden"}`}
-      />
-    </button>
-  );
+  return <div {...props}>{children}</div>;
 };
 
 export const SidebarPin = () => {
@@ -162,7 +167,7 @@ export const SidebarPin = () => {
     <button
       onClick={togglePin}
       aria-label={isPinned ? "사이드바 고정 해제" : "사이드바 고정"}
-      className={`absolute top-4 -right-2.5 hidden size-5 rounded-[50%] border border-[#888] bg-white group-hover:block hover:border-[#1a1a1a] hover:!bg-[#1a1a1a] hover:[&>i]:border-white ${isPinned ? "" : ""}`}
+      className={`absolute top-4 -right-2.5 hidden size-5 rounded-[50%] border border-[#888] bg-white transition-[opacity_0.3s_ease-in-out] group-hover:block hover:border-[#1a1a1a] hover:!bg-[#1a1a1a] hover:[&>i]:border-white`}
     >
       <i
         className={`mr-0.5 mb-0.5 inline-block size-[5px] -rotate-45 transform border-r border-b border-[#999] ${isPinned ? "mb-0.5 ml-1 rotate-[135deg]" : ""}`}
@@ -173,9 +178,11 @@ export const SidebarPin = () => {
 
 export const SidebarInset = ({ children }: { children: ReactNode }) => {
   const { isPinned } = useSidebar();
-  
+
   return (
-    <div className={`relative z-0 mt-[60px] size-full min-w-[1700px] ${isPinned ? "ml-[232px]" : "ml-[52px]"}`}>
+    <div
+      className={`relative z-0 mt-[60px] size-full min-w-[1700px] ${isPinned ? "ml-[232px]" : "ml-[52px]"}`}
+    >
       {children}
     </div>
   );
