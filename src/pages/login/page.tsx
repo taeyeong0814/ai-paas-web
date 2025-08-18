@@ -1,24 +1,52 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Button, Input, Password } from "innogrid-ui";
-import type { ChangeEvent } from "innogrid-ui";
-
 import Logo from "../../assets/img/header/logo.svg";
-
 import styles from "./login.module.scss";
+import { useLogin } from "../../hooks/service/authentication";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
-  const [value, setValue] = useState<string>("");
+  const [memberId, setMemberId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const { mutate: login } = useLogin();
+  const navigate = useNavigate();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMessage("");
+
+    login(
+      { member_id: memberId, password: password },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem("accessToken", data.access_token);
+          localStorage.setItem("refreshToken", data.refresh_token);
+
+          navigate("/service");
+        },
+        onError: (error) => {
+          let message = "로그인에 실패했습니다.";
+          console.log(error);
+
+          if (
+            error.message.includes("401") ||
+            error.message.includes("Unauthorized")
+          ) {
+            message = "아이디 또는 비밀번호를 확인해주세요.";
+          } else if (error.message.includes("Network")) {
+            message = "네트워크 연결을 확인해주세요.";
+          }
+
+          setErrorMessage(message);
+        },
+      },
+    );
   };
-
-  //password
-  const [value2, setValue2] = useState<string>("");
 
   return (
     <main className={styles.loginMain}>
-      <div className={styles.loginBox}>
+      <form onSubmit={handleSubmit} className={styles.loginBox}>
         <div>
           <Logo />
         </div>
@@ -29,37 +57,43 @@ export default function LoginPage() {
             <div className={`${styles.inputBox} ${styles.idInput}`}>
               <Input
                 placeholder="아이디를 입력해주세요."
-                value={value}
-                onChange={onChange}
+                value={memberId}
+                onChange={(e) => setMemberId(e.target.value)}
                 size={{ width: "452px", height: "46px" }}
-                errMessage="에러 메시지"
-                variant="err"
+                variant={errorMessage ? "err" : "default"}
+                errMessage={errorMessage}
               />
-              {/* 텍스트 입력시 btnDel 버튼 활성화 */}
-              <button type="button" className={styles.btnDel}>
-                <span>삭제</span>
-              </button>
+              {memberId && (
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  onClick={() => setMemberId("")}
+                  className={styles.btnDel}
+                >
+                  <span>삭제</span>
+                </button>
+              )}
             </div>
           </div>
           <div>
             <span>비밀번호</span>
             <div className={styles.inputBox}>
               <Password
-                value={value2}
-                onChange={(e) => setValue2(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 size={{ width: "452px", height: "46px" }}
-                variant="err"
-                errMessage="에러 메시지"
+                variant={errorMessage ? "err" : "default"}
+                errMessage={errorMessage}
               />
             </div>
           </div>
         </div>
         <div className={styles.btnBox}>
-          <Button onClick={() => {}} color="primary" size="large">
+          <Button color="primary" size="large">
             로그인
           </Button>
         </div>
-      </div>
+      </form>
       <p className={styles.copyright}>
         © 2025 Innogrid. All rights reserved copyright.
       </p>
