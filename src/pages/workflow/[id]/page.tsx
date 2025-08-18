@@ -27,9 +27,9 @@ export default function WorkflowDetailPage() {
       accessorFn: (row) => row.name,
       size: 325,
       cell: ({ row }) => (
-        <a href={"/"} className="table-td-link">
+        <Link to={"/"} className="table-td-link">
           {row.original.name}
-        </a>
+        </Link>
       ),
     },
     {
@@ -81,7 +81,7 @@ export default function WorkflowDetailPage() {
       },
       ...basicColumns,
     ],
-    []
+    [],
   );
   const [rowData, setRowData] = useState<DataType[]>([
     {

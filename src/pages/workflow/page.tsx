@@ -13,6 +13,7 @@ import { CreateWorkflowButton } from "../../components/features/workflow/create-
 import { EditWorkflowButton } from "../../components/features/workflow/edit-workflow-button";
 import { DeleteWorkflowButton } from "../../components/features/workflow/delete-workflow-button";
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function WorkflowPage() {
   const { searchValue, ...restProps } = useSearchInputState();
@@ -79,9 +80,9 @@ const columns = [
     accessorFn: (row) => row.name,
     size: 225,
     cell: ({ row }) => (
-      <a href={"/workflow/detail"} className="table-td-link">
+      <Link to={"/workflow/detail"} className="table-td-link">
         {row.original.name}
-      </a>
+      </Link>
     ),
   },
   {
