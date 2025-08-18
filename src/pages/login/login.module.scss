@@ -1,7 +1,106 @@
 //login style
 
-.loginBox {
+.loginMain {
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  background-color: $color-gray-10;
+  height: 100vh;
+  position: relative;
+}
+.loginBox {
+  width: 580px;
+  min-height: 566px;
+  padding: 64px;
+  margin-top: 150px;
+  background-color: $color-white;
+  border-radius: 16px;
+  border: 1px solid $color-gray-25;
+
+  & > p {
+    margin-top: 60px;
+    @include font-style;
+    font-size: 24px;
+    font-weight: 600;
+    color: $page-font-color-900;
+  }
+
+  .loginInputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0 40px;
+    padding-top: 36px;
+    border-top: 1px solid $color-gray-25;
+
+    span {
+      display: inline-block;
+      margin-bottom: 10px;
+      @include font-style;
+      font-size: $page-font-14;
+      color: $page-font-color-900;
+    }
+
+    .inputBox {
+      position: relative;
+      & > div > div {
+        padding: 10px 16px;
+        font-size: 15px;
+      }
+
+      &.idInput {
+        & > div > div {
+          padding: 10px 46px 10px 16px;
+        }
+      }
+    }
+
+    .btnDel {
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      border-radius: 3px;
+      background-color: $color-gray-50;
+      transition: background 0.3s ease-in-out;
+      & > span {
+        @include blind;
+      }
+      &::after {
+        content: "×";
+        position: absolute;
+        top: 47%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        font-weight: 300;
+        color: $color-gray-500;
+      }
+      &:hover {
+        background: $color-gray-100;
+        &::after {
+          color: $page-font-color-900;
+        }
+      }
+    }
+  }
+}
+
+.btnBox {
+  button {
+    width: 100%;
+    height: 56px;
+    padding: 10px 14px;
+    font-size: $page-font-16;
+    font-weight: 600;
+  }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 40px;
+  @include font-style;
+  font-size: $page-font-root;
+  color: $color-gray-200;
 }
