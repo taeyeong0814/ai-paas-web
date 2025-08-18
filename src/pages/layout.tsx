@@ -11,7 +11,7 @@ import {
   SidebarMenuSubItem,
   SidebarPin,
   SidebarProvider,
-} from "./login/sidebar";
+} from "../components/layout/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
@@ -37,7 +37,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <SidebarProvider>
+      <SidebarProvider defaultWidth={232}>
         <Sidebar>
           <SidebarMenu>
             {menus.map((menu) =>
@@ -48,7 +48,7 @@ export default function DefaultLayout() {
                       <SidebarMenuButton
                         isActive={menu.children
                           .map((it) => it.path)
-                          .includes(location.pathname)}
+                          .includes(location.pathname.split("/")[2])}
                       >
                         <div>
                           <menu.icon />
@@ -62,9 +62,11 @@ export default function DefaultLayout() {
                           <SidebarMenuSubItem key={menuSub.path}>
                             <SidebarMenuSubButton
                               asChild
-                              isActive={location.pathname === menuSub.path}
+                              isActive={
+                                location.pathname.split("/")[2] === menuSub.path
+                              }
                             >
-                              <Link to={menuSub.path}>
+                              <Link to={`/${menu.path}/${menuSub.path}`}>
                                 <span>{menuSub.label}</span>
                               </Link>
                             </SidebarMenuSubButton>
@@ -78,7 +80,7 @@ export default function DefaultLayout() {
                 <SidebarMenuItem key={menu.path}>
                   <SidebarMenuButton
                     asChild
-                    isActive={location.pathname === menu.path}
+                    isActive={location.pathname.split("/")[1] === menu.path}
                   >
                     <Link to={menu.path}>
                       <div>
@@ -113,72 +115,72 @@ type MenuItemType = {
 
 const menus: MenuItemType[] = [
   {
-    path: "/service",
+    path: "service",
     icon: IconService,
     label: "서비스",
   },
   {
-    path: "/workflow",
+    path: "workflow",
     icon: IconWorkflow,
     label: "워크플로우",
   },
   {
-    path: "/model",
+    path: "model",
     icon: IconModel,
     label: "모델",
     children: [
       {
-        path: "/model/model-catalog",
+        path: "model-catalog",
         label: "모델 카탈로그",
       },
       {
-        path: "/model/custom-model",
+        path: "custom-model",
         label: "커스텀 모델",
       },
     ],
   },
   {
-    path: "/dataset",
+    path: "dataset",
     icon: IconDataset,
     label: "데이터셋",
   },
   {
-    path: "/knowledge-base",
+    path: "knowledge-base",
     icon: IconKnowledgeBase,
     label: "지식 기반",
   },
   {
-    path: "/prompt",
+    path: "prompt",
     icon: IconPrompt,
     label: "프롬프트",
   },
   {
-    path: "/learning",
+    path: "learning",
     icon: IconLearning,
     label: "학습",
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     icon: IconDashboard,
     label: "대시보드",
   },
   {
-    path: "/infra-monitor",
+    path: "infra-monitor",
     icon: IconInfraMonitor,
     label: "인프라 모니터",
     children: [
       {
-        path: "/infra-monitor/monitoring",
+        path: "monitoring",
         label: "모니터링",
       },
       {
-        path: "/infra-monitor/event",
+        path: "event",
         label: "이벤트",
       },
     ],
   },
   {
-    path: "/member-management",
+    path: "member-management",
     icon: IconMemberManagement,
     label: "멤버 관리",
   },

@@ -1,179 +1,275 @@
-import { useState } from "react";
 import {
-  IconDashboard,
-  IconDataset,
-  IconInfraMonitor,
-  IconKnowledgeBase,
-  IconLearning,
-  IconMemberManagement,
-  IconModel,
-  IconPrompt,
-  IconService,
-  IconWorkflow,
-} from "../../assets/img/nav";
-import styles from "./sidebar.module.scss";
-import { Link } from "react-router";
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 
-export const Sidebar = () => {
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const handleClick1 = () => {
-    setIsOpen1(!isOpen1);
+type SidebarContextProps = {
+  isHovered: boolean;
+  isPinned: boolean;
+  width: number;
+  isResizing: boolean;
+  setIsHovered: (isHovered: boolean) => void;
+  togglePin: () => void;
+  setWidth: (width: number) => void;
+  setIsResizing: (resizing: boolean) => void;
+  startResize: (e: React.MouseEvent) => void;
+};
+
+const SidebarContext = createContext<SidebarContextProps | null>(null);
+
+function useSidebar() {
+  const context = useContext(SidebarContext);
+  if (!context)
+    throw new Error("useSidebar must be used within a SidebarProvider.");
+
+  return context;
+}
+
+interface SidebarProviderProps {
+  children: ReactNode;
+  minWidth?: number;
+  maxWidth?: number;
+  defaultWidth: number;
+}
+
+export const SidebarProvider = ({
+  children,
+  minWidth = 52,
+  maxWidth = 500,
+  defaultWidth,
+}: SidebarProviderProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
+  const [width, setWidth] = useState(defaultWidth);
+  const [isResizing, setIsResizing] = useState(false);
+
+  const togglePin = () => {
+    setIsPinned(!isPinned);
+    if (!isPinned) {
+      setIsHovered(false);
+    }
   };
-  const handleClick2 = () => {
-    setIsOpen2(!isOpen2);
+
+  const startResize = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      setIsResizing(true);
+
+      const startX = e.clientX;
+      const startWidth = width;
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const newWidth = Math.min(
+          Math.max(startWidth + (e.clientX - startX), minWidth),
+          maxWidth,
+        );
+        setWidth(newWidth);
+      };
+
+      const handleMouseUp = () => {
+        setIsResizing(false);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    },
+    [width, minWidth, maxWidth],
+  );
+
+  const contextValue: SidebarContextProps = {
+    isHovered,
+    isPinned,
+    width,
+    isResizing,
+    setIsHovered,
+    togglePin,
+    setWidth,
+    setIsResizing,
+    startResize,
   };
+
   return (
-    <>
-      {/* 확장할때 클래스네임 extend 추가 */}
-      <div className={`${styles.navBox}`}>
-        {/* ${styles.extend} */}
-        <nav>
-          <ul>
-            {/* 선택됐을때 클래스네임 active 추가 */}
-            <li className={styles.active}>
-              <Link to="/service">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconService />
-                  </div>
-                  <div className={styles.name}>서비스</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/workflow">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconWorkflow />
-                  </div>
-                  <div className={styles.name}>워크플로우</div>
-                </div>
-              </Link>
-            </li>
-            {/* 2뎁스가 있을때 클래스네임 hasDeth2 추가, 클릭시 하위 2뎁스 열림 */}
-            <li
-              className={`${styles.hasDeth2} ${isOpen1 ? styles.active : ""}`}
-              onClick={handleClick1}
-            >
-              <div className={styles.nameBox}>
-                <div className={styles.icon}>
-                  <IconModel />
-                </div>
-                <div className={styles.name}>모델</div>
-                <i className={`${styles.iconArr}`} />
-              </div>
-              {/* deth2 선택시(페이지 활성화) 메뉴 열려있는 상태 유지, 클래스네임 active 추가 */}
-              <ul className={`${styles.deth2} ${isOpen1 ? styles.active : ""}`}>
-                {/* 선택시 클래스네임 active 추가 */}
-                <li>
-                  <Link to="/model/model-catalog">모델 카탈로그</Link>
-                </li>
-                <li>
-                  <Link to="/model/custom-model">커스텀 모델</Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/dataset">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconDataset />
-                  </div>
-                  <div className={styles.name}>데이터셋</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/knowledge-base">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconKnowledgeBase />
-                  </div>
-                  <div className={styles.name}>지식 기반</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/prompt">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconPrompt />
-                  </div>
-                  <div className={styles.name}>프롬프트</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/learning">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconLearning />
-                  </div>
-                  <div className={styles.name}>학습</div>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconDashboard />
-                  </div>
-                  <div className={styles.name}>대시보드</div>
-                </div>
-              </Link>
-            </li>
-            {/* 2뎁스가 있을때 클래스네임 hasDeth2 추가, 클릭시 하위 2뎁스 열림 */}
-            <li
-              className={`${styles.hasDeth2} ${isOpen2 ? styles.active : ""}`}
-              onClick={handleClick2}
-            >
-              <div className={styles.nameBox}>
-                <div className={styles.icon}>
-                  <IconInfraMonitor />
-                </div>
-                <div className={styles.name}>인프라 모니터</div>
-                <i className={`${styles.iconArr}`} />
-              </div>
-              {/* deth2 선택시(페이지 활성화) 메뉴 열려있는 상태 유지, 클래스네임 active 추가 */}
-              <ul className={`${styles.deth2} ${isOpen2 ? styles.active : ""}`}>
-                {/* 선택시 클래스네임 active 추가 */}
-                <li>
-                  <Link to="/infra-monitor/monitoring">모니터링</Link>
-                </li>
-                <li>
-                  <Link to="/infra-monitor/event">이벤트</Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/member-management">
-                <div className={styles.nameBox}>
-                  <div className={styles.icon}>
-                    <IconMemberManagement />
-                  </div>
-                  <div className={styles.name}>멤버 관리</div>
-                </div>
-              </Link>
-            </li>
-          </ul>
+    <SidebarContext.Provider value={contextValue}>
+      <div className="flex">{children}</div>
+    </SidebarContext.Provider>
+  );
+};
 
-          {/* 사이드바 접기 버튼 - 클릭시 아이콘이 바뀜, 클래스네임 active 추가 */}
-          <button
-            type="button"
-            aria-label="사이드바 접기"
-            className={`${styles.btnControl} `}
-          >
-            <i className={styles.iconControl} />
-          </button>
-        </nav>
+interface SidebarProps {
+  children: ReactNode;
+}
 
-        {/* 네비 구분선 - 드래그 효과 추가해주세요 */}
-        <span className={styles.hrBox}>
-          <span className={styles.hr}></span>
-        </span>
+export const Sidebar = ({ children }: SidebarProps) => {
+  const { isPinned, isHovered, width, isResizing, startResize, setIsHovered } =
+    useSidebar();
+
+  const handleMouseEnter = () => {
+    if (!isPinned) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isPinned) {
+      setIsHovered(false);
+    }
+  };
+
+  const currentWidth = isPinned || isHovered ? width : 52;
+
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] border-r border-[#e8e8e8] bg-[#f9f9f9] transition-[width_0.1s_ease-in-out] ${isPinned || isHovered ? "w-[232px]" : "w-[52px]"}`}
+      style={{
+        width: `${currentWidth}px`,
+        transition: isResizing ? "none" : "width 0.1s ease-in-out",
+      }}
+    >
+      <nav className="p-1.5">{children}</nav>
+      {(isPinned || isHovered) && (
+        <div
+          className="group/resize absolute top-0 -right-2.5 h-full w-2.5 cursor-col-resize transition-colors duration-200"
+          onMouseDown={startResize}
+        >
+          <div className="h-full w-0.5 bg-transparent group-hover/resize:bg-[#b8b8b8] group-active/resize:bg-[#b8b8b8]" />
+        </div>
+      )}
+      {isResizing && <div className="fixed inset-0 z-10 cursor-col-resize" />}
+    </div>
+  );
+};
+
+export const SidebarMenu = ({ children }: { children: ReactNode }) => {
+  return <ul className="space-y-1">{children}</ul>;
+};
+
+export const SidebarMenuItem = ({ children }: { children: ReactNode }) => {
+  return (
+    <li className="[&_span]:block [&_span]:flex-1 [&_span]:truncate [&_span]:text-left [&_span]:transition-[width_0.6s_ease-in-out]">
+      {children}
+    </li>
+  );
+};
+
+export const SidebarMenuButton = ({
+  children,
+  isActive = false,
+  asChild = false,
+  ...props
+}: {
+  children: ReactNode;
+  isActive?: boolean;
+  asChild?: boolean;
+}) => {
+  const { isPinned, width } = useSidebar();
+
+  if (asChild) {
+    return (
+      <div
+        className={`rounded-sm hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] [&_span]:group-hover:block [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 ${
+          isActive
+            ? "[&_span]:!font-semibold [&_span]:!text-[#1a1a1a] [&_svg]:!opacity-100 [&>a]:bg-[#e8e8e8]"
+            : ""
+        } ${isPinned ? "[&_span]:block" : "[&_span]:hidden"}`}
+      >
+        {children}
       </div>
-    </>
+    );
+  }
+
+  return (
+    <button
+      className={`relative flex size-full items-center gap-1 truncate rounded-sm p-2 hover:bg-[#e8e8e8] [&_svg]:opacity-65 [&>span]:text-xs [&>span]:tracking-[-0.5px] [&>span]:text-[#525252] group-hover:[&>span]:block [&>svg]:size-6 ${
+        isActive
+          ? "bg-[#e8e8e8] [&_svg]:!opacity-100 [&>span]:!font-semibold [&>span]:!text-[#1a1a1a]"
+          : ""
+      } ${isPinned ? "[&_span]:block" : "[&>span]:hidden"} ${width > 52 ? "group-hover:bg-transparent" : ""}`}
+      {...props}
+    >
+      {width > 52 && (
+        <i
+          className={`absolute top-[45%] right-3 size-[7px] -translate-y-1/2 rotate-45 border-r border-b border-[#999] group-hover:block group-data-[state=open]/collapsible:top-[55%] group-data-[state=open]/collapsible:rotate-[225deg] ${isPinned ? "block" : "hidden"}`}
+        />
+      )}
+      {children}
+    </button>
+  );
+};
+
+export const SidebarMenuSub = ({ children }: { children: ReactNode }) => {
+  return <ul className="my-1 space-y-1">{children}</ul>;
+};
+
+export const SidebarMenuSubItem = ({ children }: { children: ReactNode }) => {
+  return <li>{children}</li>;
+};
+
+export const SidebarMenuSubButton = ({
+  children,
+  isActive = false,
+  asChild = false,
+  ...props
+}: {
+  children: ReactNode;
+  isActive?: boolean;
+  asChild?: boolean;
+}) => {
+  const { isPinned, width } = useSidebar();
+
+  if (width <= 52) return null;
+
+  if (asChild) {
+    return (
+      <div
+        className={`rounded-sm group-hover:block hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] hover:[&_span]:font-semibold hover:[&_span]:text-[#1a1a1a] [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:h-10 [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 [&>a]:pl-9 ${
+          isActive
+            ? "bg-[#e8e8e8] [&_span]:!font-semibold [&_span]:!text-[#1a1a1a]"
+            : ""
+        } ${isPinned ? "block" : "hidden"}`}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return <div {...props}>{children}</div>;
+};
+
+export const SidebarPin = () => {
+  const { isPinned, togglePin } = useSidebar();
+
+  return (
+    <button
+      onClick={togglePin}
+      aria-label={isPinned ? "사이드바 고정 해제" : "사이드바 고정"}
+      className={`absolute top-4 -right-2.5 z-20 hidden size-5 rounded-[50%] border border-[#888] bg-white transition-[opacity_0.3s_ease-in-out] group-hover:block hover:border-[#1a1a1a] hover:!bg-[#1a1a1a] hover:[&>i]:border-white`}
+    >
+      <i
+        className={`mr-0.5 mb-0.5 inline-block size-[5px] -rotate-45 transform border-r border-b border-[#999] ${isPinned ? "mb-0.5 ml-1 rotate-[135deg]" : ""}`}
+      />
+    </button>
+  );
+};
+
+export const SidebarInset = ({ children }: { children: ReactNode }) => {
+  const { isPinned, width, isResizing } = useSidebar();
+
+  return (
+    <div
+      className={`relative z-0 mt-[60px] size-full min-w-[1700px]`}
+      style={{
+        marginLeft: `${isPinned ? width : 52}px`,
+        transition: isResizing ? "none" : "width 0.1s ease-in-out",
+      }}
+    >
+      {children}
+    </div>
   );
 };
