@@ -26,10 +26,7 @@
   }
 
   .chartCount {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include absolute-center;
     color: $page-font-color-900;
     font-size: 24px;
     font-weight: 700;
