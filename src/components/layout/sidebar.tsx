@@ -38,7 +38,7 @@ interface SidebarProviderProps {
 export const SidebarProvider = ({
   children,
   minWidth = 52,
-  maxWidth = 500,
+  maxWidth = 304,
   defaultWidth,
 }: SidebarProviderProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -69,8 +69,24 @@ export const SidebarProvider = ({
         setWidth(newWidth);
       };
 
-      const handleMouseUp = () => {
+      const handleMouseUp = (e: MouseEvent) => {
         setIsResizing(false);
+
+        // 리사이즈 종료 후 마우스가 사이드바 영역에 있는지 확인
+        const sidebarElement = document.querySelector("[data-sidebar]");
+        if (sidebarElement) {
+          const rect = sidebarElement.getBoundingClientRect();
+          const isMouseInSidebar =
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom;
+
+          if (!isPinned) {
+            setIsHovered(isMouseInSidebar);
+          }
+        }
+
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
       };
@@ -124,6 +140,7 @@ export const Sidebar = ({ children }: SidebarProps) => {
 
   return (
     <div
+      data-sidebar
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`group fixed top-[60px] left-0 z-50 h-[calc(100vh-60px)] border-r border-[#e8e8e8] bg-[#f9f9f9] transition-[width_0.1s_ease-in-out] ${isPinned || isHovered ? "w-[232px]" : "w-[52px]"}`}
