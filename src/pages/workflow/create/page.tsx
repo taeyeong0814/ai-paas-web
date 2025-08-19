@@ -38,7 +38,6 @@ export default function WorkflowCreatePage() {
             </Button>
           </div>
 
-          <WorkflowSettingPanel />
           {/* 설정btn 클릭시 활성화 클래스네임 active 추가 */}
           <div className={`${styles.setBox} ${styles.active}`}>
             <div className={styles.setName}>매개변수</div>
@@ -253,6 +252,8 @@ export default function WorkflowCreatePage() {
               </div>
             </div>
           </div>
+
+          <WorkflowSettingPanel />
         </div>
       </div>
     </main>

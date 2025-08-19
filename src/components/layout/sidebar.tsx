@@ -192,7 +192,7 @@ export const SidebarMenuButton = ({
       <div
         className={`rounded-sm hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] [&_span]:group-hover:block [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 ${
           isActive
-            ? "[&_span]:!font-semibold [&_span]:!text-[#1a1a1a] [&_svg]:!opacity-100 [&>a]:bg-[#e8e8e8]"
+            ? "[&_span]:!font-semibold [&_span]:!text-[#1a1a1a] [&_svg]:!opacity-100 [&>a]:rounded-sm [&>a]:bg-[#e8e8e8]"
             : ""
         } ${isPinned ? "[&_span]:block" : "[&_span]:hidden"}`}
       >

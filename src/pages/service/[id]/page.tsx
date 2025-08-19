@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import type { ColDef, Sorting, SelectSingleValue } from "innogrid-ui";
+import { useState } from "react";
+import type { Sorting } from "innogrid-ui";
 import {
   BreadCrumb,
   Table,
@@ -8,11 +8,7 @@ import {
   useTableSelection,
   useTablePagination,
   Tabs,
-  Select,
-  Accordion,
 } from "innogrid-ui";
-
-import styles from "../service.module.scss";
 import { EditServiceButton } from "../../../components/features/service/edit-service-button";
 import { DeleteServiceButton } from "../../../components/features/service/delete-service-button";
 import { Link, useNavigate } from "react-router";
