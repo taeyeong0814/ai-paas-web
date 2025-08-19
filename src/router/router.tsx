@@ -34,6 +34,7 @@ import LearningAssignmentStep5Page from "../pages/learning/assignment/step5/page
 import LearningSolutionStep2Page from "../pages/learning/solution/step2/page";
 import MemberManagementDetailPage from "../pages/member-management/[id]/page";
 import LoginPage from "../pages/login/page";
+import HomePage from "../pages/page";
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +46,11 @@ export const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       {
-        path: "service",
         index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "service",
         element: <ServicePage />,
       },
       {

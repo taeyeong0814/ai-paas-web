@@ -1,5 +1,5 @@
 import { Header } from "../components/layout/header";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import {
   Sidebar,
   SidebarInset,
@@ -32,7 +32,12 @@ import {
 } from "../assets/img/nav";
 
 export default function DefaultLayout() {
+  const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
+
+  if (!accessToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
@@ -96,7 +101,7 @@ export default function DefaultLayout() {
           <SidebarPin />
         </Sidebar>
         <SidebarInset>
-          <Outlet />
+          <Outlet context={{ accessToken }} />
         </SidebarInset>
       </SidebarProvider>
     </>

@@ -3,9 +3,10 @@ import { Button, Input, Password } from "innogrid-ui";
 import Logo from "../../assets/img/header/logo.svg";
 import styles from "./login.module.scss";
 import { useLogin } from "../../hooks/service/authentication";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 export default function LoginPage() {
+  const accessToken = localStorage.getItem("accessToken");
   const [memberId, setMemberId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -43,6 +44,10 @@ export default function LoginPage() {
       },
     );
   };
+
+  if (accessToken) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <main className={styles.loginMain}>
