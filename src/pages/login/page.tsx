@@ -10,7 +10,7 @@ export default function LoginPage() {
   const [memberId, setMemberId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const { mutate: login } = useLogin();
+  const { mutate: login, isPending } = useLogin();
   const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -94,7 +94,7 @@ export default function LoginPage() {
           </div>
         </div>
         <div className={styles.btnBox}>
-          <Button color="primary" size="large">
+          <Button disabled={isPending} color="primary" size="large">
             로그인
           </Button>
         </div>
