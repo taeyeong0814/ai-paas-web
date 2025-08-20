@@ -2,7 +2,7 @@ import ky from "ky";
 import { LOCAL_STORAGE } from "../constant/local-storage";
 
 export const api = ky.create({
-  prefixUrl: process.env.VITE_SERVER_URL,
+  prefixUrl: `${import.meta.env.VITE_SERVER_URL}/api/v1`,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

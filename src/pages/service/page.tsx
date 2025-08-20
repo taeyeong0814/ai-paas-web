@@ -102,13 +102,11 @@ export default function ServicePage() {
             <DeleteServiceButton />
           </div>
           <div>
-            <div>
-              <SearchInput
-                variant="default"
-                placeholder="검색어를 입력해주세요"
-                {...restProps}
-              />
-            </div>
+            <SearchInput
+              variant="default"
+              placeholder="검색어를 입력해주세요"
+              {...restProps}
+            />
           </div>
         </div>
         <div>
