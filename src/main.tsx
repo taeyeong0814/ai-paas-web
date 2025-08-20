@@ -6,7 +6,7 @@ import "./assets/font/pretendardvariable.css";
 import "./assets/style/index.scss";
 import { router } from "./router/router.tsx";
 
-import ErrorBoundary from "./components/error-boundary.tsx";
+import ErrorBoundary from "./components/layout/error-boundary.tsx";
 import { InnogridUIProvider } from "innogrid-ui";
 import { ReactQueryProvider } from "./components/provider/react-query-provider.tsx";
 
@@ -19,5 +19,5 @@ createRoot(document.getElementById("root")!).render(
         </ReactQueryProvider>
       </ErrorBoundary>
     </InnogridUIProvider>
-  </StrictMode>
+  </StrictMode>,
 );
