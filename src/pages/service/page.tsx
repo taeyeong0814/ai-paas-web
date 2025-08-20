@@ -85,6 +85,8 @@ export default function ServicePage() {
     { id: "name", desc: false },
   ]);
   const { services, page, isPending } = useGetServices({
+    page: pagination.pageIndex + 1,
+    size: pagination.pageSize,
     search: searchValue,
   });
 

@@ -11,7 +11,10 @@ import type {
 export const useGetServices = (params: GetServicesParams = {}) => {
   const { data, isPending, isError } = useQuery({
     queryKey: ["services", params],
-    queryFn: () => api.get<Page<Service>>("services").json(),
+    queryFn: () =>
+      api
+        .get<Page<Service>>("services", { searchParams: { ...params } })
+        .json(),
   });
 
   return {
