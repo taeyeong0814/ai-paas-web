@@ -76,7 +76,7 @@ export const SidebarProvider = ({
           const rect = sidebarElement.getBoundingClientRect();
           const isMouseInSidebar =
             e.clientX >= rect.left &&
-            e.clientX <= rect.right + 2 &&
+            e.clientX <= rect.right + 10 &&
             e.clientY >= rect.top &&
             e.clientY <= rect.bottom;
 
