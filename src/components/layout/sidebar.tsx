@@ -48,9 +48,7 @@ export const SidebarProvider = ({
 
   const togglePin = () => {
     setIsPinned(!isPinned);
-    if (!isPinned) {
-      setIsHovered(false);
-    }
+    setIsHovered(false);
   };
 
   const startResize = useCallback(
@@ -78,13 +76,11 @@ export const SidebarProvider = ({
           const rect = sidebarElement.getBoundingClientRect();
           const isMouseInSidebar =
             e.clientX >= rect.left &&
-            e.clientX <= rect.right &&
+            e.clientX <= rect.right + 2 &&
             e.clientY >= rect.top &&
             e.clientY <= rect.bottom;
 
-          if (!isPinned) {
-            setIsHovered(isMouseInSidebar);
-          }
+          setIsHovered(isMouseInSidebar);
         }
 
         document.removeEventListener("mousemove", handleMouseMove);

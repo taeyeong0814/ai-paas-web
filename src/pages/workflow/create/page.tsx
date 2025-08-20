@@ -20,6 +20,7 @@ export default function WorkflowCreatePage() {
       />
       <div className={styles.container}>
         <WorkflowComponentPanel />
+
         <div className={styles.contentBox}>
           <div className={styles.topBtnBox}>
             <Button

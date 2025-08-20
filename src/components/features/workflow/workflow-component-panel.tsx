@@ -1,5 +1,5 @@
 import { SearchInput, useSearchInputState } from "innogrid-ui";
-import styles from "../../../pages/workflow/workflow.module.scss";
+import styles from "@/pages/workflow/workflow.module.scss";
 
 export const WorkflowComponentPanel = () => {
   const { searchValue, ...restProps } = useSearchInputState();
@@ -43,20 +43,7 @@ export const WorkflowComponentPanel = () => {
         <div className={styles.item}>
           <div className={styles.itemName}>
             <button type="button" className={styles.btnMore}>
-              <span>데이터 셋</span>
-            </button>
-            <button type="button" className={styles.btnPlus}>
-              <span>생성</span>
-            </button>
-          </div>
-          <div className={styles.itemList}>
-            <div>meta-liama/Meta-Liama-3-8B</div>
-          </div>
-        </div>
-        <div className={styles.item}>
-          <div className={styles.itemName}>
-            <button type="button" className={styles.btnMore}>
-              <span>도구</span>
+              <span>지식베이스</span>
             </button>
             <button type="button" className={styles.btnPlus}>
               <span>생성</span>
