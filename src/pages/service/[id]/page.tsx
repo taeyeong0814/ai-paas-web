@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router";
 import type { Sorting } from "innogrid-ui";
 import {
   BreadCrumb,
@@ -9,15 +10,18 @@ import {
   useTablePagination,
   Tabs,
 } from "innogrid-ui";
-import { EditServiceButton } from "../../../components/features/service/edit-service-button";
-import { DeleteServiceButton } from "../../../components/features/service/delete-service-button";
-import { Link, useNavigate } from "react-router";
+import { EditServiceButton } from "@/components/features/service/edit-service-button";
+import { DeleteServiceButton } from "@/components/features/service/delete-service-button";
 import { CreateWorkflowButton } from "../../../components/features/workflow/create-workflow-button";
 import { EditWorkflowButton } from "../../../components/features/workflow/edit-workflow-button";
 import { DeleteWorkflowButton } from "../../../components/features/workflow/delete-workflow-button";
 import { ServiceMonitoring } from "../../../components/features/service/service-monitoring";
+import { useGetService } from "@/hooks/service/services";
+import { formatDateTime } from "@/util/date";
 
 export default function ServiceDetailPage() {
+  const { id } = useParams();
+  const { service } = useGetService(Number(id));
   const navigate = useNavigate();
 
   return (
@@ -34,8 +38,8 @@ export default function ServiceDetailPage() {
         <h2 className="page-title">서비스 상세</h2>
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <EditServiceButton />
-            <DeleteServiceButton />
+            <EditServiceButton serviceId={Number(id)} />
+            <DeleteServiceButton serviceId={Number(id)} />
           </div>
         </div>
       </div>
@@ -46,24 +50,28 @@ export default function ServiceDetailPage() {
           <ul className="page-detail-list">
             <li>
               <div className="page-detail_item-name">이름</div>
-              <div className="page-detail_item-data">테스트 서비스1</div>
+              <div className="page-detail_item-data">{service?.name}</div>
             </li>
             <li>
               <div className="page-detail_item-name">생성일시</div>
-              <div className="page-detail_item-data">2025-12-31 10:12</div>
+              <div className="page-detail_item-data">
+                {formatDateTime(service?.created_at)}
+              </div>
             </li>
             <li>
               <div className="page-detail_item-name">최근 업데이트</div>
-              <div className="page-detail_item-data">2025-12-31 10:12</div>
+              <div className="page-detail_item-data">
+                {formatDateTime(service?.updated_at)}
+              </div>
             </li>
             <li>
               <div className="page-detail_item-name">태그</div>
-              <div className="page-detail_item-data">태그, 태그, 태그</div>
+              <div className="page-detail_item-data">{service?.tag}</div>
             </li>
             <li>
               <div className="page-detail_item-name">설명</div>
               <div className="page-detail_item-data">
-                설명이 들어갑니다. 설명이 들어갑니다. 설명이 들어갑니다.
+                {service?.description}
               </div>
             </li>
           </ul>

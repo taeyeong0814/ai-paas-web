@@ -1,10 +1,12 @@
 import { useDeleteService } from "@/hooks/service/services";
 import { AlertDialog, Button } from "innogrid-ui";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export const DeleteServiceButton = ({ serviceId }: { serviceId?: number }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { deleteService } = useDeleteService();
+  const navigate = useNavigate();
 
   const openAlert = () => {
     if (!serviceId) return;
@@ -14,6 +16,7 @@ export const DeleteServiceButton = ({ serviceId }: { serviceId?: number }) => {
   const handleClickConfirm = () => {
     if (!serviceId) return;
     deleteService(serviceId);
+    navigate("/service");
   };
 
   return (
