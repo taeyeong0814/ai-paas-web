@@ -1,35 +1,58 @@
 import { Button, Input, Modal, Textarea } from "innogrid-ui";
-import { useState } from "react";
-import styles from "../../../pages/service/service.module.scss";
+import { useState, useCallback } from "react";
+import styles from "@/pages/service/service.module.scss";
+import { useCreateService } from "@/hooks/service/services";
+
+interface ServiceFormData {
+  name: string;
+  description: string;
+  tag: string;
+}
+
+const INITIAL_FORM_DATA: ServiceFormData = {
+  name: "",
+  description: "",
+  tag: "",
+};
 
 export const CreateServiceButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<ServiceFormData>(INITIAL_FORM_DATA);
+  const { createService } = useCreateService();
 
-  const [value, setValue] = useState<string>("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const openModal = useCallback(() => setIsModalOpen(true), []);
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setFormData(INITIAL_FORM_DATA);
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const [text, setText] = useState<string>("");
-  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  };
+  const handleSubmit = useCallback(() => {
+    createService(formData);
+    closeModal();
+  }, [createService, formData, closeModal]);
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} size="medium" color="primary">
+      <Button onClick={openModal} size="medium" color="primary">
         생성
       </Button>
+
       <Modal
         allowOutsideInteraction
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         title="서비스 생성"
         size="small"
-        onRequestClose={() => setIsOpen(false)}
-        action={() => alert("확인!")}
+        onRequestClose={closeModal}
+        action={handleSubmit}
         buttonTitle="확인"
         subButton={
-          <Button size="large" color="secondary" onClick={() => alert("취소!")}>
+          <Button size="large" color="secondary" onClick={closeModal}>
             취소
           </Button>
         }
@@ -38,28 +61,33 @@ export const CreateServiceButton = () => {
           <div className={styles.inputBox}>
             <span>이름</span>
             <Input
-              placeholder="이름을 입력해주세요."
-              value={value}
-              onChange={onChange}
+              name="name"
               size={{ width: "100%", height: "32px" }}
+              placeholder="이름을 입력해주세요."
+              value={formData.name}
+              onChange={handleChange}
             />
           </div>
+
           <div className={styles.inputBox}>
             <span>설명</span>
             <Textarea
+              name="description"
               placeholder="설명을 입력해주세요."
-              value={text}
-              onChange={onTextChange}
+              value={formData.description}
+              onChange={handleChange}
             />
             <div className={styles.textareaDesc}>설명 메시지</div>
           </div>
+
           <div className={styles.inputBox}>
             <span>태그</span>
             <Input
-              placeholder="태그 내용을 입력해주세요."
-              value={value}
-              onChange={onChange}
+              name="tag"
               size={{ width: "100%", height: "32px" }}
+              placeholder="태그 내용을 입력해주세요."
+              value={formData.tag}
+              onChange={handleChange}
             />
           </div>
         </div>
