@@ -11,11 +11,11 @@ import {
   useSearchInputState,
   type Sorting,
 } from "innogrid-ui";
-import { EditServiceButton } from "../../components/features/service/edit-service-button";
-import { CreateServiceButton } from "../../components/features/service/create-service-button";
-import { DeleteServiceButton } from "../../components/features/service/delete-service-button";
-import { useGetServices } from "../../hooks/service/services";
-import { formatDateTime } from "../../util/date";
+import { EditServiceButton } from "@/components/features/service/edit-service-button";
+import { CreateServiceButton } from "@/components/features/service/create-service-button";
+import { DeleteServiceButton } from "@/components/features/service/delete-service-button";
+import { useGetServices } from "@/hooks/service/services";
+import { formatDateTime } from "@/util/date";
 
 interface ServiceRow {
   id: number;
@@ -37,7 +37,7 @@ const columns = [
     cell: ({ row }: { row: { original: ServiceRow } }) => (
       <CellCheckbox row={row} />
     ),
-    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+    enableSorting: false,
   },
   {
     id: "name",
@@ -45,7 +45,7 @@ const columns = [
     accessorFn: (row: ServiceRow) => row.name,
     size: 325,
     cell: ({ row }: { row: { original: ServiceRow } }) => (
-      <Link to={`/service/${row.original.name}`} className="table-td-link">
+      <Link to={`/service/${row.original.id}`} className="table-td-link">
         {row.original.name}
       </Link>
     ),
@@ -91,7 +91,11 @@ export default function ServicePage() {
   });
 
   const selectedId = useMemo(() => {
-    return services[parseInt(Object.keys(rowSelection)[0])]?.id;
+    const selectedRowKeys = Object.keys(rowSelection);
+
+    if (selectedRowKeys.length !== 1) return;
+
+    return services[parseInt(selectedRowKeys[0])]?.id;
   }, [rowSelection, services]);
 
   return (
@@ -121,12 +125,12 @@ export default function ServicePage() {
             data={services}
             isLoading={isPending}
             totalCount={page.total}
-            sorting={sorting}
-            pagination={pagination}
-            setPagination={setPagination}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
+            sorting={sorting}
             setSorting={setSorting}
+            pagination={pagination}
+            setPagination={setPagination}
           />
         </div>
       </div>
