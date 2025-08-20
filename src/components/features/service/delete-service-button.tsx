@@ -18,7 +18,12 @@ export const DeleteServiceButton = ({ serviceId }: { serviceId?: number }) => {
 
   return (
     <>
-      <Button onClick={openAlert} size="medium" color="negative">
+      <Button
+        size="medium"
+        color="negative"
+        disabled={!serviceId}
+        onClick={openAlert}
+      >
         삭제
       </Button>
       <AlertDialog

@@ -55,7 +55,12 @@ export const EditServiceButton = ({ serviceId }: { serviceId?: number }) => {
 
   return (
     <>
-      <Button onClick={openModal} size="medium" color="secondary">
+      <Button
+        size="medium"
+        color="secondary"
+        disabled={!serviceId}
+        onClick={openModal}
+      >
         편집
       </Button>
       <Modal
