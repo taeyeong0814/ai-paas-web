@@ -15,6 +15,7 @@ import { EditServiceButton } from "../../components/features/service/edit-servic
 import { CreateServiceButton } from "../../components/features/service/create-service-button";
 import { DeleteServiceButton } from "../../components/features/service/delete-service-button";
 import { useGetServices } from "../../hooks/service/services";
+import { formatDateTime } from "../../util/date";
 
 interface ServiceRow {
   id: number;
@@ -71,7 +72,7 @@ const columns = [
   {
     id: "created_at",
     header: "생성일시",
-    accessorFn: (row: ServiceRow) => row.created_at,
+    accessorFn: (row: ServiceRow) => formatDateTime(row.created_at),
     size: 325,
   },
 ];
