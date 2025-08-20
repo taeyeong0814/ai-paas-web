@@ -79,7 +79,7 @@ const columns = [
 
 export default function ServicePage() {
   const { searchValue, ...restProps } = useSearchInputState();
-  const { setRowSelection, rowSelection } = useTableSelection();
+  const { rowSelection, setRowSelection } = useTableSelection();
   const { pagination, setPagination } = useTablePagination();
   const [sorting, setSorting] = useState<Sorting>([
     { id: "name", desc: false },
@@ -99,7 +99,9 @@ export default function ServicePage() {
           <div className="page-toolBox-btns">
             <CreateServiceButton />
             <EditServiceButton />
-            <DeleteServiceButton />
+            <DeleteServiceButton
+              serviceId={services[parseInt(Object.keys(rowSelection)[0])]?.id}
+            />
           </div>
           <div>
             <SearchInput

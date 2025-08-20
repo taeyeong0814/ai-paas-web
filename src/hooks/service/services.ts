@@ -43,3 +43,22 @@ export const useCreateService = () => {
     isSuccess,
   };
 };
+
+export const useDeleteService = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending, isError, isSuccess } = useMutation({
+    mutationFn: (serviceId: number) =>
+      api.delete(`services/${serviceId}`).json<string>(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["services"] });
+    },
+  });
+
+  return {
+    deleteService: mutate,
+    isPending,
+    isError,
+    isSuccess,
+  };
+};
