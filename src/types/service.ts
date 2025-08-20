@@ -20,6 +20,6 @@ export interface CreateServiceRequest {
   tag: string;
 }
 
-export interface UpdateServiceRequest extends Partial<CreateServiceRequest> {
-  id: number;
+export interface UpdateServiceRequest extends CreateServiceRequest {
+  serviceId: number;
 }

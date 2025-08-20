@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import {
   BreadCrumb,
@@ -88,6 +88,10 @@ export default function ServicePage() {
     search: searchValue,
   });
 
+  const selectedId = useMemo(() => {
+    return services[parseInt(Object.keys(rowSelection)[0])]?.id;
+  }, [rowSelection, services]);
+
   return (
     <main>
       <BreadCrumb items={[{ label: "서비스" }]} className="breadcrumbBox" />
@@ -98,10 +102,8 @@ export default function ServicePage() {
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
             <CreateServiceButton />
-            <EditServiceButton />
-            <DeleteServiceButton
-              serviceId={services[parseInt(Object.keys(rowSelection)[0])]?.id}
-            />
+            <EditServiceButton serviceId={selectedId} />
+            <DeleteServiceButton serviceId={selectedId} />
           </div>
           <div>
             <SearchInput

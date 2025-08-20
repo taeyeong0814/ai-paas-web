@@ -5,6 +5,7 @@ import type {
   CreateServiceRequest,
   GetServicesParams,
   Service,
+  UpdateServiceRequest,
 } from "../../types/service";
 
 export const useGetServices = (params: GetServicesParams = {}) => {
@@ -38,6 +39,39 @@ export const useCreateService = () => {
 
   return {
     createService: mutate,
+    isPending,
+    isError,
+    isSuccess,
+  };
+};
+
+export const useGetService = (serviceId?: number, enabled: boolean = true) => {
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["services", serviceId],
+    queryFn: () => api.get(`services/${serviceId}`).json<Service>(),
+    enabled,
+  });
+
+  return {
+    service: data,
+    isPending,
+    isError,
+  };
+};
+
+export const useUpdateService = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending, isError, isSuccess } = useMutation({
+    mutationFn: ({ serviceId, ...data }: UpdateServiceRequest) =>
+      api.put(`services/${serviceId}`, { json: data }).json<Service>(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["services"] });
+    },
+  });
+
+  return {
+    updateService: mutate,
     isPending,
     isError,
     isSuccess,
