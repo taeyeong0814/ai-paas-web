@@ -4,8 +4,8 @@ import {
   Select,
   type SelectSingleValue,
 } from "innogrid-ui";
+import styles from "@/pages/service/service.module.scss";
 import { useState } from "react";
-import styles from "../../../pages/service/service.module.scss";
 
 type OptionType = { text: string; value: string };
 const options1 = [
@@ -19,7 +19,7 @@ const options2 = [
   { text: "최근 1주일", value: "option3" },
 ];
 
-export const ServiceMonitoring = () => {
+export const MonitoringTab = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<OptionType>();
   const [selectedPeriod, setSelectedPeriod] = useState<OptionType>();
 
@@ -125,7 +125,7 @@ export const ServiceMonitoring = () => {
   ];
 
   return (
-    <>
+    <div className="tabs-Content">
       <div className={styles.selectBox}>
         <Select
           options={options1}
@@ -150,6 +150,6 @@ export const ServiceMonitoring = () => {
         <Accordion className={styles.accordion} components={accordionItems1} />
         <Accordion className={styles.accordion} components={accordionItems2} />
       </div>
-    </>
+    </div>
   );
 };
