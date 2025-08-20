@@ -30,9 +30,10 @@ import {
   IconService,
   IconWorkflow,
 } from "../assets/img/nav";
+import { LOCAL_STORAGE } from "../constant/local-storage";
 
 export default function DefaultLayout() {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
   const location = useLocation();
 
   if (!accessToken) {

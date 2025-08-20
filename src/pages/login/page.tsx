@@ -4,9 +4,10 @@ import Logo from "../../assets/img/header/logo.svg";
 import styles from "./login.module.scss";
 import { useLogin } from "../../hooks/service/authentication";
 import { Navigate, useNavigate } from "react-router";
+import { LOCAL_STORAGE } from "../../constant/local-storage";
 
 export default function LoginPage() {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
   const [memberId, setMemberId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -21,8 +22,8 @@ export default function LoginPage() {
       { member_id: memberId, password: password },
       {
         onSuccess: (data) => {
-          localStorage.setItem("accessToken", data.access_token);
-          localStorage.setItem("refreshToken", data.refresh_token);
+          localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, data.access_token);
+          localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, data.refresh_token);
 
           navigate("/service");
         },

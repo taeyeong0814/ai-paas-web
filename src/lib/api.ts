@@ -1,4 +1,5 @@
 import ky from "ky";
+import { LOCAL_STORAGE } from "../constant/local-storage";
 
 export const api = ky.create({
   prefixUrl: process.env.VITE_SERVER_URL,
@@ -9,17 +10,17 @@ export const api = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          request.headers.set("Authorization", `Bearer ${token}`);
+        const accessToken = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
+        if (accessToken) {
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
         }
       },
     ],
     afterResponse: [
       (_request, _options, response) => {
         if (response.status === 401) {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
+          localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
+          localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
           window.location.href = "/login";
         }
       },
