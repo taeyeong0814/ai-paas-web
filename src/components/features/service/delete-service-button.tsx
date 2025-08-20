@@ -6,6 +6,11 @@ export const DeleteServiceButton = ({ serviceId }: { serviceId?: number }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { deleteService } = useDeleteService();
 
+  const openAlert = () => {
+    if (!serviceId) return;
+    setIsAlertOpen(true);
+  };
+
   const handleClickConfirm = () => {
     if (!serviceId) return;
     deleteService(serviceId);
@@ -13,11 +18,7 @@ export const DeleteServiceButton = ({ serviceId }: { serviceId?: number }) => {
 
   return (
     <>
-      <Button
-        onClick={() => setIsAlertOpen(true)}
-        size="medium"
-        color="negative"
-      >
+      <Button onClick={openAlert} size="medium" color="negative">
         삭제
       </Button>
       <AlertDialog
