@@ -6,6 +6,11 @@ import {
   type ReactNode,
 } from "react";
 
+const SIDEBAR_MIN_WIDTH = 52;
+const SIDEBAR_MAX_WIDTH = 304;
+const SIDEBAR_DEFAULT_WIDTH = 232;
+const RESIZE_HANDLE_WIDTH = 10;
+
 type SidebarContextProps = {
   isHovered: boolean;
   isPinned: boolean;
@@ -32,14 +37,14 @@ interface SidebarProviderProps {
   children: ReactNode;
   minWidth?: number;
   maxWidth?: number;
-  defaultWidth: number;
+  defaultWidth?: number;
 }
 
 export const SidebarProvider = ({
   children,
-  minWidth = 52,
-  maxWidth = 304,
-  defaultWidth,
+  minWidth = SIDEBAR_MIN_WIDTH,
+  maxWidth = SIDEBAR_MAX_WIDTH,
+  defaultWidth = SIDEBAR_DEFAULT_WIDTH,
 }: SidebarProviderProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
@@ -76,7 +81,7 @@ export const SidebarProvider = ({
           const rect = sidebarElement.getBoundingClientRect();
           const isMouseInSidebar =
             e.clientX >= rect.left &&
-            e.clientX <= rect.right + 10 &&
+            e.clientX <= rect.right + RESIZE_HANDLE_WIDTH &&
             e.clientY >= rect.top &&
             e.clientY <= rect.bottom;
 
@@ -112,27 +117,27 @@ export const SidebarProvider = ({
   );
 };
 
-interface SidebarProps {
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export const Sidebar = ({ children }: SidebarProps) => {
+export const Sidebar = ({ children, ...props }: SidebarProps) => {
   const { isPinned, isHovered, width, isResizing, startResize, setIsHovered } =
     useSidebar();
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     if (!isPinned) {
       setIsHovered(true);
     }
-  };
+  }, [isPinned]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     if (!isPinned) {
       setIsHovered(false);
     }
-  };
+  }, [isPinned]);
 
-  const currentWidth = isPinned || isHovered ? width : 52;
+  const currentWidth = isPinned || isHovered ? width : SIDEBAR_MIN_WIDTH;
 
   return (
     <div
@@ -145,7 +150,9 @@ export const Sidebar = ({ children }: SidebarProps) => {
         transition: isResizing ? "none" : "width 0.1s ease-in-out",
       }}
     >
-      <nav className="p-1.5">{children}</nav>
+      <nav className="p-1.5" {...props}>
+        {children}
+      </nav>
       {(isPinned || isHovered) && (
         <div
           className="group/resize absolute top-0 -right-2.5 h-full w-2.5 cursor-col-resize transition-colors duration-200"
@@ -159,28 +166,48 @@ export const Sidebar = ({ children }: SidebarProps) => {
   );
 };
 
-export const SidebarMenu = ({ children }: { children: ReactNode }) => {
-  return <ul className="space-y-1">{children}</ul>;
+interface SidebarMenuProps extends React.HTMLAttributes<HTMLUListElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenu = ({ children, ...props }: SidebarMenuProps) => {
+  return (
+    <ul className="space-y-1" {...props}>
+      {children}
+    </ul>
+  );
 };
 
-export const SidebarMenuItem = ({ children }: { children: ReactNode }) => {
+interface SidebarMenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenuItem = ({
+  children,
+  ...props
+}: SidebarMenuItemProps) => {
   return (
-    <li className="[&_span]:block [&_span]:flex-1 [&_span]:truncate [&_span]:text-left [&_span]:transition-[width_0.6s_ease-in-out]">
+    <li
+      className="[&_span]:block [&_span]:flex-1 [&_span]:truncate [&_span]:text-left [&_span]:transition-[width_0.6s_ease-in-out]"
+      {...props}
+    >
       {children}
     </li>
   );
 };
+
+interface SidebarMenuButtonProps {
+  children: ReactNode;
+  isActive?: boolean;
+  asChild?: boolean;
+}
 
 export const SidebarMenuButton = ({
   children,
   isActive = false,
   asChild = false,
   ...props
-}: {
-  children: ReactNode;
-  isActive?: boolean;
-  asChild?: boolean;
-}) => {
+}: SidebarMenuButtonProps) => {
   const { isPinned, width } = useSidebar();
 
   if (asChild) {
@@ -203,10 +230,10 @@ export const SidebarMenuButton = ({
         isActive
           ? "bg-[#e8e8e8] [&_svg]:!opacity-100 [&>span]:!font-semibold [&>span]:!text-[#1a1a1a]"
           : ""
-      } ${isPinned ? "[&_span]:block" : "[&>span]:hidden"} ${width > 52 ? "group-hover:bg-transparent" : ""}`}
+      } ${isPinned ? "[&_span]:block" : "[&>span]:hidden"} ${width > SIDEBAR_MIN_WIDTH ? "group-hover:bg-transparent" : ""}`}
       {...props}
     >
-      {width > 52 && (
+      {width > SIDEBAR_MIN_WIDTH && (
         <i
           className={`absolute top-[45%] right-3 size-[7px] -translate-y-1/2 rotate-45 border-r border-b border-[#999] group-hover:block group-data-[state=open]/collapsible:top-[55%] group-data-[state=open]/collapsible:rotate-[225deg] ${isPinned ? "block" : "hidden"}`}
         />
@@ -216,27 +243,45 @@ export const SidebarMenuButton = ({
   );
 };
 
-export const SidebarMenuSub = ({ children }: { children: ReactNode }) => {
-  return <ul className="my-1 space-y-1">{children}</ul>;
+interface SidebarMenuSubProps extends React.HTMLAttributes<HTMLUListElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenuSub = ({ children, ...props }: SidebarMenuSubProps) => {
+  return (
+    <ul className="my-1 space-y-1" {...props}>
+      {children}
+    </ul>
+  );
 };
 
-export const SidebarMenuSubItem = ({ children }: { children: ReactNode }) => {
-  return <li>{children}</li>;
+interface SidebarMenuSubItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenuSubItem = ({
+  children,
+  ...props
+}: SidebarMenuSubItemProps) => {
+  return <li {...props}>{children}</li>;
 };
+
+interface SidebarMenuSubButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  isActive?: boolean;
+  asChild?: boolean;
+}
 
 export const SidebarMenuSubButton = ({
   children,
   isActive = false,
   asChild = false,
   ...props
-}: {
-  children: ReactNode;
-  isActive?: boolean;
-  asChild?: boolean;
-}) => {
+}: SidebarMenuSubButtonProps) => {
   const { isPinned, width } = useSidebar();
 
-  if (width <= 52) return null;
+  if (width <= SIDEBAR_MIN_WIDTH) return null;
 
   if (asChild) {
     return (
@@ -252,7 +297,7 @@ export const SidebarMenuSubButton = ({
     );
   }
 
-  return <div {...props}>{children}</div>;
+  return <button {...props}>{children}</button>;
 };
 
 export const SidebarPin = () => {
@@ -271,16 +316,21 @@ export const SidebarPin = () => {
   );
 };
 
-export const SidebarInset = ({ children }: { children: ReactNode }) => {
+interface SidebarInsetProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+}
+
+export const SidebarInset = ({ children, ...props }: SidebarInsetProps) => {
   const { isPinned, width, isResizing } = useSidebar();
 
   return (
     <div
       className={`relative z-0 mt-[60px] size-full min-w-[1700px]`}
       style={{
-        marginLeft: `${isPinned ? width : 52}px`,
+        marginLeft: `${isPinned ? width : SIDEBAR_MIN_WIDTH}px`,
         transition: isResizing ? "none" : "width 0.1s ease-in-out",
       }}
+      {...props}
     >
       {children}
     </div>
