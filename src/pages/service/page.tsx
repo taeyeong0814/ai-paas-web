@@ -27,6 +27,7 @@ interface ServiceRow {
   updated_at: string;
 }
 
+// 테이블 컬럼 설정
 const columns = [
   {
     id: "select",
@@ -81,18 +82,22 @@ export default function ServicePage() {
   const { searchValue, ...restProps } = useSearchInputState();
   const { rowSelection, setRowSelection } = useTableSelection();
   const { pagination, setPagination } = useTablePagination();
+
+  // 정렬 상태 관리 (기본값: 이름 오름차순)
   const [sorting, setSorting] = useState<Sorting>([
     { id: "name", desc: false },
   ]);
-  const { services, page, isPending } = useGetServices({
+  const { services, page, isPending, isError } = useGetServices({
     page: pagination.pageIndex + 1,
     size: pagination.pageSize,
     search: searchValue,
   });
 
+  // 선택된 행의 ID를 추출
   const selectedId = useMemo(() => {
     const selectedRowKeys = Object.keys(rowSelection);
 
+    // 단일 선택만 허용
     if (selectedRowKeys.length !== 1) return;
 
     return services[parseInt(selectedRowKeys[0])]?.id;
@@ -124,6 +129,11 @@ export default function ServicePage() {
             columns={columns}
             data={services}
             isLoading={isPending}
+            emptyMessage={
+              isError
+                ? "서비스 목록을 불러오는 데 실패했습니다."
+                : "데이터가 존재하지 않습니다."
+            }
             totalCount={page.total}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
