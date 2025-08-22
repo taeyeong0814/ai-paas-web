@@ -14,57 +14,7 @@ import { EditWorkflowButton } from "../../components/features/workflow/edit-work
 import { DeleteWorkflowButton } from "../../components/features/workflow/delete-workflow-button";
 import { useState } from "react";
 import { Link } from "react-router";
-
-export default function WorkflowPage() {
-  const { searchValue, ...restProps } = useSearchInputState();
-  const { setRowSelection, rowSelection } = useTableSelection();
-  const { pagination, setPagination } = useTablePagination();
-  const [sorting, setSorting] = useState<Sorting>([
-    { id: "name", desc: false },
-  ]);
-
-  return (
-    <main>
-      <BreadCrumb items={[{ label: "워크플로우" }]} className="breadcrumbBox" />
-      <div className="page-title-box">
-        <h2 className="page-title">워크플로우</h2>
-      </div>
-      <div className="page-content">
-        <div className="page-toolBox">
-          <div className="page-toolBox-btns">
-            <CreateWorkflowButton />
-            <EditWorkflowButton />
-            <DeleteWorkflowButton />
-          </div>
-          <div>
-            <div>
-              <SearchInput
-                variant="default"
-                placeholder="검색어를 입력해주세요"
-                {...restProps}
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <Table
-            useClientPagination
-            useMultiSelect
-            columns={columns}
-            data={data}
-            totalCount={data.length}
-            pagination={pagination}
-            setPagination={setPagination}
-            rowSelection={rowSelection}
-            setRowSelection={setRowSelection}
-            setSorting={setSorting}
-            sorting={sorting}
-          />
-        </div>
-      </div>
-    </main>
-  );
-}
+import { useGetWorkflows } from "@/hooks/service/workflows";
 
 const columns = [
   {
@@ -111,10 +61,15 @@ const columns = [
     size: 225,
   },
   {
-    id: "status",
+    id: "state",
     header: "상태",
-    accessorFn: (row) => row.date,
+    accessorFn: (row) => row.state,
     size: 225,
+    cell: ({ row }) => (
+      <span className="table-td-state table-td-state-run">
+        {row.original.state}
+      </span>
+    ),
   },
   {
     id: "desc",
@@ -130,75 +85,62 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    name: "Sample1",
-    tag: "Custom",
-    creator: "CustomA",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample2",
-    tag: "Custom",
-    creator: "CustomB",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample3",
-    tag: "Custom",
-    creator: "CustomC",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample4",
-    tag: "Custom",
-    creator: "CustomD",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample5",
-    tag: "Custom",
-    creator: "CustomE",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample6",
-    tag: "Custom",
-    creator: "CustomF",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample7",
-    tag: "Custom",
-    creator: "CustomG",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample8",
-    tag: "Custom",
-    creator: "CustomH",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample9",
-    tag: "Custom",
-    creator: "CustomI",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample10",
-    tag: "Custom",
-    creator: "CustomJ",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-];
+export default function WorkflowPage() {
+  const { searchValue, ...restProps } = useSearchInputState();
+  const { setRowSelection, rowSelection } = useTableSelection();
+  const { pagination, setPagination } = useTablePagination();
+  const [sorting, setSorting] = useState<Sorting>([
+    { id: "name", desc: false },
+  ]);
+  const { workflows, page, isPending, isError } = useGetWorkflows({
+    skip: pagination.pageIndex + 1,
+    limit: pagination.pageSize,
+    search: searchValue,
+  });
+
+  return (
+    <main>
+      <BreadCrumb items={[{ label: "워크플로우" }]} className="breadcrumbBox" />
+      <div className="page-title-box">
+        <h2 className="page-title">워크플로우</h2>
+      </div>
+      <div className="page-content">
+        <div className="page-toolBox">
+          <div className="page-toolBox-btns">
+            <CreateWorkflowButton />
+            <EditWorkflowButton />
+            <DeleteWorkflowButton />
+          </div>
+          <div>
+            <div>
+              <SearchInput
+                variant="default"
+                placeholder="검색어를 입력해주세요"
+                {...restProps}
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <Table
+            columns={columns}
+            data={workflows}
+            isLoading={isPending}
+            emptyMessage={
+              isError
+                ? "워크플로우 목록을 불러오는 데 실패했습니다."
+                : "데이터가 존재하지 않습니다."
+            }
+            totalCount={page.total}
+            pagination={pagination}
+            setPagination={setPagination}
+            rowSelection={rowSelection}
+            setRowSelection={setRowSelection}
+            setSorting={setSorting}
+            sorting={sorting}
+          />
+        </div>
+      </div>
+    </main>
+  );
+}
