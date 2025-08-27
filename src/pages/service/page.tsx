@@ -130,9 +130,16 @@ export default function ServicePage() {
             data={services}
             isLoading={isPending}
             emptyMessage={
-              isError
-                ? "서비스 목록을 불러오는 데 실패했습니다."
-                : "데이터가 존재하지 않습니다."
+              isError ? (
+                "서비스 목록을 불러오는 데 실패했습니다."
+              ) : (
+                <div className="flex flex-col items-center gap-4">
+                  <div>워크플로우가 없습니다</div>
+                  <div>
+                    서브넷 생성 버튼을 클릭해 워크플로우를 생성해 보세요
+                  </div>
+                </div>
+              )
             }
             totalCount={page.total}
             rowSelection={rowSelection}
