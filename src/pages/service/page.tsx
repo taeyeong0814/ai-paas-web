@@ -124,7 +124,7 @@ export default function ServicePage() {
             />
           </div>
         </div>
-        <div>
+        <div className="h-[461px]">
           <Table
             columns={columns}
             data={services}
