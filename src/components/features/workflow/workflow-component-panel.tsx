@@ -4,10 +4,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useReactFlow } from "@xyflow/react";
 import { SearchInput, useSearchInputState } from "innogrid-ui";
 
 export const WorkflowComponentPanel = () => {
   const { searchValue, ...restProps } = useSearchInputState();
+  const { addNodes } = useReactFlow();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    addNodes([
+      {
+        id: "n4",
+        position: { x: 0, y: 200 },
+        data: { label: "새로운 시작 노드" },
+        type: "start",
+      },
+    ]);
+  };
 
   return (
     <div className="flex h-[calc(100vh-98px)] w-[270px] flex-col border-r border-gray-200">
@@ -39,7 +54,7 @@ export const WorkflowComponentPanel = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={handleClick}
                   className="relative size-7 rounded border-[#dedede] transition-all duration-300 ease-in-out after:absolute after:top-[48%] after:left-[52%] after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:text-xl after:font-extralight after:text-[#666] after:content-['×'] hover:border hover:bg-[#f2f2f2] hover:after:text-[#1a1a1a]"
                 >
                   <span className="sr-only">생성</span>

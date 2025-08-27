@@ -54,9 +54,17 @@ export const WorkflowSettingPanel = ({
 }: {
   type?: "START" | "MODEL" | "KNOWLEDGEBASE" | "END";
 }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  if (!isOpen) return null;
+
   return (
     <div className="absolute top-[70px] right-5 bottom-8 w-[340px] rounded-lg bg-white py-[30px] shadow-[4px_8px_18px_0px_rgba(0,0,0,0.2)]">
-      <button type="button" className={styles.btnClose}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(false)}
+        className={styles.btnClose}
+      >
         <span>닫기</span>
       </button>
 
