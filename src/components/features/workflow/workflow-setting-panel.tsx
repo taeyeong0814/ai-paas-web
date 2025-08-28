@@ -9,6 +9,8 @@ import {
   Button,
   Checkbox,
   type CheckboxCheckedState,
+  Slider,
+  Switch,
 } from "innogrid-ui";
 import styles from "../../../pages/workflow/workflow.module.scss";
 import { IconArrCount, IconDel, IconSet } from "../../../assets/img/icon";
@@ -79,6 +81,9 @@ export const WorkflowSettingPanel = ({
 const StartSetting = () => {
   //input
   const [value, setValue] = useState<string>("");
+
+  //slider
+  const [value2, setValue2] = useState<number[]>([30]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -193,11 +198,8 @@ const StartSetting = () => {
                 <div className={styles.addItemName}>최대 파일 수</div>
               </div>
               <div className={styles.accordionAddItemSet}>
-                {/* 게이지 드래그시 gaugeActionBar 필요 */}
-                <div className={styles.gauge}>
-                  <span className={styles.gaugePointer}></span>
-                  <span className={styles.gaugeActionBar}></span>
-                  <span className={styles.gaugeBar}></span>
+                <div className={styles.slider}>
+                  <Slider value={value2} onValueChange={setValue2} />
                 </div>
                 {/* numCount disabled 일때 클래스네임 disabled 추가 */}
                 <div className={`${styles.numCount} ${styles.disabled}`}>
@@ -346,6 +348,11 @@ const StartSetting = () => {
 
 const ModelSetting = () => {
   const [value, setValue] = useState<string>("");
+  //switch
+  const [checked, setChecked] = useState<boolean>(false);
+
+  //slider
+  const [value2, setValue2] = useState<number[]>([30]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -468,18 +475,9 @@ const ModelSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Temperature</div>
-            {/* 토글 클릭시 활성화 클래스네임 active 추가 */}
-            <div className={`${styles.toggle}`}>
-              {/* ${styles.active} */}
-              <label>
-                <input role="toggle" type="checkbox" />
-              </label>
-            </div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount} ${styles.disabled}`}>
@@ -503,18 +501,10 @@ const ModelSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Top P</div>
-            {/* 토글 클릭시 활성화 클래스네임 active 추가 */}
-            <div className={`${styles.toggle} ${styles.active}`}>
-              {/* ${styles.active} */}
-              <label>
-                <input role="toggle" type="checkbox" />
-              </label>
-            </div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
@@ -538,18 +528,9 @@ const ModelSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Presence penalty</div>
-            {/* 토글 클릭시 활성화 클래스네임 active 추가 */}
-            <div className={`${styles.toggle} ${styles.active}`}>
-              {/* ${styles.active} */}
-              <label>
-                <input role="toggle" type="checkbox" />
-              </label>
-            </div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
@@ -573,18 +554,9 @@ const ModelSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Frequency penalty</div>
-            {/* 토글 클릭시 활성화 클래스네임 active 추가 */}
-            <div className={`${styles.toggle}`}>
-              {/* ${styles.active} */}
-              <label>
-                <input role="toggle" type="checkbox" />
-              </label>
-            </div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
@@ -609,18 +581,9 @@ const ModelSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Max tokens</div>
-            {/* 토글 클릭시 활성화 클래스네임 active 추가 */}
-            <div className={`${styles.toggle}`}>
-              {/* ${styles.active} */}
-              <label>
-                <input role="toggle" type="checkbox" />
-              </label>
-            </div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
