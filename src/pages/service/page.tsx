@@ -124,7 +124,7 @@ export default function ServicePage() {
             />
           </div>
         </div>
-        <div className="h-[461px]">
+        <div className="h-[481px]">
           <Table
             columns={columns}
             data={services}
@@ -136,7 +136,7 @@ export default function ServicePage() {
                 <div className="flex flex-col items-center gap-4">
                   <div>워크플로우가 없습니다</div>
                   <div>
-                    서브넷 생성 버튼을 클릭해 워크플로우를 생성해 보세요
+                    서비스 생성 버튼을 클릭해 워크플로우를 생성해 보세요
                   </div>
                 </div>
               )
