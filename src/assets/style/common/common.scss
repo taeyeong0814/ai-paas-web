@@ -1,5 +1,5 @@
-@use "../utils/variable" as *;
-@use "../utils/mixin" as *;
+@use '../utils/variable' as *;
+@use '../utils/mixin' as *;
 
 html,
 body,
@@ -9,7 +9,7 @@ button,
 select,
 textarea,
 td {
-  font-family: "Pretendard Variable", Pretendard;
+  font-family: 'Pretendard Variable', Pretendard;
   font-weight: 500;
 }
 
@@ -256,7 +256,7 @@ textarea {
   font-size: $page-font-root;
 }
 .page-input_item-data {
-  div[data-size="m-medium"] {
+  div[data-size='m-medium'] {
     //input size
     width: 100%;
   }
@@ -318,7 +318,7 @@ textarea {
     color: $page-font-color-900;
   }
 
-  & > div > div[role="region"] {
+  & > div > div[role='region'] {
     border: none;
   }
 }
@@ -573,11 +573,11 @@ textarea {
 
   &.disabled {
     & > input {
-      border-color: $color-gray-25;
-      color: $color-gray-50;
+      border-color: $color-gray-50;
+      color: $color-gray-100;
     }
     .icon-arr {
-      opacity: 0.3;
+      opacity: 0.2;
     }
   }
 }
@@ -586,7 +586,7 @@ textarea {
 .page-icon-requisite {
   position: relative;
   &::after {
-    content: "*";
+    content: '*';
     position: absolute;
     top: -3px;
     margin-left: 5px;
@@ -620,7 +620,7 @@ textarea {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     right: 12px;
