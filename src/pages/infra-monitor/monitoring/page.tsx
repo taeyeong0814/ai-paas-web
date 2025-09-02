@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BreadCrumb, Select, type SelectSingleValue } from 'innogrid-ui';
+import { BreadCrumb, LineChart, Select, type SelectSingleValue } from 'innogrid-ui';
 import { IconHexagon } from '../../../assets/img/icon';
 import styles from '../inframonitor.module.scss';
 import { GaugeChart } from '@/components/ui/gauge-chart';
@@ -303,13 +303,71 @@ export default function MonitoringPage() {
                 <div className="page-detail-round-box page-detail-round-color page-flex-1 page-mt-0">
                   <div className="page-detail-round-name">CPU</div>
                   <div className="page-detail-round-data page-h-548 page-p-24">
-                    차트 그래프 or 그래픽 요소
+                    <LineChart
+                      xDataKey="name"
+                      yDataKey={['workflow1']}
+                      data={[
+                        {
+                          name: '2022.04.12',
+                          workflow1: 120,
+                        },
+                        {
+                          name: '24',
+                          workflow1: 162,
+                        },
+                        {
+                          name: '25',
+                          workflow1: 118,
+                        },
+                        {
+                          name: '26',
+                          workflow1: 131,
+                        },
+                        {
+                          name: '27',
+                          workflow1: 85,
+                        },
+                        {
+                          name: '2022.04.28',
+                          workflow1: 81,
+                        },
+                      ]}
+                    />
                   </div>
                 </div>
                 <div className="page-detail-round-box page-detail-round-color page-flex-1 page-mt-0">
                   <div className="page-detail-round-name">CPU load average</div>
                   <div className="page-detail-round-data page-h-548 page-p-24">
-                    차트 그래프 or 그래픽 요소
+                    <LineChart
+                      xDataKey="name"
+                      yDataKey={['workflow1']}
+                      data={[
+                        {
+                          name: '2022.04.12',
+                          workflow1: 120,
+                        },
+                        {
+                          name: '24',
+                          workflow1: 162,
+                        },
+                        {
+                          name: '25',
+                          workflow1: 118,
+                        },
+                        {
+                          name: '26',
+                          workflow1: 131,
+                        },
+                        {
+                          name: '27',
+                          workflow1: 85,
+                        },
+                        {
+                          name: '2022.04.28',
+                          workflow1: 81,
+                        },
+                      ]}
+                    />
                   </div>
                 </div>
               </div>

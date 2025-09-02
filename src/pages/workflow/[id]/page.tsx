@@ -16,73 +16,65 @@ import { Link, useNavigate } from "react-router";
 import { EditWorkflowButton } from "../../../components/features/workflow/edit-workflow-button";
 import { DeleteWorkflowButton } from "../../../components/features/workflow/delete-workflow-button";
 
+const columns = [
+  {
+    id: "select",
+    size: 30,
+    header: ({ table }) => <HeaderCheckbox table={table} />,
+    cell: ({ row }) => <CellCheckbox row={row} />,
+    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+  },
+  {
+    id: "name",
+    header: "이름",
+    accessorFn: (row) => row.name,
+    size: 325,
+    cell: ({ row }) => (
+      <Link to={"/"} className="table-td-link">
+        {row.original.name}
+      </Link>
+    ),
+  },
+  {
+    id: "id",
+    header: "워크플로우ID",
+    accessorFn: (row) => row.id,
+    size: 325,
+  },
+  {
+    id: "state",
+    header: "상태",
+    accessorFn: (row) => row.state,
+    size: 325,
+    cell: ({ row }) => (
+      <span className="table-td-state table-td-state-run">
+        {row.original.state}
+      </span>
+    ),
+  },
+  {
+    id: "desc",
+    header: "설명",
+    accessorFn: (row) => row.desc,
+    size: 434,
+    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+  },
+  {
+    id: "date",
+    header: "생성일시",
+    accessorFn: (row) => row.date,
+    size: 325,
+  },
+];
+
 export default function WorkflowDetailPage() {
   const navigate = useNavigate();
-
-  //table
-  const basicColumns = [
-    {
-      id: "name",
-      header: "이름",
-      accessorFn: (row) => row.name,
-      size: 325,
-      cell: ({ row }) => (
-        <Link to={"/"} className="table-td-link">
-          {row.original.name}
-        </Link>
-      ),
-    },
-    {
-      id: "id",
-      header: "워크플로우ID",
-      accessorFn: (row) => row.id,
-      size: 325,
-    },
-    {
-      id: "state",
-      header: "상태",
-      accessorFn: (row) => row.state,
-      size: 325,
-      cell: ({ row }) => (
-        <span className="table-td-state table-td-state-run">
-          {row.original.state}
-        </span>
-      ),
-    },
-    {
-      id: "desc",
-      header: "설명",
-      accessorFn: (row) => row.desc,
-      size: 434,
-      enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-    },
-    {
-      id: "date",
-      header: "생성일시",
-      accessorFn: (row) => row.date,
-      size: 325,
-    },
-  ];
-
   const { setRowSelection, rowSelection } = useTableSelection();
   const { pagination, setPagination } = useTablePagination();
   const [sorting, setSorting] = useState<Sorting>([
     { id: "name", desc: false },
   ]);
 
-  const columns: ColDef<any>[] = useMemo(
-    () => [
-      {
-        id: "select",
-        size: 30,
-        header: ({ table }) => <HeaderCheckbox table={table} />,
-        cell: ({ row }) => <CellCheckbox row={row} />,
-        enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-      },
-      ...basicColumns,
-    ],
-    [],
-  );
   const [rowData, setRowData] = useState<DataType[]>([
     {
       name: "테스트워크플로우",

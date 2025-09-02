@@ -42,7 +42,7 @@ export default function CustomModelCreatePage() {
         onNavigate={navigate}
       />
       <div className="page-title-box">
-        <h2 className="page-title">모델 카탈로그 생성</h2>
+        <h2 className="page-title">커스텀 모델 생성</h2>
       </div>
       <div className="page-content page-p-40">
         <div className="page-input-box">

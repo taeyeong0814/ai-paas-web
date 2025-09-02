@@ -7,6 +7,9 @@ const options = [
   { text: '옵션 1', value: 'option1' },
   { text: '옵션 2', value: 'option2' },
   { text: '옵션 3', value: 'option3' },
+  { text: '옵션 3', value: 'option3' },
+  { text: '옵션 3', value: 'option3' },
+  { text: '옵션 3', value: 'option3' },
 ];
 
 export const HardwareOptimizationButton = () => {
@@ -33,7 +36,7 @@ export const HardwareOptimizationButton = () => {
         action={() => alert('확인!')}
         buttonTitle="확인"
         subButton={
-          <Button size="large" color="secondary" onClick={() => alert('취소!')}>
+          <Button size="large" color="secondary" onClick={() => setIsOpen(false)}>
             취소
           </Button>
         }
@@ -43,11 +46,13 @@ export const HardwareOptimizationButton = () => {
           <div className="page-input_item-data mt-2.5">
             <Select
               size="m-full"
+              menuPosition="fixed"
               options={options}
               getOptionLabel={(option) => option.text}
               getOptionValue={(option) => option.value}
               value={selectedValue}
               onChange={onChangeSelect}
+              styles={{ menuPortal: (base) => ({ ...base, top: 'unset', left: 'unset' }) }}
             />
           </div>
         </div>
