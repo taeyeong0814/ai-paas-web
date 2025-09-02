@@ -1,11 +1,11 @@
-import { AlertDialog, Button } from "innogrid-ui";
-import { useState } from "react";
+import { AlertDialog, Button } from 'innogrid-ui';
+import { useState } from 'react';
 
 export const DeleteWorkflowButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickConfirm = () => {
-    console.log("삭제");
+    console.log('삭제');
   };
 
   return (
@@ -21,7 +21,7 @@ export const DeleteWorkflowButton = () => {
         onClickClose={() => setIsOpen(false)}
         size="small"
       >
-        <span>워크플로우를 삭제하시겠습니까?</span>
+        <span>(워크플로우 이름)를 삭제하시겠습니까?</span>
       </AlertDialog>
     </>
   );

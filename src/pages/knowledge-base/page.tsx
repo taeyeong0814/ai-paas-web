@@ -8,27 +8,22 @@ import {
   useTablePagination,
   useTableSelection,
   type Sorting,
-} from "innogrid-ui";
-import { useState } from "react";
-import { Link } from "react-router";
-import { CreateKnowledgeBaseButton } from "../../components/features/knowledge-base/create-knowledge-base-button";
-import { EditKnowledgeBaseButton } from "../../components/features/knowledge-base/edit-knowledge-base-button";
-import { DeleteKnowledgeBaseButton } from "../../components/features/knowledge-base/delete-knowledge-base-button";
+} from 'innogrid-ui';
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { CreateKnowledgeBaseButton } from '../../components/features/knowledge-base/create-knowledge-base-button';
+import { EditKnowledgeBaseButton } from '../../components/features/knowledge-base/edit-knowledge-base-button';
+import { DeleteKnowledgeBaseButton } from '../../components/features/knowledge-base/delete-knowledge-base-button';
 
 export default function KnowledgeBasePage() {
   const { searchValue, ...restProps } = useSearchInputState();
   const { setRowSelection, rowSelection } = useTableSelection();
   const { pagination, setPagination } = useTablePagination();
-  const [sorting, setSorting] = useState<Sorting>([
-    { id: "name", desc: false },
-  ]);
+  const [sorting, setSorting] = useState<Sorting>([{ id: 'name', desc: false }]);
 
   return (
     <main>
-      <BreadCrumb
-        items={[{ label: "지식 베이스" }]}
-        className="breadcrumbBox"
-      />
+      <BreadCrumb items={[{ label: '지식 베이스' }]} className="breadcrumbBox" />
       <div className="page-title-box">
         <h2 className="page-title">지식 베이스</h2>
       </div>
@@ -41,11 +36,7 @@ export default function KnowledgeBasePage() {
           </div>
           <div>
             <div>
-              <SearchInput
-                variant="default"
-                placeholder="검색어를 입력해주세요"
-                {...restProps}
-              />
+              <SearchInput variant="default" placeholder="검색어를 입력해주세요" {...restProps} />
             </div>
           </div>
         </div>
@@ -71,63 +62,57 @@ export default function KnowledgeBasePage() {
 
 const columns = [
   {
-    id: "select",
+    id: 'select',
     size: 30,
     header: ({ table }) => <HeaderCheckbox table={table} />,
     cell: ({ row }) => <CellCheckbox row={row} />,
     enableSorting: false, //오름차순/내림차순 아이콘 숨기기
   },
   {
-    id: "name",
-    header: "이름",
+    id: 'name',
+    header: '이름',
     accessorFn: (row) => row.name,
     size: 225,
     cell: ({ row }) => (
-      <Link to={"/knowledge-base/test"} className="table-td-link">
+      <Link to={'/knowledge-base/test'} className="table-td-link">
         {row.original.name}
       </Link>
     ),
   },
   {
-    id: "id",
-    header: "워크플로우 ID",
+    id: 'id',
+    header: '유형',
     accessorFn: (row) => row.tag,
     size: 225,
   },
   {
-    id: "creator",
-    header: "생성자",
+    id: 'creator',
+    header: '생성자',
     accessorFn: (row) => row.creator,
     size: 225,
   },
   {
-    id: "service",
-    header: "서비스",
-    accessorFn: (row) => row.desc,
-    size: 234,
+    id: 'service',
+    header: '용량',
+    accessorFn: (row) => row.service,
+    size: 271,
     enableSorting: false, //오름차순/내림차순 아이콘 숨기기
   },
   {
-    id: "category",
-    header: "카테고리",
-    accessorFn: (row) => row.date,
-    size: 225,
+    id: 'status',
+    header: '데이터수',
+    accessorFn: (row) => row.status,
+    size: 271,
   },
   {
-    id: "status",
-    header: "상태",
-    accessorFn: (row) => row.date,
-    size: 225,
+    id: 'desc',
+    header: '설명',
+    accessorFn: (row) => row.desc,
+    size: 271,
   },
   {
-    id: "desc",
-    header: "설명",
-    accessorFn: (row) => row.date,
-    size: 225,
-  },
-  {
-    id: "date",
-    header: "생성일시",
+    id: 'date',
+    header: '생성일시',
     accessorFn: (row) => row.date,
     size: 225,
   },
@@ -135,73 +120,30 @@ const columns = [
 
 const data = [
   {
-    name: "Sample1",
-    tag: "Custom",
-    creator: "CustomA",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '테스트 문서 001',
+    tag: 'ML',
+    creator: '홍길동',
+    service: '32.5B',
+    status: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample2",
-    tag: "Custom",
-    creator: "CustomB",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '테스트 문서 001',
+    tag: 'ML',
+    creator: '홍길동',
+    service: '32.5B',
+    status: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample3",
-    tag: "Custom",
-    creator: "CustomC",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample4",
-    tag: "Custom",
-    creator: "CustomD",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample5",
-    tag: "Custom",
-    creator: "CustomE",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample6",
-    tag: "Custom",
-    creator: "CustomF",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample7",
-    tag: "Custom",
-    creator: "CustomG",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample8",
-    tag: "Custom",
-    creator: "CustomH",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample9",
-    tag: "Custom",
-    creator: "CustomI",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample10",
-    tag: "Custom",
-    creator: "CustomJ",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '테스트 문서 001',
+    tag: 'ML',
+    creator: '홍길동',
+    service: '32.5B',
+    status: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
 ];

@@ -8,24 +8,22 @@ import {
   useTablePagination,
   useTableSelection,
   type Sorting,
-} from "innogrid-ui";
-import { useState } from "react";
-import { Link } from "react-router";
-import { CreatePromptButton } from "../../components/features/prompt/create-prompt-button";
-import { EditPromptButton } from "../../components/features/prompt/edit-prompt-button";
-import { DeletePromptButton } from "../../components/features/prompt/delete-prompt-button";
+} from 'innogrid-ui';
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { CreatePromptButton } from '../../components/features/prompt/create-prompt-button';
+import { EditPromptButton } from '../../components/features/prompt/edit-prompt-button';
+import { DeletePromptButton } from '../../components/features/prompt/delete-prompt-button';
 
 export default function PromptPage() {
   const { searchValue, ...restProps } = useSearchInputState();
   const { setRowSelection, rowSelection } = useTableSelection();
   const { pagination, setPagination } = useTablePagination();
-  const [sorting, setSorting] = useState<Sorting>([
-    { id: "name", desc: false },
-  ]);
+  const [sorting, setSorting] = useState<Sorting>([{ id: 'name', desc: false }]);
 
   return (
     <main>
-      <BreadCrumb items={[{ label: "프롬프트" }]} className="breadcrumbBox" />
+      <BreadCrumb items={[{ label: '프롬프트' }]} className="breadcrumbBox" />
       <div className="page-title-box">
         <h2 className="page-title">프롬프트</h2>
       </div>
@@ -38,11 +36,7 @@ export default function PromptPage() {
           </div>
           <div>
             <div>
-              <SearchInput
-                variant="default"
-                placeholder="검색어를 입력해주세요"
-                {...restProps}
-              />
+              <SearchInput variant="default" placeholder="검색어를 입력해주세요" {...restProps} />
             </div>
           </div>
         </div>
@@ -68,137 +62,103 @@ export default function PromptPage() {
 
 const columns = [
   {
-    id: "select",
+    id: 'select',
     size: 30,
     header: ({ table }) => <HeaderCheckbox table={table} />,
     cell: ({ row }) => <CellCheckbox row={row} />,
     enableSorting: false, //오름차순/내림차순 아이콘 숨기기
   },
   {
-    id: "name",
-    header: "이름",
+    id: 'name',
+    header: '이름',
     accessorFn: (row) => row.name,
-    size: 225,
+    size: 352,
     cell: ({ row }) => (
-      <Link to={"/prompt/test"} className="table-td-link">
+      <Link to={'/prompt/test'} className="table-td-link">
         {row.original.name}
       </Link>
     ),
   },
   {
-    id: "id",
-    header: "워크플로우 ID",
-    accessorFn: (row) => row.tag,
-    size: 225,
+    id: 'variable',
+    header: '변수',
+    accessorFn: (row) => row.variable,
+    size: 230,
   },
   {
-    id: "creator",
-    header: "생성자",
+    id: 'creator',
+    header: '생성자',
     accessorFn: (row) => row.creator,
-    size: 225,
+    size: 230,
   },
   {
-    id: "service",
-    header: "서비스",
-    accessorFn: (row) => row.desc,
-    size: 234,
+    id: 'capacity',
+    header: '용량',
+    accessorFn: (row) => row.capacity,
+    size: 230,
     enableSorting: false, //오름차순/내림차순 아이콘 숨기기
   },
   {
-    id: "category",
-    header: "카테고리",
-    accessorFn: (row) => row.date,
-    size: 225,
+    id: 'desc',
+    header: '설명',
+    accessorFn: (row) => row.desc,
+    size: 362,
   },
   {
-    id: "status",
-    header: "상태",
+    id: 'date',
+    header: '생성일시',
     accessorFn: (row) => row.date,
-    size: 225,
-  },
-  {
-    id: "desc",
-    header: "설명",
-    accessorFn: (row) => row.date,
-    size: 225,
-  },
-  {
-    id: "date",
-    header: "생성일시",
-    accessorFn: (row) => row.date,
-    size: 225,
+    size: 362,
   },
 ];
 
 const data = [
   {
-    name: "Sample1",
-    tag: "Custom",
-    creator: "CustomA",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample2",
-    tag: "Custom",
-    creator: "CustomB",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample3",
-    tag: "Custom",
-    creator: "CustomC",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample4",
-    tag: "Custom",
-    creator: "CustomD",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample5",
-    tag: "Custom",
-    creator: "CustomE",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
   {
-    name: "Sample6",
-    tag: "Custom",
-    creator: "CustomF",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample7",
-    tag: "Custom",
-    creator: "CustomG",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample8",
-    tag: "Custom",
-    creator: "CustomH",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample9",
-    tag: "Custom",
-    creator: "CustomI",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
-  },
-  {
-    name: "Sample10",
-    tag: "Custom",
-    creator: "CustomJ",
-    desc: "설명이 들어갑니다. 설명이 들어갑니다.",
-    date: "2025-12-31 10:12",
+    name: '프롬프트 001',
+    variable: '3개',
+    creator: '사용자 001',
+    capacity: '32.5B',
+    desc: '설명이 들어갑니다. 설명이 들어갑니다.',
+    date: '2025-12-31 10:12',
   },
 ];

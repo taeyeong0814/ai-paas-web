@@ -43,6 +43,7 @@ export const CreateWorkflowButton = () => {
       >
         <div className={styles.modalBox}>
           <Table
+            usePagination={false}
             columns={columns}
             data={data}
             totalCount={data.length}
