@@ -1,32 +1,28 @@
-import { useState } from "react";
-import type { ChangeEvent, SelectSingleValue } from "innogrid-ui";
-import { BreadCrumb, Button, Select, Input, Textarea } from "innogrid-ui";
+import { useState } from 'react';
+import type { ChangeEvent, SelectSingleValue } from 'innogrid-ui';
+import { BreadCrumb, Button, Select, Input, Textarea } from 'innogrid-ui';
+import { IconFileUp } from '../../../assets/img/icon';
+import { useNavigate } from 'react-router';
 
-import { IconFileUp } from "../../../assets/img/icon";
-import { useNavigate } from "react-router";
-
-const items = [
-  { label: "데이터 셋", path: "/dataset" },
-  { label: "데이터 셋 생성" },
-];
+const items = [{ label: '데이터 셋', path: '/dataset' }, { label: '데이터 셋 생성' }];
 
 type OptionType = { text: string; value: string };
 
 const options = [
-  { text: "옵션 1", value: "option1" },
-  { text: "옵션 2", value: "option2" },
-  { text: "옵션 3", value: "option3" },
+  { text: '옵션 1', value: 'option1' },
+  { text: '옵션 2', value: 'option2' },
+  { text: '옵션 3', value: 'option3' },
 ];
 
 export default function DatasetCreatePage() {
   const navigate = useNavigate();
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>('');
   const onTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -39,11 +35,7 @@ export default function DatasetCreatePage() {
 
   return (
     <main>
-      <BreadCrumb
-        items={items}
-        onNavigate={navigate}
-        className="breadcrumbBox"
-      />
+      <BreadCrumb items={items} onNavigate={navigate} className="breadcrumbBox" />
       <div className="page-title-box">
         <h2 className="page-title">데이터 셋 생성</h2>
       </div>
@@ -52,24 +44,14 @@ export default function DatasetCreatePage() {
           <div className="page-input_item-box">
             <div className="page-input_item-name page-icon-requisite">이름</div>
             <div className="page-input_item-data">
-              <Input
-                placeholder="이름을 입력해주세요."
-                value={value}
-                onChange={onChange}
-              />
-              <p className="page-input_item-input-desc">
-                이름 입력에 대한 설명글이 들어갑니다.
-              </p>
+              <Input placeholder="이름을 입력해주세요." value={value} onChange={onChange} />
+              <p className="page-input_item-input-desc">이름 입력에 대한 설명글이 들어갑니다.</p>
             </div>
           </div>
           <div className="page-input_item-box">
             <div className="page-input_item-name">설명</div>
             <div className="page-input_item-data">
-              <Textarea
-                value={text}
-                onChange={onTextChange}
-                placeholder="설명을 입력해주세요."
-              />
+              <Textarea value={text} onChange={onTextChange} placeholder="설명을 입력해주세요." />
             </div>
           </div>
           <div className="page-input_item-box">
@@ -93,11 +75,9 @@ export default function DatasetCreatePage() {
                   <input type="file" className="fileUpload-file" />
                   <IconFileUp />
                   <p className="fileUpload-preview_msg">
-                    파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당
-                    최대 크기 15MB)
+                    파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당 최대 크기 15MB)
                     <br />
-                    허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx,
-                    xls, docx, csv,md,htm
+                    허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx, xls, docx, csv,md,htm
                   </p>
                 </label>
               </div>
@@ -111,11 +91,9 @@ export default function DatasetCreatePage() {
                   <input type="file" className="fileUpload-file" />
                   <IconFileUp />
                   <p className="fileUpload-preview_msg">
-                    파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당
-                    최대 크기 15MB)
+                    파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당 최대 크기 15MB)
                     <br />
-                    허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx,
-                    xls, docx, csv,md,htm
+                    허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx, xls, docx, csv,md,htm
                   </p>
                 </label>
               </div>
@@ -125,18 +103,10 @@ export default function DatasetCreatePage() {
       </div>
       <div className="page-footer">
         <div className="page-footer_btn-box">
-          <Button
-            size="large"
-            color="secondary"
-            onClick={() => alert("Button clicked!")}
-          >
+          <Button size="large" color="secondary" onClick={() => alert('Button clicked!')}>
             취소
           </Button>
-          <Button
-            size="large"
-            color="primary"
-            onClick={() => alert("Button clicked!")}
-          >
+          <Button size="large" color="primary" onClick={() => alert('Button clicked!')}>
             생성
           </Button>
         </div>
