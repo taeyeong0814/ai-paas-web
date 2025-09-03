@@ -152,7 +152,7 @@ export default function WorkflowEditPage() {
                   <span className={styles.gaugeBar}></span>
                 </div>
                 {/* numCount disabled 일때 클래스네임 disabled 추가 */}
-                <div className={`${styles.numCount}  ${styles.disabled}`}>
+                <div className={`${styles.numCount} ${styles.disabled}`}>
                   {/* ${styles.disabled} */}
                   <input type="number" placeholder="0" />
                   <div className={styles.numCountControl}>
@@ -271,7 +271,7 @@ export default function WorkflowEditPage() {
               생성
             </Button>
           </div>
-          <div className={styles.addBox}>
+          <div className="absolute top-[70px] right-5 bottom-8 w-[340px] rounded-lg bg-white py-[30px] shadow-[4px_8px_18px_0px_rgba(0,0,0,0.2)]">
             <button type="button" className={styles.btnClose}>
               <span>닫기</span>
             </button>

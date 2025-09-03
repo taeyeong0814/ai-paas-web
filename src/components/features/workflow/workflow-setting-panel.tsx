@@ -666,9 +666,8 @@ const KnowledgeBaseSetting = () => {
         <div className={styles.setName}>검색 설정</div>
         <div className={styles.setInner}>
           <div className={styles.setItem}>
-            <div className={styles.setItemName}>Top K</div>
-            <div className={styles.slider}>
-              <Slider value={value2} onValueChange={setValue2} />
+            <div className={styles.setItemName}>
+              <Slider value={value2} onValueChange={setValue2} /> K
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
