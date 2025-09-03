@@ -1,7 +1,7 @@
-import { IcoAlert, IcoMy, IcoSet } from "../../assets/img/header";
-import Logo from "../../assets/img/header/logo.svg";
-import styles from "./header.module.scss";
-import { Link } from "react-router";
+import { IcoAlert, IcoMy, IcoSet } from '../../assets/img/header';
+import Logo from '../../assets/img/header/logo.svg';
+import styles from './header.module.scss';
+import { Link } from 'react-router';
 
 export const Header = () => {
   return (
@@ -16,10 +16,7 @@ export const Header = () => {
               <IcoSet />
             </button>
             {/* 알림 버튼에 새로운 알림이 있을때 클래스네임 new 추가 */}
-            <button
-              type="button"
-              className={`${styles.btnIcon} ${styles.btnAlert}`}
-            >
+            <button type="button" className={`${styles.btnIcon} ${styles.btnAlert}`}>
               {/* ${styles.new} */}
               <IcoAlert />
             </button>

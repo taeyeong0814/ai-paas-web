@@ -27,7 +27,7 @@
 
 .searchInputBox {
   padding: 10px 10px 0;
-  div[data-size="m-medium"] {
+  div[data-size='m-medium'] {
     width: 100%;
   }
 }
@@ -80,15 +80,15 @@
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%) rotate(-45deg);
     width: 7px;
     height: 7px;
-    border-right: 1px solid $color-gray-300;
-    border-bottom: 1px solid $color-gray-300;
+    border-right: 1px solid $color-gray-500;
+    border-bottom: 1px solid $color-gray-500;
     transition:
       transform 0.3s ease-in-out,
       border 0.3s ease-in-out;
@@ -96,7 +96,7 @@
 
   &:hover {
     &::after {
-      border-color: $color-gray-600;
+      border-color: $color-gray-900;
     }
   }
 }
@@ -111,7 +111,7 @@
   }
 
   &::after {
-    content: "×";
+    content: '×';
     position: absolute;
     top: 48%;
     left: 52%;
@@ -123,7 +123,6 @@
 
   &:hover {
     border-radius: 4px;
-    border: 1px solid $color-gray-75;
     background: $color-gray-25;
     &::after {
       color: $page-font-color-900;
@@ -161,19 +160,31 @@
   gap: 6px;
 }
 
+.addBox {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 340px;
+  height: 890px;
+  padding: 30px 0;
+  background-color: $color-white;
+  border-radius: 8px;
+  box-shadow: 4px 8px 18px 0px rgba(0, 0, 0, 0.2);
+
+  div[data-size='m-medium'],
+  .select {
+    width: 100%;
+  }
+}
+
 .addInner {
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 100%;
+  height: 830px;
   padding: 0 20px;
-
-  div[data-size="m-medium"],
-  .select {
-    width: 100%;
-  }
   //스크롤
   &::-webkit-scrollbar {
     width: 7px;
@@ -201,7 +212,7 @@
   }
 
   &::after {
-    content: "×";
+    content: '×';
     position: absolute;
     top: 47%;
     left: 50%;
@@ -213,7 +224,6 @@
 
   &:hover {
     border-radius: 4px;
-    border: 1px solid $color-gray-75;
     background: $color-gray-25;
     &::after {
       color: $page-font-color-900;
@@ -236,7 +246,7 @@
   outline: none;
 
   &::placeholder {
-    color: $color-gray-100;
+    color: $color-gray-200;
   }
 }
 
@@ -261,7 +271,7 @@
     align-items: center;
     gap: 4px;
 
-    div[data-size="m-medium"] {
+    div[data-size='m-medium'] {
       width: 147px !important;
     }
 
@@ -291,7 +301,7 @@
 
   &.requisite {
     &::after {
-      content: "*";
+      content: '*';
       position: absolute;
       top: -3px;
       margin-left: 5px;
@@ -306,13 +316,13 @@
 .accordion {
   border: 0;
 
-  button[data-orientation="vertical"] {
+  button[data-orientation='vertical'] {
     min-height: 18px;
     padding: 0;
     border: 0;
   }
 
-  div[role="region"] {
+  div[role='region'] {
     border-top: 0;
     margin-top: 10px;
     padding: 0;
@@ -322,6 +332,9 @@
       padding: 12px 16px;
       background-color: $color-gray-10;
       border-radius: 4px;
+    }
+
+    .accordionAddBox {
     }
   }
 
@@ -474,7 +487,7 @@
     color: $page-font-color-600;
 
     &::placeholder {
-      color: $color-gray-50;
+      color: $color-gray-200;
     }
   }
 
@@ -508,18 +521,18 @@
 
   &.disabled {
     & > input {
-      border-color: $color-gray-25;
-      color: $color-gray-50;
+      border-color: $color-gray-50;
+      color: $color-gray-100;
     }
     .iconArr {
-      opacity: 0.3;
+      opacity: 0.2;
     }
   }
 }
 
 .btnSet {
   .iconSet {
-    opacity: 0.6;
+    opacity: 0.2;
     transition: opacity 0.3s ease-in-out;
   }
 
@@ -547,7 +560,7 @@
   position: relative;
   margin: 30px 0 2px;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: -20px;
     top: -20px;
@@ -571,7 +584,7 @@
   }
 
   &::after {
-    content: "×";
+    content: '×';
     position: absolute;
     top: 48%;
     left: 52%;
@@ -605,17 +618,16 @@
   height: 40px;
   padding: 6px 6px 6px 14px;
   border-radius: 6px;
-  border: 1px solid $color-gray-50;
+  border: 1px solid $color-gray-75;
   cursor: pointer;
   @include transition-allEaseInOut;
 
   &.active {
-    border: 1px solid $color-gray-500;
+    border: 1px solid $color-gray-600;
   }
 
   &:hover {
-    border: 1px solid $color-gray-75;
-    background: $color-gray-10;
+    border: 1px solid $color-gray-200;
   }
 
   & > div {
@@ -629,7 +641,7 @@
   }
 
   .addItemFieldId {
-    width: 168px;
+    max-width: 168px;
     @include ellipsis(1);
   }
 

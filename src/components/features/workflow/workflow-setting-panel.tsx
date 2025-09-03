@@ -11,16 +11,16 @@ import {
   type CheckboxCheckedState,
   Slider,
   Switch,
-} from "innogrid-ui";
-import styles from "../../../pages/workflow/workflow.module.scss";
-import { IconArrCount, IconDel, IconSet } from "../../../assets/img/icon";
-import { useState, type ChangeEvent } from "react";
+} from 'innogrid-ui';
+import styles from '../../../pages/workflow/workflow.module.scss';
+import { IconArrCount, IconDel, IconSet } from '../../../assets/img/icon';
+import { useState, type ChangeEvent } from 'react';
 
 //select option
 const options = [
-  { text: "옵션 1", value: "option1" },
-  { text: "옵션 2", value: "option2" },
-  { text: "옵션 3", value: "option3" },
+  { text: '옵션 1', value: 'option1' },
+  { text: '옵션 2', value: 'option2' },
+  { text: '옵션 3', value: 'option3' },
 ];
 
 type OptionType = { text: string; value: string };
@@ -28,33 +28,33 @@ type GroupType = SelectGroup<OptionType>;
 
 const options2 = [
   {
-    label: "추천 모델",
-    value: "recommendation",
+    label: '추천 모델',
+    value: 'recommendation',
     options: [
-      { value: "option1", text: "Meta-Liama-3-8B" },
-      { value: "option2", text: "gemma3:4b" },
+      { value: 'option1', text: 'Meta-Liama-3-8B' },
+      { value: 'option2', text: 'gemma3:4b' },
     ],
   },
   {
-    label: "모든 모델",
-    value: "all",
+    label: '모든 모델',
+    value: 'all',
     options: [
-      { value: "option1", text: "openchat-3.6-8b-20240522" },
-      { value: "option2", text: "Qwen2-7B-Instruct" },
+      { value: 'option1', text: 'openchat-3.6-8b-20240522' },
+      { value: 'option2', text: 'Qwen2-7B-Instruct' },
     ],
   },
 ];
 
 const options3 = [
-  { text: "지식 베이스 001", value: "option1" },
-  { text: "지식 베이스 002", value: "option2" },
-  { text: "지식 베이스 003", value: "option3" },
+  { text: '지식 베이스 001', value: 'option1' },
+  { text: '지식 베이스 002', value: 'option2' },
+  { text: '지식 베이스 003', value: 'option3' },
 ];
 
 export const WorkflowSettingPanel = ({
-  type = "MODEL",
+  type = 'MODEL',
 }: {
-  type?: "START" | "MODEL" | "KNOWLEDGEBASE" | "END";
+  type?: 'START' | 'MODEL' | 'KNOWLEDGEBASE' | 'END';
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -62,25 +62,21 @@ export const WorkflowSettingPanel = ({
 
   return (
     <div className="absolute top-[70px] right-5 bottom-8 w-[340px] rounded-lg bg-white py-[30px] shadow-[4px_8px_18px_0px_rgba(0,0,0,0.2)]">
-      <button
-        type="button"
-        onClick={() => setIsOpen(false)}
-        className={styles.btnClose}
-      >
+      <button type="button" onClick={() => setIsOpen(false)} className={styles.btnClose}>
         <span>닫기</span>
       </button>
 
-      {type === "START" && <StartSetting />}
-      {type === "MODEL" && <ModelSetting />}
-      {type === "KNOWLEDGEBASE" && <KnowledgeBaseSetting />}
-      {type === "END" && <EndSetting />}
+      {type === 'START' && <StartSetting />}
+      {type === 'MODEL' && <ModelSetting />}
+      {type === 'KNOWLEDGEBASE' && <KnowledgeBaseSetting />}
+      {type === 'END' && <EndSetting />}
     </div>
   );
 };
 
 const StartSetting = () => {
   //input
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   //slider
   const [value2, setValue2] = useState<number[]>([30]);
@@ -101,13 +97,13 @@ const StartSetting = () => {
 
   //radio button
   const onCheckedChange = (checked: boolean) => {
-    console.log("checked :", checked);
+    console.log('checked :', checked);
   };
 
   //accordion
   const accordionItems = [
     {
-      label: "타이틀",
+      label: '타이틀',
       component: (
         <div className={styles.accordionAddBox}>
           <div className={styles.accordionAdd}>
@@ -120,8 +116,8 @@ const StartSetting = () => {
                   onCheckedChange={(value) => setChecked(value)}
                 />
                 <p>
-                  txt, MD, MDX, MARKDOWN, PDF, HTML, XLSX, XLS, DOC, DOCX, CSV,
-                  EML, MSG, PPTX, PPT, XML, EPUB
+                  txt, MD, MDX, MARKDOWN, PDF, HTML, XLSX, XLS, DOC, DOCX, CSV, EML, MSG, PPTX, PPT,
+                  XML, EPUB
                 </p>
               </div>
               <div className={styles.accordionAddCheckBox}>
@@ -159,11 +155,7 @@ const StartSetting = () => {
                   onCheckedChange={(value) => setChecked(value)}
                 />
                 <div className={styles.accordionAddCheckInput}>
-                  <Input
-                    placeholder="텍스트 필드"
-                    value={value}
-                    onChange={onChange}
-                  />
+                  <Input placeholder="텍스트 필드" value={value} onChange={onChange} />
                   <button type="button" className={styles.btnIconPlusSm}>
                     <span>생성</span>
                   </button>
@@ -180,12 +172,7 @@ const StartSetting = () => {
                 value="basic"
                 onCheckedChange={onCheckedChange}
               />
-              <RadioButton
-                id="radio"
-                label="URL"
-                value="basic"
-                onCheckedChange={onCheckedChange}
-              />
+              <RadioButton id="radio" label="URL" value="basic" onCheckedChange={onCheckedChange} />
               <RadioButton
                 id="radio"
                 label="모두 사용"
@@ -207,14 +194,10 @@ const StartSetting = () => {
                   <input type="number" placeholder="0" />
                   <div className={styles.numCountControl}>
                     <button type="button" className={styles.btnNum}>
-                      <IconArrCount
-                        className={`${styles.iconArr} ${styles.iconArrUp}`}
-                      />
+                      <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                     </button>
                     <button type="button" className={styles.btnNum}>
-                      <IconArrCount
-                        className={`${styles.iconArr} ${styles.iconArrDown}`}
-                      />
+                      <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                     </button>
                   </div>
                 </div>
@@ -229,11 +212,7 @@ const StartSetting = () => {
   return (
     <div className={styles.addInner}>
       <div className={styles.addTopBox}>
-        <input
-          type="text"
-          placeholder="이름을 입력해주세요."
-          className={styles.addTitleInput}
-        />
+        <input type="text" placeholder="이름을 입력해주세요." className={styles.addTitleInput} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
@@ -251,7 +230,7 @@ const StartSetting = () => {
         <div className={`${styles.addItemField} ${styles.active}`}>
           {/* ${styles.active} */}
           <div>
-            <span>{"{X}"}</span>
+            <span>{'{X}'}</span>
             <span className={styles.addItemFieldId}>app_id</span>
           </div>
           <span className={styles.addItemFieldText}>String</span>
@@ -261,7 +240,7 @@ const StartSetting = () => {
         </div>
         <div className={`${styles.addItemField}`}>
           <div>
-            <span>{"{X}"}</span>
+            <span>{'{X}'}</span>
             <span className={styles.addItemFieldId}>app_id</span>
           </div>
           <span className={styles.addItemFieldText}>String</span>
@@ -271,7 +250,7 @@ const StartSetting = () => {
         </div>
         <div className={`${styles.addItemField}`}>
           <div>
-            <span>{"{X}"}</span>
+            <span>{'{X}'}</span>
             <span className={styles.addItemFieldId}>app_id</span>
           </div>
           <span className={styles.addItemFieldText}>String</span>
@@ -284,18 +263,10 @@ const StartSetting = () => {
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>입력필드 설정</div>
           <div className={styles.row2}>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="small"
-              color="tertiary"
-            >
+            <Button onClick={() => alert('Button clicked!')} size="small" color="tertiary">
               취소
             </Button>
-            <Button
-              onClick={() => alert("Button clicked!")}
-              size="small"
-              color="primary"
-            >
+            <Button onClick={() => alert('Button clicked!')} size="small" color="primary">
               저장
             </Button>
           </div>
@@ -323,21 +294,13 @@ const StartSetting = () => {
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>변수명</div>
         </div>
-        <Input
-          placeholder="변수명을 입력해주세요."
-          value={value}
-          onChange={onChange}
-        />
+        <Input placeholder="변수명을 입력해주세요." value={value} onChange={onChange} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>레이블명</div>
         </div>
-        <Input
-          placeholder="레이블명을 입력해주세요."
-          value={value}
-          onChange={onChange}
-        />
+        <Input placeholder="레이블명을 입력해주세요." value={value} onChange={onChange} />
       </div>
       <div className={styles.addItemBox}>
         <Accordion className={styles.accordion} components={accordionItems} />
@@ -347,7 +310,7 @@ const StartSetting = () => {
 };
 
 const ModelSetting = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   //switch
   const [checked, setChecked] = useState<boolean>(false);
 
@@ -372,20 +335,20 @@ const ModelSetting = () => {
   };
 
   //textarea
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>('');
   const onTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
   //radio button
   const onCheckedChange = (checked: boolean) => {
-    console.log("checked :", checked);
+    console.log('checked :', checked);
   };
 
   //accordion
   const accordionItems = [
     {
-      label: "출력 변수",
+      label: '출력 변수',
       component: (
         <div className={styles.accordionContBox}>
           <div className={styles.accordionCont}>
@@ -406,27 +369,17 @@ const ModelSetting = () => {
   return (
     <div className={styles.addInner}>
       <div className={styles.addTopBox}>
-        <input
-          type="text"
-          placeholder="이름을 입력해주세요."
-          className={styles.addTitleInput}
-        />
+        <input type="text" placeholder="이름을 입력해주세요." className={styles.addTitleInput} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>설명</div>
         </div>
-        <Input
-          placeholder="설명을 입력해주세요."
-          value={value}
-          onChange={onChange}
-        />
+        <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            모델 유형
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>모델 유형</div>
         </div>
         <div className={styles.col2}>
           <RadioButton
@@ -445,9 +398,7 @@ const ModelSetting = () => {
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            모델
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>모델</div>
         </div>
         <div className={styles.row2}>
           <Select
@@ -459,11 +410,7 @@ const ModelSetting = () => {
             onChange={onChangeSelect}
             menuPosition="fixed"
           />
-          <Button
-            onClick={() => alert("Button clicked!")}
-            size="medium"
-            color="tertiary"
-          >
+          <Button onClick={() => alert('Button clicked!')} size="medium" color="tertiary">
             설정
           </Button>
         </div>
@@ -485,14 +432,10 @@ const ModelSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -512,14 +455,10 @@ const ModelSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -538,14 +477,10 @@ const ModelSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -564,14 +499,10 @@ const ModelSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -591,14 +522,10 @@ const ModelSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -608,9 +535,7 @@ const ModelSetting = () => {
 
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            컨텍스트
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>컨텍스트</div>
         </div>
         <Select
           className={styles.select}
@@ -624,9 +549,7 @@ const ModelSetting = () => {
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            프롬프트
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>프롬프트</div>
         </div>
         <Select
           className={styles.select}
@@ -640,7 +563,7 @@ const ModelSetting = () => {
         <Textarea
           onChange={onTextChange}
           value={
-            "Here are the chat histories between human and assistant, inside <histories></histories> XML tags."
+            'Here are the chat histories between human and assistant, inside <histories></histories> XML tags.'
           }
         />
       </div>
@@ -652,7 +575,8 @@ const ModelSetting = () => {
 };
 
 const KnowledgeBaseSetting = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
+  const [value2, setValue2] = useState<number[]>([30]);
   const [selectedValue3, setSelectedValue3] = useState<OptionType[]>([]);
   //select
   const [selectedValue, setSelectedValue] = useState<OptionType>();
@@ -672,7 +596,7 @@ const KnowledgeBaseSetting = () => {
   //accordion
   const accordionItems = [
     {
-      label: "출력 변수",
+      label: '출력 변수',
       component: (
         <div className={styles.accordionContBox}>
           <div className={styles.accordionCont}>
@@ -693,27 +617,17 @@ const KnowledgeBaseSetting = () => {
   return (
     <div className={styles.addInner}>
       <div className={styles.addTopBox}>
-        <input
-          type="text"
-          placeholder="이름을 입력해주세요."
-          className={styles.addTitleInput}
-        />
+        <input type="text" placeholder="이름을 입력해주세요." className={styles.addTitleInput} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>설명</div>
         </div>
-        <Input
-          placeholder="설명을 입력해주세요."
-          value={value}
-          onChange={onChange}
-        />
+        <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            쿼리변수
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>쿼리변수</div>
         </div>
         <Select
           className={styles.select}
@@ -727,9 +641,7 @@ const KnowledgeBaseSetting = () => {
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
-          <div className={`${styles.addItemName} page-icon-requisite`}>
-            지식 베이스
-          </div>
+          <div className={`${styles.addItemName} page-icon-requisite`}>지식 베이스</div>
           <button type="button" className={styles.btnSet}>
             <IconSet className={styles.iconSet} />
           </button>
@@ -755,11 +667,8 @@ const KnowledgeBaseSetting = () => {
         <div className={styles.setInner}>
           <div className={styles.setItem}>
             <div className={styles.setItemName}>Top K</div>
-            {/* 게이지 드래그시 gaugeActionBar 필요 */}
-            <div className={styles.gauge}>
-              <span className={styles.gaugePointer}></span>
-              <span className={styles.gaugeActionBar}></span>
-              <span className={styles.gaugeBar}></span>
+            <div className={styles.slider}>
+              <Slider value={value2} onValueChange={setValue2} />
             </div>
             {/* numCount disabled 일때 클래스네임 disabled 추가 */}
             <div className={`${styles.numCount}`}>
@@ -767,14 +676,10 @@ const KnowledgeBaseSetting = () => {
               <input type="number" placeholder="0" />
               <div className={styles.numCountControl}>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrUp}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrUp}`} />
                 </button>
                 <button type="button" className={styles.btnNum}>
-                  <IconArrCount
-                    className={`${styles.iconArr} ${styles.iconArrDown}`}
-                  />
+                  <IconArrCount className={`${styles.iconArr} ${styles.iconArrDown}`} />
                 </button>
               </div>
             </div>
@@ -787,7 +692,7 @@ const KnowledgeBaseSetting = () => {
 
 const EndSetting = () => {
   //input
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -803,21 +708,13 @@ const EndSetting = () => {
   return (
     <div className={styles.addInner}>
       <div className={styles.addTopBox}>
-        <input
-          type="text"
-          placeholder="이름을 입력해주세요."
-          className={styles.addTitleInput}
-        />
+        <input type="text" placeholder="이름을 입력해주세요." className={styles.addTitleInput} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
           <div className={styles.addItemName}>설명</div>
         </div>
-        <Input
-          placeholder="설명을 입력해주세요."
-          value={value}
-          onChange={onChange}
-        />
+        <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
       </div>
       <div className={styles.addItemBox}>
         <div className={styles.addItemNameBox}>
@@ -827,11 +724,7 @@ const EndSetting = () => {
           </button>
         </div>
         <div className={styles.row3}>
-          <Input
-            placeholder="설명을 입력해주세요."
-            value={value}
-            onChange={onChange}
-          />
+          <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
           <Select
             className={styles.select}
             options={options}
@@ -846,11 +739,7 @@ const EndSetting = () => {
           </button>
         </div>
         <div className={styles.row3}>
-          <Input
-            placeholder="설명을 입력해주세요."
-            value={value}
-            onChange={onChange}
-          />
+          <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
           <Select
             className={styles.select}
             options={options}
@@ -865,11 +754,7 @@ const EndSetting = () => {
           </button>
         </div>
         <div className={styles.row3}>
-          <Input
-            placeholder="설명을 입력해주세요."
-            value={value}
-            onChange={onChange}
-          />
+          <Input placeholder="설명을 입력해주세요." value={value} onChange={onChange} />
           <Select
             className={styles.select}
             options={options}
