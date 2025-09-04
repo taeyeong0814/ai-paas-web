@@ -52,7 +52,7 @@ export const TimelineGraph = () => {
                   </svg>
                 </div>
                 <div className="absolute left-16">
-                  <TimelineCard />
+                  <TimelineCard status={item.status} />
                 </div>
               </>
             ) : (
@@ -69,77 +69,48 @@ export const TimelineGraph = () => {
                   </svg>
                 </div>
                 <div className="absolute left-[840px]">
-                  <TimelineCard />
+                  <TimelineCard status={item.status} />
                 </div>
               </>
             )}
           </div>
         ))}
-
-        {/* <div className="absolute top-[59px] flex items-center">
-          <TimeNode isActive />
-          <div className="absolute left-6 h-0 w-[38px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="38"
-              height="2"
-              viewBox="0 0 38 2"
-              fill="none"
-            >
-              <path d="M0 1H38" stroke="#CFCFCF" stroke-dasharray="2 2" />
-            </svg>
-          </div>
-          <div className="absolute left-16">
-            <TimelineCard />
-          </div>
-        </div>
-
-        <div className="absolute top-[136px] flex items-center">
-          <TimeNode />
-          <div className="absolute left-6 h-0 w-[840px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="840"
-              height="2"
-              viewBox="0 0 840 2"
-              fill="none"
-            >
-              <path d="M0 1H840" stroke="#CFCFCF" stroke-dasharray="2 2" />
-            </svg>
-          </div>
-          <div className="absolute left-[840px]">
-            <TimelineCard />
-          </div>
-        </div>
-
-        <div className="absolute top-[210px] flex items-center">
-          <TimeNode isActive />
-          <div className="absolute left-6 h-0 w-[38px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="38"
-              height="2"
-              viewBox="0 0 38 2"
-              fill="none"
-            >
-              <path d="M0 1H38" stroke="#CFCFCF" stroke-dasharray="2 2" />
-            </svg>
-          </div>
-          <div className="absolute left-16">
-            <TimelineCard />
-          </div>
-        </div> */}
       </div>
     </div>
   );
 };
 
-const TimelineCard = () => {
+const TimelineCard = ({ status = 'Normal' }: { status?: string }) => {
+  if (status === 'Warning') {
+    return (
+      <div className="flex w-[750px] flex-col items-start gap-3.5 rounded-md border-l-6 border-l-[#F5AB00] bg-white pt-4 pr-5 pb-5 pl-6 shadow-[3px_4px_6px_0_rgba(0,0,0,0.10)]">
+        <div className="flex items-center justify-between self-stretch">
+          <div className="flex h-6 items-center justify-center rounded-[20px] bg-[#FDFAE3] px-2.5 pb-0.5">
+            <div className="text-[11px] font-medium -tracking-[0.055px] text-[#F5AB00]">
+              Warning
+            </div>
+          </div>
+          <div className="text-xs leading-[150%] font-medium -tracking-[-0.06px] text-[#999]">
+            2025-07-29 10:32
+          </div>
+        </div>
+        <div className="flex flex-col items-start gap-2 self-stretch px-0.5">
+          <div className="text-xs leading-[150%] font-medium -tracking-[-0.06px] text-[#06F]">
+            Pod/testqa-1748395270316-565cd67b6d-fj2lg
+          </div>
+          <div className="self-stretch text-xs leading-[150%] font-medium -tracking-[-0.06px] text-[#525252]">
+            Pulling image "testqa"
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex w-[750px] flex-col items-start gap-3.5 rounded-md border-l-6 border-l-[#F5AB00] bg-white pt-4 pr-5 pb-5 pl-6 shadow-[3px_4px_6px_0_rgba(0,0,0,0.10)]">
+    <div className="flex w-[750px] flex-col items-start gap-3.5 rounded-md border-l-6 border-l-[#E8E8E8] bg-white pt-4 pr-5 pb-5 pl-6 shadow-[3px_4px_6px_0_rgba(0,0,0,0.10)]">
       <div className="flex items-center justify-between self-stretch">
-        <div className="flex h-6 items-center justify-center rounded-[20px] bg-[#FDFAE3] px-2.5 pb-0.5">
-          <div className="text-[11px] font-medium -tracking-[0.055px] text-[#F5AB00]">Warning</div>
+        <div className="flex h-6 items-center justify-center rounded-[20px] bg-[#DDFAD6] px-2.5 pb-0.5">
+          <div className="text-[11px] font-medium -tracking-[0.055px] text-[#31AB17]">Normal</div>
         </div>
         <div className="text-xs leading-[150%] font-medium -tracking-[-0.06px] text-[#999]">
           2025-07-29 10:32
