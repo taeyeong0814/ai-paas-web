@@ -8,14 +8,10 @@ import {
   Stepper,
   Textarea,
   type SelectSingleValue,
-} from "innogrid-ui";
-import { useNavigate } from "react-router";
-import {
-  IconArrCount,
-  IconDocument,
-  IconFileUp,
-} from "../../../assets/img/icon";
-import { useState, type ChangeEvent } from "react";
+} from 'innogrid-ui';
+import { useNavigate } from 'react-router';
+import { IconArrCount, IconDocument, IconFileUp } from '../../../assets/img/icon';
+import { useState, type ChangeEvent } from 'react';
 
 export default function KnowledgeBaseCreatePage() {
   const navigate = useNavigate();
@@ -29,13 +25,14 @@ export default function KnowledgeBaseCreatePage() {
     if (step !== 0) setStep((prev) => prev - 1);
   };
 
+  const handleClickCreate = () => {
+    navigate('/knowledge-base');
+  };
+
   return (
     <main>
       <BreadCrumb
-        items={[
-          { label: "지식 베이스", path: "/knowledge-base" },
-          { label: "지식 베이스 생성" },
-        ]}
+        items={[{ label: '지식 베이스', path: '/knowledge-base' }, { label: '지식 베이스 생성' }]}
         className="breadcrumbBox"
         onNavigate={navigate}
       />
@@ -47,9 +44,9 @@ export default function KnowledgeBaseCreatePage() {
           <Stepper
             step={step}
             steps={[
-              { title: "지식 베이스 스텝 001" },
-              { title: "지식 베이스 스텝 002" },
-              { title: "지식 베이스 스텝 003" },
+              { title: '지식 베이스 스텝 001' },
+              { title: '지식 베이스 스텝 002' },
+              { title: '지식 베이스 스텝 003' },
             ]}
           />
         </div>
@@ -57,34 +54,33 @@ export default function KnowledgeBaseCreatePage() {
           {step === 0 && <Step1 />}
           {step === 1 && <Step2 />}
           {step === 2 && <Step3 />}
-          <div className="page-footer">
-            <div className="page-footer_btn-box">
-              <Button
-                size="large"
-                color="secondary"
-                onClick={() => navigate("/knowledge-base")}
-              >
-                취소
+        </div>
+      </div>
+      <div className="page-footer">
+        <div className="mx-6 flex max-w-[800px] items-center justify-between border-t border-[#e8e8e8] py-6">
+          <Button size="large" color="secondary" onClick={() => navigate('/knowledge-base')}>
+            취소
+          </Button>
+          <div className="flex gap-1.5">
+            <Button
+              size="large"
+              color="tertiary"
+              disabled={step === 0}
+              onClick={handleClickPrevious}
+            >
+              이전
+            </Button>
+            {step === 2 ? (
+              <Button size="large" color="primary" onClick={handleClickCreate}>
+                생성
               </Button>
-              <div>
-                <Button
-                  size="large"
-                  color="tertiary"
-                  onClick={handleClickPrevious}
-                >
-                  이전
+            ) : (
+              <div className="btn-next">
+                <Button size="large" color="primary" onClick={handleClickNext}>
+                  다음
                 </Button>
-                <div className="btn-next">
-                  <Button
-                    size="large"
-                    color="primary"
-                    onClick={handleClickNext}
-                  >
-                    다음
-                  </Button>
-                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -93,13 +89,13 @@ export default function KnowledgeBaseCreatePage() {
 }
 
 const Step1 = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>('');
   const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -111,24 +107,14 @@ const Step1 = () => {
         <div className="page-input_item-box">
           <div className="page-input_item-name page-icon-requisite">이름</div>
           <div className="page-input_item-data">
-            <Input
-              placeholder="이름을 입력해주세요."
-              value={value}
-              onChange={onChange}
-            />
-            <p className="page-input_item-input-desc">
-              이름 입력에 대한 설명글이 들어갑니다.
-            </p>
+            <Input placeholder="이름을 입력해주세요." value={value} onChange={onChange} />
+            <p className="page-input_item-input-desc">이름 입력에 대한 설명글이 들어갑니다.</p>
           </div>
         </div>
         <div className="page-input_item-box">
           <div className="page-input_item-name">설명</div>
           <div className="page-input_item-data">
-            <Textarea
-              value={text}
-              onChange={onTextChange}
-              placeholder="설명을 입력해주세요."
-            />
+            <Textarea value={text} onChange={onTextChange} placeholder="설명을 입력해주세요." />
           </div>
         </div>
         <div className="page-input_item-box">
@@ -139,11 +125,9 @@ const Step1 = () => {
                 <input type="file" className="fileUpload-file" />
                 <IconFileUp />
                 <p className="fileUpload-preview_msg">
-                  파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당 최대
-                  크기 15MB)
+                  파일을 여기에 드래그하거나 클릭하여 업로드하세요. (파일당 최대 크기 15MB)
                   <br />
-                  허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx, xls,
-                  docx, csv,md,htm
+                  허용되는 파일 형식: txt, markdown, mdx, pdf, html, xlsx, xls, docx, csv,md,htm
                 </p>
               </label>
             </div>
@@ -155,20 +139,20 @@ const Step1 = () => {
 };
 
 const options = [
-  { text: "옵션 1", value: "option1" },
-  { text: "옵션 2", value: "option2" },
-  { text: "옵션 3", value: "option3" },
+  { text: '옵션 1', value: 'option1' },
+  { text: '옵션 2', value: 'option2' },
+  { text: '옵션 3', value: 'option3' },
 ];
 
 const Step2 = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   //textarea
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>('');
   const onTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -182,7 +166,7 @@ const Step2 = () => {
 
   //radio button
   const onCheckedChange = (checked: boolean) => {
-    console.log("checked :", checked);
+    console.log('checked :', checked);
   };
 
   return (
@@ -190,33 +174,17 @@ const Step2 = () => {
       <div className="page-input-box">
         <div className="page-input_title">청크 설정</div>
         <div className="page-input_item-box">
-          <div className="page-input_item-name page-icon-requisite">
-            청크 길이
-          </div>
+          <div className="page-input_item-name page-icon-requisite">청크 길이</div>
           <div className="page-input_item-data">
-            <Input
-              placeholder="청크 길이를 입력해주세요."
-              value={value}
-              onChange={onChange}
-            />
-            <p className="page-input_item-input-desc">
-              청크 길이 입력에 대한 설명글이 들어갑니다.
-            </p>
+            <Input placeholder="청크 길이를 입력해주세요." value={value} onChange={onChange} />
+            <p className="page-input_item-input-desc">청크 길이 입력에 대한 설명글이 들어갑니다.</p>
           </div>
         </div>
         <div className="page-input_item-box">
-          <div className="page-input_item-name page-icon-requisite">
-            청크 중첩
-          </div>
+          <div className="page-input_item-name page-icon-requisite">청크 중첩</div>
           <div className="page-input_item-data">
-            <Input
-              placeholder="청크 중첩을 입력해주세요."
-              value={value}
-              onChange={onChange}
-            />
-            <p className="page-input_item-input-desc">
-              청크 중첩 입력에 대한 설명글이 들어갑니다.
-            </p>
+            <Input placeholder="청크 중첩을 입력해주세요." value={value} onChange={onChange} />
+            <p className="page-input_item-input-desc">청크 중첩 입력에 대한 설명글이 들어갑니다.</p>
           </div>
         </div>
         <div className="page-input_item-box">
@@ -343,7 +311,7 @@ const Step2 = () => {
 //accordion
 const accordionItems1 = [
   {
-    label: "기본 정보",
+    label: '기본 정보',
     component: (
       <div>
         <div>
@@ -353,9 +321,7 @@ const accordionItems1 = [
           </div>
           <div className="page-accordion_item-box">
             <div className="page-accordion_item-name">설명</div>
-            <div className="page-accordion_item-data">
-              테스트를 위한 데이터 셋
-            </div>
+            <div className="page-accordion_item-data">테스트를 위한 데이터 셋</div>
           </div>
           <div className="page-accordion_item-box">
             <div className="page-accordion_item-name">파일</div>
@@ -370,7 +336,7 @@ const accordionItems1 = [
 ];
 const accordionItems2 = [
   {
-    label: "청크 설정",
+    label: '청크 설정',
     component: (
       <div>
         <div>
@@ -397,7 +363,7 @@ const accordionItems2 = [
 ];
 const accordionItems3 = [
   {
-    label: "임베딩 설정",
+    label: '임베딩 설정',
     component: (
       <div>
         <div>
@@ -412,7 +378,7 @@ const accordionItems3 = [
 ];
 const accordionItems4 = [
   {
-    label: "검색 설정",
+    label: '검색 설정',
     component: (
       <div>
         <div>

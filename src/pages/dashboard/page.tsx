@@ -1,19 +1,15 @@
-import { BreadCrumb } from "innogrid-ui";
+import { BreadCrumb, Table, useTablePagination } from 'innogrid-ui';
 
-import { IconMore, IconNode } from "../../assets/img/icon";
-import styles from "./dashboard.module.scss";
+import { IconMore, IconNode } from '../../assets/img/icon';
+import styles from './dashboard.module.scss';
 
 //breadcrumb
-const items = [{ label: "대시보드", path: "/dashboard" }];
+const items = [{ label: '대시보드', path: '/dashboard' }];
 
 export default function DashboardPage() {
   return (
     <main>
-      <BreadCrumb
-        items={items}
-        onNavigate={(path: string) => {}}
-        className="breadcrumbBox"
-      />
+      <BreadCrumb items={items} onNavigate={(path: string) => {}} className="breadcrumbBox" />
       <div className="page-title-box">
         <h2 className="page-title">대시보드</h2>
       </div>
@@ -175,9 +171,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <div className="page-detail-round-data page-h-130">
-                    <div
-                      className={`${styles.stateDataBox} page-content-detail-col2`}
-                    >
+                    <div className={`${styles.stateDataBox} page-content-detail-col2`}>
                       <div className={styles.stateDataText}>
                         <div className={styles.stateDataDesc}>
                           <span>사용자1</span>
@@ -188,9 +182,7 @@ export default function DashboardPage() {
                           <em>36</em>
                         </div>
                       </div>
-                      <div className={styles.stateDataNoti}>
-                        RAG 유형 모델을 사용한 채팅 서비스
-                      </div>
+                      <div className={styles.stateDataNoti}>RAG 유형 모델을 사용한 채팅 서비스</div>
                     </div>
                   </div>
                 </div>
@@ -203,9 +195,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <div className="page-detail-round-data page-h-130">
-                    <div
-                      className={`${styles.stateDataBox} page-content-detail-col2`}
-                    >
+                    <div className={`${styles.stateDataBox} page-content-detail-col2`}>
                       <div className={styles.stateDataText}>
                         <div className={styles.stateDataDesc}>
                           <span>사용자1</span>
@@ -216,9 +206,7 @@ export default function DashboardPage() {
                           <em>36</em>
                         </div>
                       </div>
-                      <div className={styles.stateDataNoti}>
-                        RAG 유형 모델을 사용한 채팅 서비스
-                      </div>
+                      <div className={styles.stateDataNoti}>RAG 유형 모델을 사용한 채팅 서비스</div>
                     </div>
                   </div>
                 </div>
@@ -231,9 +219,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <div className="page-detail-round-data page-h-130">
-                    <div
-                      className={`${styles.stateDataBox} page-content-detail-col2`}
-                    >
+                    <div className={`${styles.stateDataBox} page-content-detail-col2`}>
                       <div className={styles.stateDataText}>
                         <div className={styles.stateDataDesc}>
                           <span>사용자1</span>
@@ -244,9 +230,7 @@ export default function DashboardPage() {
                           <em>36</em>
                         </div>
                       </div>
-                      <div className={styles.stateDataNoti}>
-                        RAG 유형 모델을 사용한 채팅 서비스
-                      </div>
+                      <div className={styles.stateDataNoti}>RAG 유형 모델을 사용한 채팅 서비스</div>
                     </div>
                   </div>
                 </div>
@@ -259,9 +243,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <div className="page-detail-round-data page-h-130">
-                    <div
-                      className={`${styles.stateDataBox} page-content-detail-col2`}
-                    >
+                    <div className={`${styles.stateDataBox} page-content-detail-col2`}>
                       <div className={styles.stateDataText}>
                         <div className={styles.stateDataDesc}>
                           <span>사용자1</span>
@@ -272,9 +254,7 @@ export default function DashboardPage() {
                           <em>36</em>
                         </div>
                       </div>
-                      <div className={styles.stateDataNoti}>
-                        RAG 유형 모델을 사용한 채팅 서비스
-                      </div>
+                      <div className={styles.stateDataNoti}>RAG 유형 모델을 사용한 채팅 서비스</div>
                     </div>
                   </div>
                 </div>
@@ -287,9 +267,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <div className="page-detail-round-data page-h-130">
-                    <div
-                      className={`${styles.stateDataBox} page-content-detail-col2`}
-                    >
+                    <div className={`${styles.stateDataBox} page-content-detail-col2`}>
                       <div className={styles.stateDataText}>
                         <div className={styles.stateDataDesc}>
                           <span>워크플로우</span>
@@ -300,9 +278,7 @@ export default function DashboardPage() {
                           <em>36</em>
                         </div>
                       </div>
-                      <div className={styles.stateDataNoti}>
-                        RAG 유형 모델을 사용한 채팅 서비스
-                      </div>
+                      <div className={styles.stateDataNoti}>RAG 유형 모델을 사용한 채팅 서비스</div>
                     </div>
                   </div>
                 </div>
@@ -327,27 +303,21 @@ export default function DashboardPage() {
                     <div className={styles.nodeLegendBox}>
                       <div className={styles.legend}>
                         <div>
-                          <i
-                            className={`${styles.legendMark} ${styles.legendMark1}`}
-                          />
+                          <i className={`${styles.legendMark} ${styles.legendMark1}`} />
                           <span>실행</span>
                         </div>
                         <em>8</em>
                       </div>
                       <div className={styles.legend}>
                         <div>
-                          <i
-                            className={`${styles.legendMark} ${styles.legendMark2}`}
-                          />
+                          <i className={`${styles.legendMark} ${styles.legendMark2}`} />
                           <span>경고</span>
                         </div>
                         <em>3</em>
                       </div>
                       <div className={styles.legend}>
                         <div>
-                          <i
-                            className={`${styles.legendMark} ${styles.legendMark3}`}
-                          />
+                          <i className={`${styles.legendMark} ${styles.legendMark3}`} />
                           <span>에러</span>
                         </div>
                         <em>2</em>
@@ -425,9 +395,7 @@ export default function DashboardPage() {
                           <em>384 / 524</em>
                         </div>
                         <div className={styles.resourceProgress}>
-                          <div
-                            className={styles.resourceProgressActionBar}
-                          ></div>
+                          <div className={styles.resourceProgressActionBar}></div>
                           <div className={styles.resourceProgressBar}></div>
                         </div>
                       </div>
@@ -437,9 +405,7 @@ export default function DashboardPage() {
                           <em>8 / 16</em>
                         </div>
                         <div className={styles.resourceProgress}>
-                          <div
-                            className={styles.resourceProgressActionBar}
-                          ></div>
+                          <div className={styles.resourceProgressActionBar}></div>
                           <div className={styles.resourceProgressBar}></div>
                         </div>
                       </div>
@@ -449,9 +415,7 @@ export default function DashboardPage() {
                           <em>185 / 400</em>
                         </div>
                         <div className={styles.resourceProgress}>
-                          <div
-                            className={styles.resourceProgressActionBar}
-                          ></div>
+                          <div className={styles.resourceProgressActionBar}></div>
                           <div className={styles.resourceProgressBar}></div>
                         </div>
                       </div>
@@ -461,9 +425,7 @@ export default function DashboardPage() {
                           <em>209 / 488</em>
                         </div>
                         <div className={styles.resourceProgress}>
-                          <div
-                            className={styles.resourceProgressActionBar}
-                          ></div>
+                          <div className={styles.resourceProgressActionBar}></div>
                           <div className={styles.resourceProgressBar}></div>
                         </div>
                       </div>
@@ -625,7 +587,7 @@ export default function DashboardPage() {
                 </button>
               </div>
               <div className="page-detail-round-data page-h-288">
-                테이블 들어갑니다.
+                <UserTable />
               </div>
             </div>
             <div className="page-detail-round-box page-flex-1">
@@ -637,7 +599,7 @@ export default function DashboardPage() {
                 </button>
               </div>
               <div className="page-detail-round-data page-h-288">
-                테이블 들어갑니다.
+                <EventTable />
               </div>
             </div>
           </div>
@@ -646,3 +608,148 @@ export default function DashboardPage() {
     </main>
   );
 }
+
+const userColumns = [
+  {
+    id: 'name',
+    header: '이름',
+    accessorFn: (row) => row.name,
+    size: 200,
+  },
+  {
+    id: 'role',
+    header: '권한',
+    accessorFn: (row) => row.role,
+    size: 200,
+  },
+  {
+    id: 'email',
+    header: '이메일 주소',
+    accessorFn: (row) => row.email,
+    size: 200,
+  },
+  {
+    id: 'date',
+    header: '생성일시',
+    accessorFn: (row) => row.date,
+    size: 200,
+  },
+];
+
+const userData = [
+  {
+    name: '홍길동',
+    role: '어드민',
+    email: 'test001@example.com',
+    date: '2025-12-31 10:12',
+  },
+  {
+    name: '홍길동',
+    role: '어드민',
+    email: 'test001@example.com',
+    date: '2025-12-31 10:12',
+  },
+  {
+    name: '홍길동',
+    role: '어드민',
+    email: 'test001@example.com',
+    date: '2025-12-31 10:12',
+  },
+  {
+    name: '홍길동',
+    role: '어드민',
+    email: 'test001@example.com',
+    date: '2025-12-31 10:12',
+  },
+  {
+    name: '홍길동',
+    role: '어드민',
+    email: 'test001@example.com',
+    date: '2025-12-31 10:12',
+  },
+];
+
+const UserTable = () => {
+  return (
+    <Table
+      usePagination={false}
+      columns={userColumns}
+      data={userData}
+      totalCount={userData.length}
+    />
+  );
+};
+
+const eventColumns = [
+  {
+    id: 'time',
+    header: '시간',
+    accessorFn: (row) => row.time,
+    size: 200,
+  },
+  {
+    id: 'type',
+    header: '이벤트 타입',
+    accessorFn: (row) => row.type,
+    size: 200,
+    cell: ({ row }) => (
+      <span className="table-td-state table-td-state-run">{row.original.type}</span>
+    ),
+  },
+  {
+    id: 'content',
+    header: '이벤트 내용',
+    accessorFn: (row) => row.content,
+    size: 200,
+  },
+  {
+    id: 'resource',
+    header: '대상 리소스',
+    accessorFn: (row) => row.resource,
+    size: 200,
+  },
+];
+
+const eventData = [
+  {
+    time: '2025-12-31 10:12',
+    type: 'NORMAL',
+    content: 'Back-off restarting failed container',
+    resource: 'fb98fd96c-vn6qq',
+  },
+  {
+    time: '2025-12-31 10:12',
+    type: 'NORMAL',
+    content: 'Liveness probe failed.',
+    resource: 'fb98fd96c-vn6qq',
+  },
+  {
+    time: '2025-12-31 10:12',
+    type: 'NORMAL',
+    content: 'Deleted pod',
+    resource: 'fb98fd96c-vn6qq',
+  },
+  {
+    time: '2025-12-31 10:12',
+    type: 'NORMAL',
+    content: 'Deleted pod',
+    resource: 'fb98fd96c-vn6qq',
+  },
+  {
+    time: '2025-12-31 10:12',
+    type: 'NORMAL',
+    content: 'Deleted pod',
+    resource: 'fb98fd96c-vn6qq',
+  },
+];
+
+const EventTable = () => {
+  return (
+    <Table
+      usePagination={false}
+      columns={eventColumns}
+      data={eventData}
+      totalCount={eventData.length}
+    />
+  );
+};

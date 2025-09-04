@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { BreadCrumb, LineChart, Select, type SelectSingleValue } from 'innogrid-ui';
+import {
+  BreadCrumb,
+  LineChart,
+  Select,
+  Table,
+  useTablePagination,
+  type SelectSingleValue,
+} from 'innogrid-ui';
 import { IconHexagon } from '../../../assets/img/icon';
 import styles from '../inframonitor.module.scss';
 import { GaugeChart } from '@/components/ui/gauge-chart';
@@ -13,7 +20,44 @@ const options = [
   { text: '옵션 3', value: 'option3' },
 ];
 
+const columns = [
+  {
+    id: 'name',
+    header: '이름',
+    accessorFn: (row) => row.name,
+    size: 300,
+  },
+  {
+    id: 'workflow',
+    header: '워크플로우',
+    accessorFn: (row) => row.workflow,
+    size: 300,
+  },
+  {
+    id: 'type',
+    header: '유형',
+    accessorFn: (row) => row.type,
+    size: 285,
+  },
+  {
+    id: 'desc',
+    header: '설명',
+    accessorFn: (row) => row.desc,
+    size: 334,
+    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
+  },
+  {
+    id: 'date',
+    header: '생성일시',
+    accessorFn: (row) => row.date,
+    size: 325,
+  },
+];
+
+const rowData = [];
+
 export default function MonitoringPage() {
+  const { pagination, setPagination } = useTablePagination();
   //select
   const [selectedValue, setSelectedValue] = useState<OptionType>();
 
@@ -293,7 +337,15 @@ export default function MonitoringPage() {
                 <IconHexagon />
                 <em>38</em>
               </div>
-              <div className="page-h-240">테이블이 들어갑니다.</div>
+              <div className="page-h-240">
+                <Table
+                  columns={columns}
+                  data={rowData}
+                  totalCount={rowData.length}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                />
+              </div>
             </div>
           </div>
           <div className="page-detail-round-box page-flex-1">
