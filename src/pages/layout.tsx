@@ -1,5 +1,5 @@
-import { Header } from "../components/layout/header";
-import { Navigate, Outlet } from "react-router";
+import { Header } from '../components/layout/header';
+import { Navigate, Outlet } from 'react-router';
 import {
   Sidebar,
   SidebarInset,
@@ -9,19 +9,18 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  SidebarMenuSubSub,
+  SidebarMenuSubSubButton,
+  SidebarMenuSubSubItem,
   SidebarPin,
   SidebarProvider,
-} from "../components/layout/sidebar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../components/ui/collapsible";
-import { Link, useLocation } from "react-router";
+} from '../components/layout/sidebar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible';
+import { Link, useLocation } from 'react-router';
 import {
   IconDashboard,
   IconDataset,
-  IconInfraMonitor,
+  IconInfraManagement,
   IconKnowledgeBase,
   IconLearning,
   IconMemberManagement,
@@ -29,8 +28,8 @@ import {
   IconPrompt,
   IconService,
   IconWorkflow,
-} from "../assets/img/nav";
-import { LOCAL_STORAGE } from "../constant/local-storage";
+} from '../assets/img/nav';
+import { LOCAL_STORAGE } from '../constant/local-storage';
 
 export default function DefaultLayout() {
   const accessToken = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
@@ -43,7 +42,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <SidebarProvider defaultWidth={232}>
+      <SidebarProvider defaultWidth={232} defaultPinned={true}>
         <Sidebar>
           <SidebarMenu>
             {menus.map((menu) =>
@@ -54,30 +53,67 @@ export default function DefaultLayout() {
                       <SidebarMenuButton
                         isActive={menu.children
                           .map((it) => it.path)
-                          .includes(location.pathname.split("/")[2])}
+                          .includes(location.pathname.split('/')[2])}
                       >
                         <div>
-                          <menu.icon />
+                          <img src={menu.icon} alt="" />
                         </div>
                         <span>{menu.label}</span>
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <SidebarMenuSub>
-                        {menu.children.map((menuSub) => (
-                          <SidebarMenuSubItem key={menuSub.path}>
-                            <SidebarMenuSubButton
-                              asChild
-                              isActive={
-                                location.pathname.split("/")[2] === menuSub.path
-                              }
-                            >
-                              <Link to={`/${menu.path}/${menuSub.path}`}>
-                                <span>{menuSub.label}</span>
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
+                        {menu.children.map((menuSub) =>
+                          menuSub.children ? (
+                            <SidebarMenuSubItem key={menuSub.path}>
+                              <Collapsible className="group/collapsible">
+                                <CollapsibleTrigger asChild>
+                                  <SidebarMenuSubButton
+                                    isActive={
+                                      menuSub.children
+                                        .map((it) => it.path)
+                                        .includes(location.pathname.split('/')[3]) ||
+                                      location.pathname.split('/')[2] === menuSub.path
+                                    }
+                                  >
+                                    <span>{menuSub.label}</span>
+                                  </SidebarMenuSubButton>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent>
+                                  <SidebarMenuSubSub>
+                                    {menuSub.children.map((menuSubSub) => (
+                                      <SidebarMenuSubSubItem key={menuSubSub.path}>
+                                        <SidebarMenuSubSubButton
+                                          asChild
+                                          isActive={
+                                            location.pathname.split('/')[3] === menuSubSub.path
+                                          }
+                                        >
+                                          <Link
+                                            to={`/${menu.path}/${menuSub.path}/${menuSubSub.path}`}
+                                          >
+                                            <span>{menuSubSub.label}</span>
+                                          </Link>
+                                        </SidebarMenuSubSubButton>
+                                      </SidebarMenuSubSubItem>
+                                    ))}
+                                  </SidebarMenuSubSub>
+                                </CollapsibleContent>
+                              </Collapsible>
+                            </SidebarMenuSubItem>
+                          ) : (
+                            <SidebarMenuSubItem key={menuSub.path}>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={location.pathname.split('/')[2] === menuSub.path}
+                              >
+                                <Link to={`/${menu.path}/${menuSub.path}`}>
+                                  <span>{menuSub.label}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          )
+                        )}
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </SidebarMenuItem>
@@ -86,17 +122,17 @@ export default function DefaultLayout() {
                 <SidebarMenuItem key={menu.path}>
                   <SidebarMenuButton
                     asChild
-                    isActive={location.pathname.split("/")[1] === menu.path}
+                    isActive={location.pathname.split('/')[1] === menu.path}
                   >
                     <Link to={menu.path}>
                       <div>
-                        <menu.icon />
+                        <img src={menu.icon} alt="" />
                       </div>
                       <span>{menu.label}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ),
+              )
             )}
           </SidebarMenu>
           <SidebarPin />
@@ -111,83 +147,109 @@ export default function DefaultLayout() {
 
 type MenuItemType = {
   path: string;
-  icon: React.ComponentType;
+  icon: string;
   label: string;
   children?: {
     path: string;
     label: string;
+    children?: {
+      path: string;
+      label: string;
+    }[];
   }[];
 };
 
 const menus: MenuItemType[] = [
   {
-    path: "service",
+    path: 'service',
     icon: IconService,
-    label: "서비스",
+    label: '서비스',
   },
   {
-    path: "workflow",
+    path: 'workflow',
     icon: IconWorkflow,
-    label: "워크플로우",
+    label: '워크플로우',
   },
   {
-    path: "model",
+    path: 'model',
     icon: IconModel,
-    label: "모델",
+    label: '모델',
     children: [
       {
-        path: "model-catalog",
-        label: "모델 카탈로그",
+        path: 'model-catalog',
+        label: '모델 카탈로그',
       },
       {
-        path: "custom-model",
-        label: "커스텀 모델",
+        path: 'custom-model',
+        label: '커스텀 모델',
       },
     ],
   },
   {
-    path: "dataset",
+    path: 'dataset',
     icon: IconDataset,
-    label: "데이터셋",
+    label: '데이터셋',
   },
   {
-    path: "knowledge-base",
+    path: 'knowledge-base',
     icon: IconKnowledgeBase,
-    label: "지식 기반",
+    label: '지식 기반',
   },
   {
-    path: "prompt",
+    path: 'prompt',
     icon: IconPrompt,
-    label: "프롬프트",
+    label: '프롬프트',
   },
   {
-    path: "learning",
+    path: 'learning',
     icon: IconLearning,
-    label: "학습",
+    label: '학습',
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     icon: IconDashboard,
-    label: "대시보드",
+    label: '대시보드',
   },
   {
-    path: "infra-monitor",
-    icon: IconInfraMonitor,
-    label: "인프라 모니터",
+    path: 'infra-management',
+    icon: IconInfraManagement,
+    label: '인프라 관리',
     children: [
       {
-        path: "monitoring",
-        label: "모니터링",
+        path: 'cluster-management',
+        label: '클러스터 관리',
       },
       {
-        path: "event",
-        label: "이벤트",
+        path: 'monitoring-dashboard',
+        label: '모니터링 대시보드',
+      },
+      {
+        path: 'event',
+        label: '이벤트',
+      },
+      {
+        path: 'application',
+        label: '애플리케이션',
+        children: [
+          {
+            path: 'catalog',
+            label: '카탈로그',
+          },
+          {
+            path: 'helm-release',
+            label: '헬륨 릴리즈',
+          },
+          {
+            path: 'helm-repository',
+            label: '헬륨 저장소',
+          },
+        ],
       },
     ],
   },
   {
-    path: "member-management",
+    path: 'member-management',
     icon: IconMemberManagement,
-    label: "멤버 관리",
+    label: '멤버 관리',
   },
 ];
