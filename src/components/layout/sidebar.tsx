@@ -31,6 +31,7 @@ interface SidebarProviderProps {
   minWidth?: number;
   maxWidth?: number;
   defaultWidth?: number;
+  defaultPinned?: boolean;
 }
 
 export const SidebarProvider = ({
@@ -38,9 +39,10 @@ export const SidebarProvider = ({
   minWidth = SIDEBAR_MIN_WIDTH,
   maxWidth = SIDEBAR_MAX_WIDTH,
   defaultWidth = SIDEBAR_DEFAULT_WIDTH,
+  defaultPinned = false,
 }: SidebarProviderProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isPinned, setIsPinned] = useState(false);
+  const [isPinned, setIsPinned] = useState(defaultPinned);
   const [width, setWidth] = useState(defaultWidth);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -118,13 +120,13 @@ export const Sidebar = ({ children, ...props }: SidebarProps) => {
     if (!isPinned) {
       setIsHovered(true);
     }
-  }, [isPinned]);
+  }, [isPinned, setIsHovered]);
 
   const handleMouseLeave = useCallback(() => {
     if (!isPinned) {
       setIsHovered(false);
     }
-  }, [isPinned]);
+  }, [isPinned, setIsHovered]);
 
   const currentWidth = isPinned || isHovered ? width : SIDEBAR_MIN_WIDTH;
 
@@ -271,6 +273,61 @@ export const SidebarMenuSubButton = ({
         className={`rounded-sm group-hover:block hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] hover:[&_span]:font-semibold hover:[&_span]:text-[#1a1a1a] [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:h-10 [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 [&>a]:pl-9 ${
           isActive ? 'bg-[#e8e8e8] [&_span]:!font-semibold [&_span]:!text-[#1a1a1a]' : ''
         } ${isPinned ? 'block' : 'hidden'}`}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return <button {...props}>{children}</button>;
+};
+
+interface SidebarMenuSubSubProps extends React.HTMLAttributes<HTMLUListElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenuSubSub = ({ children, ...props }: SidebarMenuSubSubProps) => {
+  const { width } = useSidebar();
+
+  if (width <= SIDEBAR_MIN_WIDTH) return null;
+
+  return (
+    <ul className="my-1 ml-4 space-y-1" {...props}>
+      {children}
+    </ul>
+  );
+};
+
+interface SidebarMenuSubSubItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: ReactNode;
+}
+
+export const SidebarMenuSubSubItem = ({ children, ...props }: SidebarMenuSubSubItemProps) => {
+  return <li {...props}>{children}</li>;
+};
+
+interface SidebarMenuSubSubButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  isActive?: boolean;
+  asChild?: boolean;
+}
+
+export const SidebarMenuSubSubButton = ({
+  children,
+  isActive = false,
+  asChild = false,
+  ...props
+}: SidebarMenuSubSubButtonProps) => {
+  const { isPinned, width } = useSidebar();
+
+  if (width <= SIDEBAR_MIN_WIDTH) return null;
+
+  if (asChild) {
+    return (
+      <div
+        className={`rounded-sm hover:bg-[#e8e8e8] [&_span]:text-xs [&_span]:tracking-[-0.5px] [&_span]:text-[#525252] hover:[&_span]:font-semibold hover:[&_span]:text-[#1a1a1a] [&_svg]:size-6 [&_svg]:opacity-65 [&>a]:relative [&>a]:flex [&>a]:size-full [&>a]:h-10 [&>a]:items-center [&>a]:gap-1 [&>a]:p-2 [&>a]:pl-12 ${
+          isActive ? 'bg-[#e8e8e8] [&_span]:!font-semibold [&_span]:!text-[#1a1a1a]' : ''
+        } ${isPinned || width > SIDEBAR_MIN_WIDTH ? 'block' : 'hidden'}`}
       >
         {children}
       </div>
