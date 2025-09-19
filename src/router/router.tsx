@@ -27,6 +27,7 @@ import LearningDetailPage from '../pages/learning/[id]/page';
 import DashboardPage from '../pages/dashboard/page';
 import EventPage from '../pages/infra-management/event/page';
 import ClusterManagementPage from '../pages/infra-management/cluster-management/page';
+import ClusterCreatePage from '../pages/infra-management/cluster-management/create/page';
 import MonitoringDashboardPage from '../pages/infra-management/monitoring-dashboard/page';
 import ApplicationCatalogPage from '../pages/infra-management/application/catalog/page';
 import ApplicationHelmReleasePage from '../pages/infra-management/application/helm-release/page';
@@ -191,8 +192,16 @@ export const router = createBrowserRouter([
         children: [
           {
             path: 'cluster-management',
-            index: true,
-            element: <ClusterManagementPage />,
+            children: [
+              {
+                index: true,
+                element: <ClusterManagementPage />,
+              },
+              {
+                path: 'create',
+                element: <ClusterCreatePage />,
+              },
+            ],
           },
           {
             path: 'monitoring-dashboard',
