@@ -10,7 +10,7 @@ export const EditClusterButton = ({ clusterId }: EditClusterButtonProps) => {
 
   const handleEdit = () => {
     if (clusterId) {
-      navigate(`/infra-management/cluster-management/${clusterId}/edit`);
+      navigate(`/infra-management/cluster-management/edit/${clusterId}`);
     }
   };
 
