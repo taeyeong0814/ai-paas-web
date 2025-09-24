@@ -28,6 +28,7 @@ import DashboardPage from '../pages/dashboard/page';
 import EventPage from '../pages/infra-management/event/page';
 import ClusterManagementPage from '../pages/infra-management/cluster-management/page';
 import ClusterCreatePage from '../pages/infra-management/cluster-management/create/page';
+import ClusterEditPage from '../pages/infra-management/cluster-management/edit/page';
 import MonitoringDashboardPage from '../pages/infra-management/monitoring-dashboard/page';
 import ApplicationCatalogPage from '../pages/infra-management/application/catalog/page';
 import ApplicationHelmReleasePage from '../pages/infra-management/application/helm-release/page';
@@ -200,6 +201,10 @@ export const router = createBrowserRouter([
               {
                 path: 'create',
                 element: <ClusterCreatePage />,
+              },
+              {
+                path: 'edit/:clusterId',
+                element: <ClusterEditPage />,
               },
             ],
           },

@@ -34,9 +34,14 @@ export interface CreateClusterRequest {
 
 export interface UpdateClusterRequest {
   clusterId: string;
-  name?: string;
-  type?: string;
-  provider?: string;
-  kubernetesConfig?: string;
-  monitoringApiUrl?: string;
+  clusterType: string;
+  clusterProvider: string;
+  clusterName: string;
+  description: string;
+  apiServerIp: string;
+  apiServerUrl: string;
+  serverCA: string;
+  clientCA: string;
+  clientKey: string;
+  monitServerURL: string;
 }

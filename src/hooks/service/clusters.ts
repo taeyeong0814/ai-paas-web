@@ -73,14 +73,24 @@ export const useGetCluster = (clusterId?: string, enabled: boolean = true) => {
 };
 
 // 클러스터 수정
-export const useUpdateCluster = () => {
+export const useUpdateCluster = (options?: {
+  onSuccess?: (data: Cluster) => void;
+  onError?: (error: unknown) => void;
+}) => {
   const queryClient = useQueryClient();
 
-  const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: ({ clusterId, ...data }: UpdateClusterRequest) =>
-      api.put(`any-cloud/system/clusters/${clusterId}`, { json: data }).json<Cluster>(),
-    onSuccess: () => {
+  const { mutate, isPending, isError, isSuccess, error } = useMutation({
+    mutationKey: ['updateCluster'], // 중복 호출 방지
+    mutationFn: ({ clusterName, ...data }: UpdateClusterRequest) => {
+      return api.put(`any-cloud/system/cluster/${clusterName}`, { json: data }).json<Cluster>();
+    },
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['clusters'] });
+      queryClient.invalidateQueries({ queryKey: ['cluster', variables.clusterId] });
+      options?.onSuccess?.(data);
+    },
+    onError: (error) => {
+      options?.onError?.(error);
     },
   });
 
@@ -89,6 +99,7 @@ export const useUpdateCluster = () => {
     isPending,
     isError,
     isSuccess,
+    error,
   };
 };
 
