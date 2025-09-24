@@ -28,7 +28,10 @@ import DashboardPage from '../pages/dashboard/page';
 import EventPage from '../pages/infra-management/event/page';
 import ClusterManagementPage from '../pages/infra-management/cluster-management/page';
 import ClusterCreatePage from '../pages/infra-management/cluster-management/create/page';
+<<<<<<< HEAD
 import ClusterEditPage from '../pages/infra-management/cluster-management/edit/page';
+=======
+>>>>>>> cd3d1fca02d831d9844d36d733a0d3cc60f2ef3e
 import MonitoringDashboardPage from '../pages/infra-management/monitoring-dashboard/page';
 import ApplicationCatalogPage from '../pages/infra-management/application/catalog/page';
 import ApplicationHelmReleasePage from '../pages/infra-management/application/helm-release/page';
