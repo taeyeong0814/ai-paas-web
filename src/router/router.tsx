@@ -41,6 +41,7 @@ import LoginPage from '../pages/login/page';
 import HomePage from '../pages/page';
 import CustomModelCreateHuggingfacePage from '@/pages/model/model-catalog/create/huggingface/page';
 import CustomModelCreateEtriPage from '@/pages/model/model-catalog/create/etri/page';
+import MemberCreatePage from '@/pages/member-management/create/page';
 
 export const router = createBrowserRouter([
   {
@@ -229,6 +230,10 @@ export const router = createBrowserRouter([
       {
         path: 'member-management/:id',
         element: <MemberManagementDetailPage />,
+      },
+      {
+        path: 'member-management/create',
+        element: <MemberCreatePage />,
       },
     ],
   },
