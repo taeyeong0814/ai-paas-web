@@ -67,7 +67,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -116,7 +122,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -147,7 +159,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -183,7 +201,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -232,7 +256,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -263,7 +293,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -299,7 +335,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -348,7 +390,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
@@ -379,7 +427,13 @@ export default function ApplicationCatalogPage() {
           <div className={styles.catalogBox}>
             <div className={styles.catalogInfo}>
               <div className={styles.catalogImg}>
-                <img src={ImgCatalog1} alt="ImgCatalog1" height="84px" width="84px" />
+                <img
+                  src={ImgCatalog1}
+                  alt="ImgCatalog1"
+                  height="84px"
+                  width="84px"
+                  className="h-[initial] max-w-none"
+                />
               </div>
               <div className={styles.catalogDesc}>
                 <div>
