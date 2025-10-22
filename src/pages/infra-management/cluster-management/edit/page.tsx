@@ -282,7 +282,7 @@ export default function ClusterEditPage() {
       if (!apiServerUrl) newErrors.apiServerUrl = 'API 서버 URL을 입력해주세요.';
       if (!serverCA) newErrors.serverCA = '서버 CA를 입력해주세요.';
       if (!clientCA) newErrors.clientCA = '클라이언트 CA를 입력해주세요.';
-      if (!clientKey) newErrors.clientKey = '클라이언트 키를 입력해주세요.';
+      if (!clientKey) newErrors.clientKey = '클라이언트 KEY를 입력해주세요.';
       if (!monitServerURL) newErrors.monitServerURL = '모니터링 API URL을 입력해주세요.';
 
       setValidationErrors((prev) => ({ ...prev, ...newErrors }));
