@@ -73,11 +73,11 @@ export default function ClusterDetailPage() {
                 </li>
                 <li>
                   <div className="page-detail_item-name">유형</div>
-                  <div className="page-detail_item-data">Kubernetes</div>
+                  <div className="page-detail_item-data">{cluster?.clusterType || 'Kubernetes'}</div>
                 </li>
                 <li>
                   <div className="page-detail_item-name">프로바이더</div>
-                  <div className="page-detail_item-data">On-Premise</div>
+                  <div className="page-detail_item-data">{cluster?.clusterProvider || 'On-Premise'}</div>
                 </li>
               </ul>
             </div>
