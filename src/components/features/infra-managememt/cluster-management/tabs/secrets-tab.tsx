@@ -29,8 +29,8 @@ export const SecretsTab = ({ clusterName }: SecretsTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesSecret }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesSecret }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

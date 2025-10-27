@@ -29,8 +29,8 @@ export const DeploymentsTab = ({ clusterName }: DeploymentsTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesDeployment }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesDeployment }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

@@ -29,8 +29,8 @@ export const ServicesTab = ({ clusterName }: ServicesTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesService }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesService }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

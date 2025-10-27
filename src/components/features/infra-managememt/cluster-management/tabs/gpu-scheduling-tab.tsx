@@ -29,8 +29,8 @@ export const GpuSchedulingTab = ({ clusterName }: GpuSchedulingTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: GpuScheduling }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: GpuScheduling }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

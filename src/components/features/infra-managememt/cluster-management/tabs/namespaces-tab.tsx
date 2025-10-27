@@ -24,8 +24,8 @@ export const NamespacesTab = ({ clusterName }: NamespacesTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesNamespace }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesNamespace }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

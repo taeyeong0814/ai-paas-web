@@ -29,8 +29,8 @@ export const PodsTab = ({ clusterName }: PodsTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesPod }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesPod }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

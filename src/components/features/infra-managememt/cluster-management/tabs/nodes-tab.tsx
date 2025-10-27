@@ -23,8 +23,8 @@ export const NodesTab = ({ clusterName }: NodesTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesNode }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesNode }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

@@ -31,8 +31,8 @@ export const ServiceAccountsTab = ({ clusterName }: ServiceAccountsTabProps) => 
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesServiceAccount }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesServiceAccount }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {

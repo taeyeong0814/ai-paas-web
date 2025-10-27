@@ -29,8 +29,8 @@ export const ReplicaSetsTab = ({ clusterName }: ReplicaSetsTabProps) => {
     {
       id: 'select',
       size: 50,
-      header: ({ table }: { table: KubernetesReplicaSet }) => <HeaderCheckbox table={table} />,
-      cell: ({ row }: { row: KubernetesReplicaSet }) => <CellCheckbox row={row} />,
+      header: (props: { table: unknown }) => <HeaderCheckbox table={props.table} />,
+      cell: (props: { row: unknown }) => <CellCheckbox row={props.row} />,
       enableSorting: false,
     },
     {
