@@ -65,6 +65,34 @@
   }
 }
 
+// 이벤트 컨트롤 영역
+.eventControls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: $color-white;
+  border-radius: 8px;
+  border: 1px solid $color-gray-75;
+  position: relative;
+  z-index: 1000;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1000;
+
+  .page-input_item-name {
+    min-width: 100px;
+    font-weight: 600;
+    color: $page-font-color-900;
+  }
+}
+
 //event
 .eventBox {
   margin-top: 16px;
@@ -72,6 +100,8 @@
   border-radius: 8px;
   border: 1px solid $color-gray-75;
   background: $color-gray-10;
+  position: relative;
+  z-index: 1;
 }
 
 .btnBox {
@@ -130,7 +160,7 @@
     position: absolute;
     top: 10px;
     left: 41px;
-    z-index: 1;
+    z-index: 0;
     height: 98%;
     border-left: 3px solid $color-gray-75;
   }
@@ -167,7 +197,7 @@
     position: absolute;
     top: 38px;
     left: -10px;
-    z-index: 2;
+    z-index: 1;
   }
   .iconEventOff {
     top: 48px;
@@ -178,7 +208,7 @@
     position: absolute;
     top: 55px;
     left: 12px;
-    z-index: 1;
+    z-index: 0;
     width: 38px;
     height: 1px;
     border-top: 1px dotted $color-gray-75;
@@ -203,7 +233,7 @@
 .card {
   position: relative;
   top: 0;
-  z-index: 2;
+  z-index: 1;
   margin-left: 50px;
   display: flex;
   width: 750px;
