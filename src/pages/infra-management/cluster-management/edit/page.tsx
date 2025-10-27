@@ -492,9 +492,9 @@ export default function ClusterEditPage() {
                 className={`${styles.kubernetesTextarea} ${validationErrors.clientKey ? 'error' : ''}`}
                 value={clientKey}
                 onChange={onClientKeyChange}
-                placeholder="클라이언트 키를 입력해주세요."
+                placeholder="클라이언트 KEY를 입력해주세요."
               />
-              <p className="page-input_item-input-desc">클라이언트 키를 입력해주세요.</p>
+              <p className="page-input_item-input-desc">클라이언트 KEY를 입력해주세요.</p>
             </div>
           </div>
           <div className="page-input_item-box">
