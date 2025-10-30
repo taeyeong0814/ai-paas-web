@@ -1,68 +1,78 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   BreadCrumb,
   LineChart,
   Select,
-  Table,
-  useTablePagination,
   type SelectSingleValue,
+  type SelectMultiValue,
 } from '@innogrid/ui';
-import { IconHexagon } from '../../../assets/img/icon';
+import { useGetClusters } from '@/hooks/service/clusters';
+import { useGetNodes } from '@/hooks/service/nodes';
 import styles from '../inframonitor.module.scss';
 import { GaugeChart } from '@/components/ui/gauge-chart';
 
-//select option
-type OptionType = { text: string; value: string };
+// 클러스터 옵션 타입
+type ClusterOption = { text: string; value: string };
 
-const options = [
-  { text: '옵션 1', value: 'option1' },
-  { text: '옵션 2', value: 'option2' },
-  { text: '옵션 3', value: 'option3' },
-];
-
-const columns = [
-  {
-    id: 'name',
-    header: '이름',
-    accessorFn: (row) => row.name,
-    size: 300,
-  },
-  {
-    id: 'workflow',
-    header: '워크플로우',
-    accessorFn: (row) => row.workflow,
-    size: 300,
-  },
-  {
-    id: 'type',
-    header: '유형',
-    accessorFn: (row) => row.type,
-    size: 285,
-  },
-  {
-    id: 'desc',
-    header: '설명',
-    accessorFn: (row) => row.desc,
-    size: 334,
-    enableSorting: false, //오름차순/내림차순 아이콘 숨기기
-  },
-  {
-    id: 'date',
-    header: '생성일시',
-    accessorFn: (row) => row.date,
-    size: 325,
-  },
-];
-
-const rowData = [];
+// 노드 옵션 타입
+type NodeOption = { text: string; value: string };
 
 export default function MonitoringPage() {
-  const { pagination, setPagination } = useTablePagination();
-  //select
-  const [selectedValue, setSelectedValue] = useState<OptionType>();
+  // 클러스터 목록 조회
+  const { clusters, isPending: isClustersLoading, isError: isClustersError } = useGetClusters();
 
-  const onChangeSelect = (option: SelectSingleValue<OptionType>) => {
-    setSelectedValue(option);
+  // 클러스터 옵션 생성
+  const clusterOptions = clusters.map((cluster) => ({
+    text: cluster.id, // 클러스터 ID를 표시명으로 사용
+    value: cluster.id,
+  }));
+
+  // 상태 관리
+  const [selectedCluster, setSelectedCluster] = useState<ClusterOption>();
+  const [selectedNodes, setSelectedNodes] = useState<NodeOption[]>([]);
+
+  // 노드 목록 조회
+  const {
+    data: nodes = [],
+    isPending: isNodesLoading,
+    isError: isNodesError,
+  } = useGetNodes(selectedCluster?.value);
+
+  // 노드 옵션 생성
+  const nodeOptions: NodeOption[] = useMemo(
+    () =>
+      selectedCluster && !isNodesError
+        ? [
+            ...nodes.map((node) => ({
+              text: node.nodeName,
+              value: node.nodeName,
+            })),
+          ]
+        : [],
+    [selectedCluster, nodes, isNodesError]
+  );
+
+  // clusterOptions가 로드되면 첫 번째 클러스터 자동 선택
+  if (clusterOptions.length > 0 && !selectedCluster) {
+    setSelectedCluster(clusterOptions[0]);
+  }
+
+  // 노드 데이터가 로드되면 모든 노드 선택
+  useEffect(() => {
+    if (selectedCluster && nodes.length > 0) {
+      setSelectedNodes(nodeOptions);
+    }
+  }, [selectedCluster, nodes, nodeOptions]);
+
+  const onChangeCluster = (option: SelectSingleValue<ClusterOption>) => {
+    if (option) {
+      setSelectedCluster(option);
+      setSelectedNodes([]); // 노드 선택 초기화
+    }
+  };
+
+  const onChangeNode = (option: SelectMultiValue<NodeOption>) => {
+    setSelectedNodes(option as NodeOption[]);
   };
 
   return (
@@ -75,14 +85,57 @@ export default function MonitoringPage() {
         <h2 className="page-title">모니터링</h2>
       </div>
       <div className="page-content">
-        <Select
-          className="page-input_item-data_select"
-          options={options}
-          getOptionLabel={(option) => option.text}
-          getOptionValue={(option) => option.value}
-          value={selectedValue}
-          onChange={onChangeSelect}
-        />
+        {/* 상단 컨트롤 영역 */}
+        <div className={styles.eventControls}>
+          <div className={styles.controlGroup}>
+            <label className="page-input_item-name">클러스터</label>
+            <Select
+              className="page-input_item-data_select"
+              options={clusterOptions}
+              getOptionLabel={(option) => option.text}
+              getOptionValue={(option) => option.value}
+              value={selectedCluster}
+              onChange={onChangeCluster}
+              size="m-small"
+              isLoading={isClustersLoading}
+              isDisabled={isClustersLoading || isClustersError || clusterOptions.length === 0}
+              placeholder={
+                isClustersLoading
+                  ? '클러스터를 불러오는 중...'
+                  : isClustersError
+                    ? '클러스터를 불러오는데 실패했습니다'
+                    : '클러스터를 선택하세요'
+              }
+            />
+          </div>
+          <div className={styles.controlGroup}>
+            <label className="page-input_item-name">노드</label>
+            <div className={styles.nodeSelectContainer}>
+              <Select
+                className="!w-auto max-w-[480px] min-w-[240px]"
+                isMulti
+                useCheckboxOption
+                options={nodeOptions}
+                getOptionLabel={(option) => option.text}
+                getOptionValue={(option) => option.value}
+                value={selectedNodes}
+                onChange={onChangeNode}
+                size="m-small"
+                isLoading={isNodesLoading}
+                isDisabled={isNodesLoading || isNodesError || !selectedCluster}
+                placeholder={
+                  isNodesLoading
+                    ? '노드를 불러오는 중...'
+                    : isNodesError
+                      ? '노드를 불러오는데 실패했습니다'
+                      : !selectedCluster
+                        ? '클러스터를 먼저 선택하세요'
+                        : '노드를 선택하세요'
+                }
+              />
+            </div>
+          </div>
+        </div>
         <div className="page-content-detail-col2 page-mt-16">
           <div className="page-detail-round-box page-flex-1 page-mt-0">
             <div className="page-detail-round-name">리소스 요청 및 제한</div>
@@ -327,24 +380,6 @@ export default function MonitoringPage() {
                     </div>
                   </GaugeChart>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="page-detail-round-box page-flex-1">
-            <div className="page-detail-round-name">파드</div>
-            <div className="page-detail-round-data">
-              <div className={styles.symbolBox}>
-                <IconHexagon />
-                <em>38</em>
-              </div>
-              <div className="page-h-240">
-                <Table
-                  columns={columns}
-                  data={rowData}
-                  totalCount={rowData.length}
-                  pagination={pagination}
-                  setPagination={setPagination}
-                />
               </div>
             </div>
           </div>
