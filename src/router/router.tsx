@@ -32,6 +32,7 @@ import ClusterEditPage from '../pages/infra-management/cluster-management/edit/p
 import ClusterDetailPage from '../pages/infra-management/cluster-management/[id]/page';
 import MonitoringDashboardPage from '../pages/infra-management/monitoring-dashboard/page';
 import ApplicationCatalogPage from '../pages/infra-management/application/catalog/page';
+import CatalogDetailPage from '../pages/infra-management/application/catalog/[chartName]/page';
 import ApplicationHelmReleasePage from '../pages/infra-management/application/helm-release/page';
 import ApplicationHelmRepositoryPage from '../pages/infra-management/application/helm-repository/page';
 import MemberManagementPage from '../pages/member-management/page';
@@ -228,6 +229,10 @@ export const router = createBrowserRouter([
                 path: 'catalog',
                 index: true,
                 element: <ApplicationCatalogPage />,
+              },
+              {
+                path: 'catalog/:chartName',
+                element: <CatalogDetailPage />,
               },
               {
                 path: 'helm-release',

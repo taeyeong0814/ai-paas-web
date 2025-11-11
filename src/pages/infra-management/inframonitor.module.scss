@@ -310,12 +310,16 @@
   height: 234px;
   border-radius: 8px;
   border: 1px solid $color-gray-75;
+  display: flex;
+  flex-direction: column;
 }
 
 .catalogInfo {
   display: flex;
   gap: 24px;
   padding: 24px;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .catalogImg {
@@ -325,13 +329,40 @@
   overflow: hidden;
   border-radius: 6px;
   border: 1px solid $color-gray-50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-white;
+
+  img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+  }
 }
 
 .catalogDesc {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  flex: 1 0 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  justify-content: space-between;
+}
+
+.catalogDescContent {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.catalogDescFooter {
+  flex: 0 0 auto;
+  margin-top: auto;
 }
 
 .catalogTit {
@@ -444,4 +475,81 @@
 
 .paginationBox {
   margin-top: 24px;
+}
+
+// catalog detail
+.catalogDetailContainer {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.catalogDetailLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.catalogDetailRight {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.catalogDetailHeader {
+  margin-bottom: 24px;
+}
+
+.catalogDetailInfo {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.catalogDetailDesc {
+  flex: 1;
+
+  p {
+    color: $page-font-color-600;
+    font-size: $page-font-root;
+    @include font-style;
+    line-height: 1.6;
+  }
+}
+
+.catalogDetailActions {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+  background: $color-white;
+  border: 1px solid $color-gray-75;
+  border-radius: 8px;
+
+  label {
+    color: $page-font-color-900;
+    font-size: $page-font-13;
+    @include font-style;
+    font-weight: 600;
+  }
+}
+
+// 카탈로그 상세 페이지에서 2컬럼 레이아웃 사용
+.catalogDetailPage {
+  .page-detail-list-box {
+    .page-detail-list {
+      width: calc(50% - 8px);
+    }
+  }
+
+  // 차트 관리자 항목 스타일 조정
+  .page-detail-list {
+    li {
+      .page-detail_item-data {
+        &:has(> div > div) {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+      }
+    }
+  }
 }
