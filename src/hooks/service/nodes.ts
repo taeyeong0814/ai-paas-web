@@ -31,11 +31,6 @@ export const useGetNodes = (clusterId?: string) => {
         return Array.isArray(data) ? data : [];
       }
 
-      //   // 일반 배열인 경우
-      //   if (Array.isArray(response)) {
-      //     return response;
-      //   }
-
       return [];
     },
     enabled: !!clusterId,
