@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   BreadCrumb,
   Button,
@@ -8,10 +8,11 @@ import {
   useSearchInputState,
   type SelectSingleValue,
 } from '@innogrid/ui';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 import styles from '../../inframonitor.module.scss';
 import { useGetCatalog } from '@/hooks/service/catalog';
+import { useGetHelmRepositories } from '@/hooks/service/helm';
 import type { Chart } from '@/types/catalog';
 
 //breadcrumb
@@ -19,12 +20,6 @@ const items = [{ label: '인프라 모니터' }, { label: '애플리케이션' }
 
 //select option
 type OptionType = { text: string; value: string };
-
-const options = [
-  { text: '옵션 1', value: 'option1' },
-  { text: '옵션 2', value: 'option2' },
-  { text: '옵션 3', value: 'option3' },
-];
 
 // 키워드 토글 상태를 관리하는 컴포넌트
 const CatalogItem = ({ chart }: { chart: Chart }) => {
@@ -150,19 +145,55 @@ const CatalogItem = ({ chart }: { chart: Chart }) => {
 };
 
 export default function ApplicationCatalogPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const repositoryParam = searchParams.get('repository');
   const [selectedValue, setSelectedValue] = useState<OptionType>();
+
+  const { repositories, isPending: isRepositoriesPending } = useGetHelmRepositories();
+
+  // 헬름 저장소 목록을 Select 옵션으로 변환
+  const repositoryOptions = useMemo<OptionType[]>(() => {
+    return (repositories || []).map((repo) => ({
+      text: repo.name ?? '-',
+      value: repo.name ?? '',
+    }));
+  }, [repositories]);
+
+  // repository 파라미터와 옵션 목록을 기반으로 기본 선택값을 동기화
+  useEffect(() => {
+    if (repositoryOptions.length === 0) return;
+
+    const matched = repositoryParam
+      ? repositoryOptions.find((opt) => opt.value === repositoryParam)
+      : undefined;
+    const nextValue = matched ?? repositoryOptions[0];
+
+    if (!nextValue) return;
+
+    if (!selectedValue || selectedValue.value !== nextValue.value) {
+      setSelectedValue(nextValue);
+    }
+
+    if (!repositoryParam || repositoryParam !== nextValue.value) {
+      setSearchParams({ repository: nextValue.value });
+    }
+  }, [repositoryOptions, repositoryParam, selectedValue, setSearchParams]);
 
   const onChangeSelect = (option: SelectSingleValue<OptionType>) => {
     if (option) {
       setSelectedValue(option);
+      setSearchParams({ repository: option.value });
+    } else {
+      setSelectedValue(undefined);
+      setSearchParams({});
     }
   };
 
   //SearchInput
   const { searchValue, ...restProps } = useSearchInputState();
 
-  // API 호출
-  const { charts, isPending, isError } = useGetCatalog('chart-museum-external');
+  const selectedRepoName = selectedValue?.value || '';
+  const { charts, isPending, isError } = useGetCatalog(selectedRepoName);
 
   // 검색 및 필터링
   const filteredCharts = useMemo(() => {
@@ -196,7 +227,7 @@ export default function ApplicationCatalogPage() {
 
   const totalCount = filteredCharts.length;
 
-  if (isPending) {
+  if (isPending || isRepositoriesPending) {
     return (
       <main>
         <BreadCrumb items={items} onNavigate={() => {}} className="breadcrumbBox" />
@@ -236,11 +267,13 @@ export default function ApplicationCatalogPage() {
         <div className={styles.flexBox}>
           <Select
             className="page-input_item-data_select"
-            options={options}
+            options={repositoryOptions}
             getOptionLabel={(option) => option.text}
             getOptionValue={(option) => option.value}
             value={selectedValue}
             onChange={onChangeSelect}
+            isLoading={isRepositoriesPending}
+            placeholder="저장소를 선택해주세요"
             size="m-small"
           />
           <SearchInput size="m-medium" placeholder="검색어를 입력해주세요" {...restProps} />

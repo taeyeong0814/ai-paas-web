@@ -269,29 +269,14 @@ export default function CatalogDetailPage() {
     { label: '카탈로그 상세' },
   ];
 
-  // versionOptions를 useMemo로 메모이제이션 (versionHistory 사용)
+  // versionOptions를 useMemo로 메모이제이션 (versionHistory는 객체 배열로 고정)
   const versionOptions: OptionType[] = useMemo(() => {
-    if (!catalogDetail) return [];
+    if (!catalogDetail?.versionHistory || !Array.isArray(catalogDetail.versionHistory)) {
+      return [];
+    }
 
-    const versionList = catalogDetail.versionHistory ||
-      catalogDetail.versions || [catalogDetail.version];
-
-    const toVersionString = (item: unknown) => {
-      if (!item) return '';
-      if (typeof item === 'string') return item;
-      if (typeof item === 'number') return String(item);
-      if (typeof item === 'object') {
-        const version =
-          (item as { version?: unknown }).version ??
-          (item as { name?: unknown }).name ??
-          (item as { value?: unknown }).value;
-        if (typeof version === 'string' && version) return version;
-      }
-      return '';
-    };
-
-    return versionList
-      .map(toVersionString)
+    return catalogDetail.versionHistory
+      .map((item) => item.version)
       .filter((version): version is string => Boolean(version))
       .map((version) => ({
         text: `버전 정보 : ${version}`,

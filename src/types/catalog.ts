@@ -86,7 +86,11 @@ export interface CatalogDetail {
   }>;
   source?: string[];
   versions?: string[];
-  versionHistory?: string[];
+  versionHistory?: Array<{
+    version: string;
+    appVersion: string;
+    created: string;
+  }>;
   readme?: string;
   values?: string;
 }

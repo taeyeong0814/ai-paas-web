@@ -44,3 +44,19 @@ export interface HelmReleaseListResult {
   releases: HelmRelease[];
   meta?: HelmReleaseListMeta;
 }
+
+export interface HelmRepository {
+  name?: string;
+  status?: string;
+  url?: string;
+  insecure?: boolean;
+  created?: string;
+  createdAt?: string;
+}
+
+export interface HelmRepositoryListMeta {
+  page?: number;
+  size?: number;
+  total?: number;
+  totalPages?: number;
+}

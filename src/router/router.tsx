@@ -34,6 +34,7 @@ import MonitoringDashboardPage from '../pages/infra-management/monitoring-dashbo
 import ApplicationCatalogPage from '../pages/infra-management/application/catalog/page';
 import CatalogDetailPage from '../pages/infra-management/application/catalog/[chartName]/page';
 import ApplicationHelmReleasePage from '../pages/infra-management/application/helm-release/page';
+import HelmReleaseCreatePage from '../pages/infra-management/application/helm-release/create/page';
 import ApplicationHelmRepositoryPage from '../pages/infra-management/application/helm-repository/page';
 import MemberManagementPage from '../pages/member-management/page';
 import LearningAssignmentStep2Page from '../pages/learning/assignment/step2/page';
@@ -237,6 +238,10 @@ export const router = createBrowserRouter([
               {
                 path: 'helm-release',
                 element: <ApplicationHelmReleasePage />,
+              },
+              {
+                path: 'helm-release/create',
+                element: <HelmReleaseCreatePage />,
               },
               {
                 path: 'helm-repository',

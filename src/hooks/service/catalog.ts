@@ -112,36 +112,23 @@ export const useGetCatalogDetail = (repoName: string, chartName: string, version
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['catalog-detail', repoName, chartName, version],
     queryFn: async () => {
-      try {
-        const url = `any-cloud/catalog/${repoName}/${chartName}/detail`;
-        const searchParams = version && typeof version === 'string' ? { version } : undefined;
+      const url = `any-cloud/catalog/${repoName}/${chartName}/detail`;
+      const searchParams = version ? { version } : undefined;
 
-        const response = await api.get(url, { searchParams }).json<CatalogDetailResponse>();
+      const response = await api.get(url, { searchParams }).json<CatalogDetailResponse>();
 
-        console.log('Catalog Detail API Response:', response);
+      // 응답 구조에 따라 CatalogDetail 추출
+      // 실제 응답: { data: CatalogDetail, status: number }
+      // 또는 중첩 구조: { data: { data: CatalogDetail, status: number } }
+      const rawData = response.data?.data || response.data || response;
+      const catalogDetail = rawData as unknown as CatalogDetail;
 
-        // 응답 구조 확인 후 데이터 추출
-        let catalogDetail: CatalogDetail;
-        if (response.data?.data) {
-          catalogDetail = response.data.data;
-        } else if (response.data && 'name' in response.data) {
-          // 직접 data에 CatalogDetail이 있는 경우
-          catalogDetail = response.data as unknown as CatalogDetail;
-        } else {
-          // 응답 자체가 CatalogDetail인 경우
-          catalogDetail = response as unknown as CatalogDetail;
-        }
-
-        // source가 배열이 아닌 경우 배열로 변환
-        if (catalogDetail.source && !Array.isArray(catalogDetail.source)) {
-          catalogDetail.source = [catalogDetail.source];
-        }
-
-        return catalogDetail;
-      } catch (err) {
-        console.error('Catalog Detail API Error:', err);
-        throw err;
+      // source 필드 정규화: 문자열이면 배열로 변환
+      if (catalogDetail.source && !Array.isArray(catalogDetail.source)) {
+        catalogDetail.source = [catalogDetail.source];
       }
+
+      return catalogDetail;
     },
     enabled: !!repoName && !!chartName,
   });
@@ -317,6 +304,9 @@ export const useGetCatalogValues = (repoName: string, chartName: string, version
         })
         .json()
         .then((response) => normalizeValuesResponse(response)),
-    enabled: !!repoName && !!chartName,
+    enabled: !!repoName && !!chartName && !!version,
+    staleTime: 0,
+    refetchOnMount: true,
+    placeholderData: undefined, // queryKey가 변경되면 이전 데이터를 사용하지 않음
   });
 };

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router';
 import {
   BreadCrumb,
   Button,
@@ -21,8 +22,6 @@ import type { HelmRelease } from '@/types/helm';
 
 type OptionType = { text: string; value: string };
 type ClusterSelectOption = OptionType & { createdAt?: string };
-
-const DEFAULT_CLUSTER_ID = 'aws-kubernetes-001';
 
 const breadcrumbItems = [
   { label: '인프라 모니터' },
@@ -74,11 +73,8 @@ const getClusterOption = (
 };
 
 export default function ApplicationHelmReleasePage() {
-  const [selectedCluster, setSelectedCluster] = useState<OptionType>({
-    text: DEFAULT_CLUSTER_ID,
-    value: DEFAULT_CLUSTER_ID,
-  });
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const navigate = useNavigate();
+  const [selectedCluster, setSelectedCluster] = useState<OptionType>();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const { searchValue, ...searchInputProps } = useSearchInputState();
@@ -88,8 +84,7 @@ export default function ApplicationHelmReleasePage() {
   const { clusters, isPending: isClustersPending, isError: isClusterError } = useGetClusters();
 
   const clusterOptions = useMemo(() => {
-    if (!clusters || clusters.length === 0)
-      return [{ text: DEFAULT_CLUSTER_ID, value: DEFAULT_CLUSTER_ID }];
+    if (!clusters || clusters.length === 0) return [];
 
     const result: ClusterSelectOption[] = [];
 
@@ -103,13 +98,6 @@ export default function ApplicationHelmReleasePage() {
         });
       }
     });
-
-    if (!result.some((option) => option.value === DEFAULT_CLUSTER_ID)) {
-      result.unshift({
-        text: DEFAULT_CLUSTER_ID,
-        value: DEFAULT_CLUSTER_ID,
-      });
-    }
 
     return result;
   }, [clusters]);
@@ -143,7 +131,7 @@ export default function ApplicationHelmReleasePage() {
   }, [clusterOptions, selectedCluster]);
 
   const { releases, isPending, isError, error } = useGetHelmReleases({
-    clusterId: selectedCluster?.value ?? DEFAULT_CLUSTER_ID,
+    clusterId: selectedCluster?.value,
   });
 
   const normalizedClusterOptions: OptionType[] = useMemo(
@@ -279,7 +267,11 @@ export default function ApplicationHelmReleasePage() {
       <div className="page-content">
         <div className="page-toolBox">
           <div className="page-toolBox-btns">
-            <Button size="medium" color="primary" onClick={() => setIsCreateDialogOpen(true)}>
+            <Button
+              size="medium"
+              color="primary"
+              onClick={() => navigate('/infra-management/application/helm-release/create')}
+            >
               생성
             </Button>
             <Button
@@ -349,20 +341,6 @@ export default function ApplicationHelmReleasePage() {
           />
         </div>
       </div>
-
-      <AlertDialog
-        isOpen={isCreateDialogOpen}
-        size="small"
-        confirmButtonText="확인"
-        cancelButtonText={undefined}
-        onClickConfirm={() => setIsCreateDialogOpen(false)}
-        onClickClose={() => setIsCreateDialogOpen(false)}
-      >
-        <div className="flex flex-col gap-2 text-center">
-          <strong>헬름 릴리즈 생성</strong>
-          <span>릴리즈 생성 기능은 API 연동이 완료되면 제공될 예정입니다.</span>
-        </div>
-      </AlertDialog>
 
       <AlertDialog
         isOpen={isDeleteDialogOpen}
