@@ -6,6 +6,7 @@ import type {
   HelmReleaseListMeta,
   HelmRepository,
   HelmRepositoryListMeta,
+  HelmReleaseResource,
 } from '../../types/helm';
 
 export interface GetHelmReleasesParams {
@@ -22,6 +23,8 @@ export const useGetHelmReleases = (params: GetHelmReleasesParams = {}) => {
       ([, value]) => value !== undefined && value !== null && value !== ''
     )
   );
+
+  const enabled = !!(params.clusterId || params.clusterName);
 
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['helm-releases', searchParams],
@@ -56,6 +59,7 @@ export const useGetHelmReleases = (params: GetHelmReleasesParams = {}) => {
         meta,
       };
     },
+    enabled,
   });
 
   return {
@@ -107,5 +111,47 @@ export const useGetHelmRepositories = () => {
     isError,
     error,
     refetch,
+  };
+};
+
+export const useGetHelmReleaseResources = (releaseName: string) => {
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ['helm-release-resources', releaseName],
+    queryFn: async () => {
+      const response = await api
+        .get<{ data: HelmReleaseResource[] }>(`any-cloud/catalog/releases/${releaseName}/resources`)
+        .json();
+
+      return response.data || [];
+    },
+    enabled: !!releaseName,
+  });
+
+  return {
+    resources: data ?? [],
+    isPending,
+    isError,
+    error,
+  };
+};
+
+export const useGetHelmReleaseValues = (releaseName: string) => {
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ['helm-release-values', releaseName],
+    queryFn: async () => {
+      const response = await api
+        .get<{ data: string }>(`any-cloud/catalog/releases/${releaseName}/values`)
+        .json();
+
+      return response.data || '';
+    },
+    enabled: !!releaseName,
+  });
+
+  return {
+    values: data ?? '',
+    isPending,
+    isError,
+    error,
   };
 };

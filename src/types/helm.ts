@@ -11,6 +11,7 @@ export interface HelmRelease {
   createdAt?: string;
   updated?: string;
   updatedAt?: string;
+  values?: string;
 }
 
 export interface HelmReleaseListMeta {
@@ -59,4 +60,14 @@ export interface HelmRepositoryListMeta {
   size?: number;
   total?: number;
   totalPages?: number;
+}
+
+export interface HelmReleaseResource {
+  name?: string;
+  namespace?: string;
+  status?: string;
+  type?: string;
+  created?: string;
+  createdAt?: string;
+  yaml?: string;
 }

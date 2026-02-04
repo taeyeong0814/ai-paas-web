@@ -112,10 +112,10 @@ export const useGetCatalogDetail = (repoName: string, chartName: string, version
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['catalog-detail', repoName, chartName, version],
     queryFn: async () => {
-      const url = `any-cloud/catalog/${repoName}/${chartName}/detail`;
+        const url = `any-cloud/catalog/${repoName}/${chartName}/detail`;
       const searchParams = version ? { version } : undefined;
 
-      const response = await api.get(url, { searchParams }).json<CatalogDetailResponse>();
+        const response = await api.get(url, { searchParams }).json<CatalogDetailResponse>();
 
       // 응답 구조에 따라 CatalogDetail 추출
       // 실제 응답: { data: CatalogDetail, status: number }
@@ -124,11 +124,11 @@ export const useGetCatalogDetail = (repoName: string, chartName: string, version
       const catalogDetail = rawData as unknown as CatalogDetail;
 
       // source 필드 정규화: 문자열이면 배열로 변환
-      if (catalogDetail.source && !Array.isArray(catalogDetail.source)) {
-        catalogDetail.source = [catalogDetail.source];
-      }
+        if (catalogDetail.source && !Array.isArray(catalogDetail.source)) {
+          catalogDetail.source = [catalogDetail.source];
+        }
 
-      return catalogDetail;
+        return catalogDetail;
     },
     enabled: !!repoName && !!chartName,
   });

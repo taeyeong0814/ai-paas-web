@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import {
   BreadCrumb,
   Button,
@@ -200,6 +200,24 @@ export default function ApplicationHelmReleasePage() {
         header: '이름',
         accessorFn: (row: HelmRelease) => row.name ?? '-',
         size: 200,
+        cell: ({ row }: { row: { original: HelmRelease } }) => {
+          const release = row.original;
+          if (!release.name || !release.namespace) {
+            return <span>{release.name ?? '-'}</span>;
+          }
+          // 클러스터 정보를 쿼리 파라미터로 전달
+          const clusterParam = selectedCluster?.value
+            ? `?clusterId=${encodeURIComponent(selectedCluster.value)}`
+            : '';
+          return (
+            <Link
+              to={`/infra-management/application/helm-release/${release.namespace}/${release.name}${clusterParam}`}
+              className="table-td-link"
+            >
+              {release.name}
+            </Link>
+          );
+        },
       },
       {
         id: 'namespace',
@@ -253,7 +271,7 @@ export default function ApplicationHelmReleasePage() {
         size: 200,
       },
     ],
-    []
+    [selectedCluster]
   );
 
   const isLoading = isPending || isClustersPending;
